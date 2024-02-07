@@ -3,7 +3,6 @@
     "next/core-web-vitals",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:import/recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:@tanstack/eslint-plugin-query/recommended"
