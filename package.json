@@ -1,0 +1,17 @@
+{
+  "name": "@supabase-modules/workspace",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "dev": "dotenv -- turbo dev",
+    "lint": "turbo lint"
+  },
+  "devDependencies": {
+    "turbo": "^1.12.1",
+    "dotenv-cli": "latest"
+  },
+  "packageManager": "pnpm@8.15.1",
+  "engines": {
+    "node": ">=20"
+  }
+}

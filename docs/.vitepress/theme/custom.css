@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap");
+
+:root {
+  --vp-font-family-base: "Schibsted Grotesk", sans-serif;
+  --vp-font-family-mono: "IBM Plex Mono", monospace;
+
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    #e93d82,
+    #ee518a
+  );
+
+  --vp-c-brand-1: #e93d82;
+  --vp-c-brand-2: #b0436e;
+
+  --vp-button-brand-bg: #e93d82;
+  --vp-button-brand-hover-bg: #ee518a;
+
+  --vp-c-divider: transparent;
+  @media (min-width: 960px) {
+    --vp-c-gutter: transparent;
+  }
+}
+
+.vp-doc h2 {
+  margin-top: 16px;
+}
+
+.VPButton.medium.brand,
+.VPButton.medium.alt {
+  border-radius: 6px;
+}

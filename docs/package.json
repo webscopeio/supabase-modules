@@ -1,0 +1,10 @@
+{
+  "name": "@supabase-modules/docs",
+  "devDependencies": {
+    "vitepress": "1.0.0-rc.42"
+  },
+  "scripts": {
+    "dev": "vitepress dev --port 3001",
+    "build": "vitepress build"
+  }
+}
