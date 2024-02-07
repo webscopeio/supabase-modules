@@ -1,4 +1,4 @@
-# Supabase Modules
+# Workspace
 
 This repository is a pnpm workspace managed using [Turborepo](https://turbo.build/repo). It includes the following applications:
 
@@ -19,9 +19,7 @@ pnpm install
 
 Please refer to `.env.example` when working environment variables from the root repository. You should set all variables in `.env` located in the root repository.
 
-::: warning Supabase Environment Variables
-Environment Variables required to connect your project with your Supabase project are determined by your local or cloud instance.
-:::
+> Note: Environment Variables required to connect your project with your Supabase project are determined by your local or cloud instance.
 
 ## Develop
 

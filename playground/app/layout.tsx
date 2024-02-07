@@ -11,7 +11,7 @@ const fontSans = FontSans({
 
 export const metadata: Metadata = {
   title: "The Playground",
-  description: "Supabase Modules by Webscope.io",
+  description: "Supabase Modules",
 };
 
 export default function RootLayout({
