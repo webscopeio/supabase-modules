@@ -49,11 +49,34 @@ export default defineConfig({
     ],
     sidebar: [
       {
+        text: "Introduction",
+        items: [
+          { text: "Supabase Modules", link: "/introduction/modules" },
+          { text: "Workspace", link: "/introduction/workspace" },
+        ],
+      },
+      {
         text: "Getting Started",
         items: [
-          { text: "Workspace", link: "/getting-started/workspace" },
-          { text: "Setup", link: "/getting-started/setup" },
-          { text: "Supabase Local", link: "/getting-started/supabase" },
+          { text: "Quickstart", link: "/getting-started/quickstart" },
+          {
+            text: "Start from an Example",
+            link: "/getting-started/from-example",
+          },
+          {
+            text: "Add to Existing Project",
+            link: "/getting-started/existing-project",
+          },
+          { text: "Your Supabase Instance", link: "/getting-started/supabase" },
+        ],
+      },
+      {
+        text: "Modules",
+        items: [
+          { text: "All Modules", link: "/modules/all" },
+          { text: "Auth", link: "/modules/auth" },
+          { text: "Profile", link: "/modules/profile" },
+          { text: "Avatar", link: "/modules/avatar" },
         ],
       },
     ],
@@ -63,6 +86,9 @@ export default defineConfig({
     editLink: {
       pattern:
         "https://github.com/iamhectorsosa/supabase-modules/blob/main/docs/:path",
+    },
+    search: {
+      provider: "local",
     },
   },
 });

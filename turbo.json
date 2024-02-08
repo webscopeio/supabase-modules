@@ -8,6 +8,7 @@
       "outputs": [
         ".next/**",
         "!.next/cache/**",
+        "./vitepress/dist",
         "dist/**"
       ]
     },

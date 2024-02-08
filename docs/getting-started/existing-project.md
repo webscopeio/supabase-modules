@@ -1,14 +1,18 @@
-# Setting up
+# Add to Existing Project
 
 Supabase Modules have been designed with Next in mind. So after setting up your Next application or in your existing Next application, here is what you will need:
 
-## Installing Dependencies
+::: warning Before proceeding
+These instructions are based on a **Next 14 application**. More frameworks coming soon.
+:::
+
+## 1. Installing dependencies
 
 ```bash
 pnpm add @tanstack/react-query @supabase/ssr @supabase/supabase-js
 ```
 
-## Supabase CLI
+### Supabase CLI
 
 To run the entire Supabase Stack locally on your machine, you will have to decide whether you want to add the Supabase CLI as a dev dependency, execute it using your package manager or install it globally using [Homebrew](https://brew.sh/)
 
@@ -30,9 +34,76 @@ brew install supabase/tap/supabase
 
 Learn more about [Supabase CLI](https://supabase.com/docs/reference/cli/introduction)
 
-## Get Docker
+## 2. Set environment variables
 
-To work with a local Supabase Instance you need to run a database container with a running docker daemon. We recommend getting Docker. You can find instructions on [Get Docker](https://docs.docker.com/get-docker/)
+Update or create an `.env.local` file to store your environment variables.
+
+```.env
+NEXT_PUBLIC_SUPABASE_URL=<SUPABASE_URL>
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<SUPANASE_ANON_KEY>
+```
+
+> Note: Environment Variables required to connect your project with your Supabase project are determined by your local or cloud instance. Read more on [Your Supabase Instance](/getting-started/supabase).
+
+## 3. Add Query and Middleware to your project
+
+### TanStack Query
+
+To use TanStack Query you need to set a `QueryClientProvider`. Typically you would add this to your list of providers or create a provider if you don't have one already.
+
+You can run the command below where you want to create the `providers.tsx` file or use the code snippet to create your own.
+
+::: code-group
+
+```bash [Using degit]
+degit iamhectorsosa/supabase-modules/playground/app/providers.tsx
+```
+
+<<< ../../playground/app/providers.tsx [Manual]
+
+:::
+
+### Middleware
+
+Update or create a `middleware.ts` file at the root of your project. Since Server Components can't write cookies, you need middleware to refresh expired Auth tokens and store them.
+
+You can run the command below where you want to create the `middleware.ts` file or use the code snippet to create your own.
+
+::: code-group
+
+```bash [Using degit]
+degit iamhectorsosa/supabase-modules/playground/middleware.ts
+```
+
+<<< ../../playground/middleware.ts [Manual]
+
+:::
+
+## 4. Initialize or scaffold your Supabase project
+
+You can chose whether you want to start with a new Supabase project or if you want to scaffold your Supabase project files:
+
+### a. Initializing your Supabase project
+
+```bash
+supabase init
+```
+
+### b. Scaffolding your Supabase project
+
+```bash
+degit iamhectorsosa/supabase-modules/playground/supabase
+```
+
+## 5. Start your development server
+
+```bash
+pnpm dev
+```
+
+::: tip :tada: Congratulations!
+You are done! See [All Modules](/modules/all) to install individual Modules.
+:::
 
 ## Recommendations
 
@@ -85,4 +156,5 @@ pnpm add -D @tanstack/eslint-plugin-query @typescript-eslint/eslint-plugin @type
 }
 
 ```
+
 :::

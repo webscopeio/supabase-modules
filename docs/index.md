@@ -9,10 +9,10 @@ hero:
   actions:
     - theme: brand
       text: Getting Started
-      link: /getting-started/workspace
+      link: /getting-started/quickstart
     - theme: alt
-      text: GitHub
-      link: https://github.com/iamhectorsosa/supabase-modules
+      text: Learn more
+      link: /introduction/modules
 features:
   - icon: 🛠️
     title: Crafted Modules for Rapid Development

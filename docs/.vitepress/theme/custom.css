@@ -29,7 +29,23 @@
   margin-top: 16px;
 }
 
+.VPButton.medium.brand {
+  background: -webkit-linear-gradient(120deg, #c647e6, #ee518a);
+}
+
 .VPButton.medium.brand,
 .VPButton.medium.alt {
   border-radius: 6px;
+}
+
+.VPHero.VPHomeHero {
+  margin-top: 60px;
+}
+
+@media (min-width: 960px) {
+  .VPHero.VPHomeHero h1 {
+    font-size: 80px;
+    line-height: 1;
+    max-width: none;
+  }
 }
