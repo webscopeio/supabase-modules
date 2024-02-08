@@ -97,6 +97,10 @@ degit iamhectorsosa/supabase-modules/playground/supabase
 
 ## 5. Start your development server
 
+::: warning TODO
+Update the scripts from `package.json`
+:::
+
 ```bash
 pnpm dev
 ```
