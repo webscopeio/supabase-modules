@@ -19,6 +19,8 @@
       "cache": false,
       "persistent": true
     },
+    "db:start": {},
+    "db:stop": {},
     "lint": {}
   }
 }

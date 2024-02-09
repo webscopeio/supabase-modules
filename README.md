@@ -36,18 +36,25 @@ pnpm install
 
 Please refer to `.env.example` when working environment variables from the root repository. You should set all variables in `.env` located in the root repository.
 
-> Note: Environment Variables required to connect your project with your Supabase project are determined by your local or cloud instance. Read more on [Your Supabase Instance](https://supabase-modules-docs.vercel.app/getting-started/supabase).
+If you do not have these, you may have to run Supabase locally first before development. Read more on [Your Supabase Instance](https://supabase-modules-docs.vercel.app/getting-started/supabase).
 
 ## Develop
 
 For development, run the following command from the root repository:
 
 ```bash
-pnpm dev
+pnpm db:start & pnpm dev
 ```
 
+- `supbase` CLI will start your Supabase Instance at the response ports
 - `docs` will be available in port 3001
 - `playground` will be available in port 3000
+
+If you intended to develop with a cloud hosted Supabase Instance you only need:
+
+```bash
+pnpm dev
+```
 
 ## Build
 

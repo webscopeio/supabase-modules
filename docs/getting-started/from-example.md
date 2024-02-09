@@ -28,14 +28,26 @@ NEXT_PUBLIC_SUPABASE_URL=<SUPABASE_URL>
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<SUPANASE_ANON_KEY>
 ```
 
-> Note: Environment Variables required to connect your project with your Supabase project are determined by your local or cloud instance. Read more on [Your Supabase Instance](/getting-started/supabase).
+If you do not have these, you may have to run Supabase locally first before development. Read more on [Your Supabase Instance](/getting-started/supabase).
 
 ## 3. Start your development server.
 
-```bash
+::: warning Before proceeding
+To work with a local Supabase Instance you need to run a database container with a running docker daemon. We recommend getting Docker. You can find instructions on [Get Docker](https://docs.docker.com/get-docker/)
+:::
+
+::: code-group
+
+```bash [Using a local Supabase Instance]
+pnpm db:start & pnpm dev
+```
+
+```bash [Using a cloud Supabase Instance]
 pnpm dev
 ```
 
+:::
+
 ::: tip :tada: Congratulations!
-You are done! See [All Modules](/modules/all) to install individual Modules.
+You are done! See [All Modules](/modules/all) to install individual Modules. Remember to run `pnpm db:stop` to save resources once you are done working with your local Supabase Instance.
 :::

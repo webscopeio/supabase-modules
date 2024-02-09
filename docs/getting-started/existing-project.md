@@ -34,7 +34,29 @@ brew install supabase/tap/supabase
 
 Learn more about [Supabase CLI](https://supabase.com/docs/reference/cli/introduction)
 
-## 2. Set environment variables
+## 2. Initialize or scaffold your Supabase project
+
+You can chose whether you want to start with a new Supabase project or if you want to scaffold your Supabase project files:
+
+::: code-group
+
+```bash [Using Supabase CLI]
+pnpm supabase init
+```
+
+```bash [Using degit]
+degit iamhectorsosa/supabase-modules/playground/supabase
+```
+
+:::
+
+From either of these you should have a `/supabase` directory in your project with at least `config.toml` and `seed.sql` files.
+
+::: info
+When you initialize a Supabase projecet. You do not need to generate VS Code settings for Deno.
+:::
+
+## 3. Set environment variables
 
 Update or create an `.env.local` file to store your environment variables.
 
@@ -43,9 +65,9 @@ NEXT_PUBLIC_SUPABASE_URL=<SUPABASE_URL>
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<SUPANASE_ANON_KEY>
 ```
 
-> Note: Environment Variables required to connect your project with your Supabase project are determined by your local or cloud instance. Read more on [Your Supabase Instance](/getting-started/supabase).
+If you do not have these, you may have to run Supabase locally first before development. Read more on [Your Supabase Instance](/getting-started/supabase).
 
-## 3. Add Query and Middleware to your project
+## 4. Add Query and Middleware to your project
 
 ### TanStack Query
 
@@ -63,6 +85,8 @@ degit iamhectorsosa/supabase-modules/playground/app/providers.tsx
 
 :::
 
+This provider has to be included in the project code. In a Next 13 application this would be in the main`layout.tsx` file. For more, see [TanStack Query Next.js app with streaming](https://tanstack.com/query/latest/docs/framework/react/examples/nextjs-suspense-streaming).
+
 ### Middleware
 
 Update or create a `middleware.ts` file at the root of your project. Since Server Components can't write cookies, you need middleware to refresh expired Auth tokens and store them.
@@ -79,34 +103,35 @@ degit iamhectorsosa/supabase-modules/playground/middleware.ts
 
 :::
 
-## 4. Initialize or scaffold your Supabase project
-
-You can chose whether you want to start with a new Supabase project or if you want to scaffold your Supabase project files:
-
-### a. Initializing your Supabase project
-
-```bash
-supabase init
-```
-
-### b. Scaffolding your Supabase project
-
-```bash
-degit iamhectorsosa/supabase-modules/playground/supabase
-```
-
 ## 5. Start your development server
 
-::: warning TODO
-Update the scripts from `package.json`
-:::
+If you want a single command to start your Supabase project and your Next application you can update your scripts:
 
 ```bash
+"scripts": {
+  "db:start": "supabase start", // [!code ++]
+  "db:stop": "supabase stop" // [!code ++]
+}
+```
+
+::: warning Before proceeding
+To work with a local Supabase Instance you need to run a database container with a running docker daemon. We recommend getting Docker. You can find instructions on [Get Docker](https://docs.docker.com/get-docker/)
+:::
+
+::: code-group
+
+```bash [Using a local Supabase Instance]
+pnpm db:start & pnpm dev
+```
+
+```bash [Using a cloud Supabase Instance]
 pnpm dev
 ```
 
+:::
+
 ::: tip :tada: Congratulations!
-You are done! See [All Modules](/modules/all) to install individual Modules.
+You are done! See [All Modules](/modules/all) to install individual Modules. Remember to run `pnpm db:stop` to save resources once you are done working with your local Supabase Instance.
 :::
 
 ## Recommendations
@@ -130,7 +155,7 @@ pnpm add -D @tanstack/eslint-plugin-query @typescript-eslint/eslint-plugin @type
 
 2. Then configure your `eslintc.json`
 
-```bash {9,15,16,17}
+```bash
 {
   "extends": [
     "next/core-web-vitals",

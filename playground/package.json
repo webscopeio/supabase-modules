@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "db:start": "supabase start",
+    "db:stop": "supabase stop",
     "build": "next build",
     "lint": "eslint ."
   },
