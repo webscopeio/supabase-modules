@@ -1,9 +1,17 @@
-import { createServerClient } from "@supabase/ssr";
-
-import type { Database } from "../types/database";
+import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import type { Database } from "../types";
 
 type Cookies = () => {
   get: (name: string) => { value: string } | undefined;
+  set: ({
+    name,
+    value,
+    options,
+  }: {
+    name: string;
+    value: string;
+    options: CookieOptions;
+  }) => void;
 };
 
 export const useSupabaseServer = ({

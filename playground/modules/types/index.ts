@@ -34,50 +34,7 @@ export interface Database {
   }
   public: {
     Tables: {
-      profiles: {
-        Row: {
-          avatar: string | null
-          created_at: string
-          email: string | null
-          first_name: string | null
-          last_name: string | null
-          preferred_name: string | null
-          updated_at: string
-          user_id: string
-          username: string | null
-        }
-        Insert: {
-          avatar?: string | null
-          created_at?: string
-          email?: string | null
-          first_name?: string | null
-          last_name?: string | null
-          preferred_name?: string | null
-          updated_at?: string
-          user_id: string
-          username?: string | null
-        }
-        Update: {
-          avatar?: string | null
-          created_at?: string
-          email?: string | null
-          first_name?: string | null
-          last_name?: string | null
-          preferred_name?: string | null
-          updated_at?: string
-          user_id?: string
-          username?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "profiles_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never

@@ -10,8 +10,9 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://demo.supabase-modules-docs.vercel.app/"),
   title: "The Playground",
-  description: "Supabase Modules",
+  description: "Supabase Modules - Build smarter with pre-built modules today",
 };
 
 export default function RootLayout({
@@ -28,7 +29,7 @@ export default function RootLayout({
         )}
       >
         <Providers>
-          <main className="flex flex-col gap-4 max-w-2xl mx-auto px-4 py-8">
+          <main className="flex flex-col gap-4 max-w-xl mx-auto px-4 py-8">
             {children}
           </main>
         </Providers>

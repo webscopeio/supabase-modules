@@ -2,7 +2,7 @@
 
 ## Database TypeScript types
 
-If you are adding Supabase Modules to an existing project. Before installing any modules, you will need to generate the database's TypeScript types. If you are starting from an example project but you update your database, you might have to run this command as well.
+If you are adding Supabase Modules to an existing project. Before installing any modules, you will need to generate the database's TypeScript types. If you are starting from an example project but at any point you update your database, you might have to run this command as well.
 
 ::: code-group
 
@@ -11,7 +11,7 @@ pnpm db:gen-types
 ```
 
 ```bash [Using Supabase CLI]
-supabase gen types typescript --local > modules//types/supabase.ts
+supabase gen types typescript --local > modules/types/index.ts
 ```
 
 ```bash [Using degit]
@@ -20,7 +20,7 @@ degit iamhectorsosa/supabase-modules/modules/types
 
 :::
 
-## Modules Utilities
+## Module Utilities
 
 If you are adding Supabase Modules to an existing project. Before installing any modules, you will need to add some database utils. If you are starting from an example project, these have already been added.
 

@@ -1,7 +1,7 @@
 import { useSupabaseServer } from "@/modules/utils/supabase-server";
 import { cookies } from "next/headers";
-import { LoginForm } from "./LoginForm";
 import { redirect } from "next/navigation";
+import { RegisterForm } from "./RegisterForm";
 
 export default async function Page() {
   const supabase = useSupabaseServer({ cookies });
@@ -14,5 +14,5 @@ export default async function Page() {
     redirect("/accounts");
   }
 
-  return <LoginForm />;
+  return <RegisterForm />;
 }

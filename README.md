@@ -17,7 +17,8 @@ There is no package/installable/CLI for the time being. The `playground` app has
   📁 modules
     📁 auth
     📁 profile
-    📁 avatar
+    📁 types
+    📁 utils
   📁 supabase
     📁 migrations
 ```

@@ -7,7 +7,7 @@
     "db:init": "supabase init",
     "db:start": "supabase start",
     "db:stop": "supabase stop",
-    "db:gen-types": "supabase gen types typescript --local > modules//types/supabase.ts",
+    "db:gen-types": "supabase gen types typescript --local > modules/types/index.ts",
     "build": "next build",
     "lint": "eslint ."
   },

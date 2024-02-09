@@ -4,7 +4,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import * as React from "react";
 import { createBrowserClient } from "@supabase/ssr";
 
-import type { Database } from "../types/database";
+import type { Database } from "../types";
 
 export const useSupabaseClient = (): SupabaseClient<Database> =>
   React.useMemo(
