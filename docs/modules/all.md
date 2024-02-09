@@ -1,5 +1,0 @@
-# Supabase Modules
-
-::: info
-WIP
-:::

@@ -3,14 +3,14 @@ import { defineConfig } from "vitepress";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Supabase Modules",
-  description: "Why start from zero?",
+  description: "Build smarter with pre-built modules today",
   head: [
     ["link", { rel: "icon", href: "/logo.svg" }],
     [
       "meta",
       {
         property: "og:description",
-        content: "Why start from zero?",
+        content: "Build smarter with pre-built modules today",
       },
     ],
     [
@@ -25,7 +25,7 @@ export default defineConfig({
       "meta",
       {
         property: "twitter:description",
-        content: "Why start from zero?",
+        content: "Build smarter with pre-built modules today",
       },
     ],
     [
@@ -42,9 +42,10 @@ export default defineConfig({
     logo: "/logo.svg",
     nav: [
       { text: "Home", link: "/" },
+      { text: "Modules", link: "/modules/installation" },
       {
         text: "Demo",
-        link: "https://github.com/iamhectorsosa/supabase-modules",
+        link: "https://demo.supabase-modules-docs.vercel.app/",
       },
     ],
     sidebar: [
@@ -73,10 +74,10 @@ export default defineConfig({
       {
         text: "Modules",
         items: [
-          { text: "All Modules", link: "/modules/all" },
+          { text: "Installation", link: "/modules/installation" },
           { text: "Auth", link: "/modules/auth" },
-          { text: "Profile", link: "/modules/profile" },
           { text: "Avatar", link: "/modules/avatar" },
+          { text: "Profile", link: "/modules/profile" },
         ],
       },
     ],

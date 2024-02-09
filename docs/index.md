@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "Why start from zero?"
   text: "Supabase Modules"
-  tagline: Start your project with a solid foundation
+  tagline: Build smarter with pre-built modules today
   actions:
     - theme: brand
       text: Getting Started

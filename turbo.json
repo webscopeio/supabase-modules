@@ -21,6 +21,7 @@
     },
     "db:start": {},
     "db:stop": {},
+    "db:gen-types": {},
     "lint": {}
   }
 }

@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "db:init": "supabase init",
     "db:start": "supabase start",
     "db:stop": "supabase stop",
+    "db:gen-types": "supabase gen types typescript --local > modules//types/supabase.ts",
     "build": "next build",
     "lint": "eslint ."
   },

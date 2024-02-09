@@ -32,7 +32,16 @@ brew install supabase/tap/supabase
 
 :::
 
-Learn more about [Supabase CLI](https://supabase.com/docs/reference/cli/introduction)
+You will also need to update your `package.json` scripts to use Supabase CLI:
+
+```json
+"scripts": {
+  "db:init": "supabase init", // [!code ++]
+  "db:start": "supabase start", // [!code ++]
+  "db:stop": "supabase stop", // [!code ++]
+  "db:gen-types": "supabase gen types typescript --local > modules//types/supabase.ts" // [!code ++]
+}
+```
 
 ## 2. Initialize or scaffold your Supabase project
 
@@ -40,8 +49,12 @@ You can chose whether you want to start with a new Supabase project or if you wa
 
 ::: code-group
 
+```bash [Using pnpm scripts]
+pnpm db:init
+```
+
 ```bash [Using Supabase CLI]
-pnpm supabase init
+supabase init
 ```
 
 ```bash [Using degit]
@@ -104,15 +117,6 @@ degit iamhectorsosa/supabase-modules/playground/middleware.ts
 :::
 
 ## 5. Start your development server
-
-If you want a single command to start your Supabase project and your Next application you can update your scripts:
-
-```bash
-"scripts": {
-  "db:start": "supabase start", // [!code ++]
-  "db:stop": "supabase stop" // [!code ++]
-}
-```
 
 ::: warning Before proceeding
 To work with a local Supabase Instance you need to run a database container with a running docker daemon. We recommend getting Docker. You can find instructions on [Get Docker](https://docs.docker.com/get-docker/)

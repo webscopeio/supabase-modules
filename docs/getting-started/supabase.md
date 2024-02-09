@@ -16,8 +16,12 @@ You can chose whether you want to start with a new Supabase project or if you wa
 
 ::: code-group
 
+```bash [Using pnpm scripts]
+pnpm db:init
+```
+
 ```bash [Using Supabase CLI]
-pnpm supabase init
+supabase init
 ```
 
 ```bash [Using degit]
@@ -35,9 +39,17 @@ When you initialize a Supabase projecet. You do not need to generate VS Code set
 Once you've made sure you have a Supabase project. You can use the CLI to get the Supabase development stack started and get the information you need.
 
 
-```bash
+::: code-group
+
+```bash [Using pnpm scripts]
+pnpm db:start
+```
+
+```bash [Using Supabase CLI]
 supabase start
 ```
+
+:::
 
 Once your Supabase Instance is running you should get the following response:
 
@@ -58,6 +70,12 @@ From these you will need the `API URL` and the `anon key` for your environment v
 
 To save resources remember to stop your Supabase Instance once you are done working.
 
-```bash
+::: code-group
+
+```bash [Using pnpm scripts]
+pnpm db:stop
+```
+
+```bash [Using Supabase CLI]
 supabase stop
 ```
