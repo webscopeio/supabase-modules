@@ -1,5 +1,0 @@
-# Avatar
-
-::: info
-WIP
-:::

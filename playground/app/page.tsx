@@ -16,7 +16,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="space-y-6 py-24 min-h-screen flex flex-col justify-center">
+    <div className="space-y-6 py-24 min-h-dvh flex flex-col justify-center">
       <header className="space-y-2 text-center">
         <h2 className="text-6xl font-bold tracking-tight">Supabase Modules</h2>
         <p className="text-xl text-muted-foreground">

@@ -22,7 +22,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 
-export const AccountsList: React.FC<{ userId: string }> = ({ userId }) => {
+export const AccountsList: React.FC<{
+  username: string;
+  preferredName: string | null;
+  email: string;
+}> = ({ username, preferredName, email }) => {
   const router = useRouter();
 
   const {
@@ -42,7 +46,9 @@ export const AccountsList: React.FC<{ userId: string }> = ({ userId }) => {
   });
   return (
     <AccountsListComponent
-      userId={userId}
+      username={username}
+      preferredName={preferredName}
+      email={email}
       signOut={signOut}
       isLoading={isLoading}
       isError={isError}
@@ -52,27 +58,39 @@ export const AccountsList: React.FC<{ userId: string }> = ({ userId }) => {
 };
 
 const AccountsListComponent: React.FC<{
-  userId: string;
+  username: string;
+  preferredName: string | null;
+  email: string;
   signOut: () => void;
   isLoading: boolean;
   isError: boolean;
   errorMessage?: string;
-}> = ({ userId, signOut, isLoading, isError, errorMessage }) => {
+}> = ({
+  username,
+  preferredName,
+  email,
+  signOut,
+  isLoading,
+  isError,
+  errorMessage,
+}) => {
   return (
-    <div className="space-y-6 min-h-screen flex flex-col justify-center">
+    <div className="space-y-6 min-h-dvh flex flex-col justify-center">
       <header className="space-y-2">
         <h2 className="font-semibold text-4xl">Accounts</h2>
-        <p>Hello, {userId}!</p>
+        <p>{preferredName ? `Hello, ${preferredName}!` : "Hi there!"}</p>
       </header>
       <div className="space-y-6">
         <div className="flex gap-x-4 items-center">
           <Avatar>
             <AvatarImage src="https://ui.shadcn.com/avatars/04.png" />
-            <AvatarFallback>HS</AvatarFallback>
+            <AvatarFallback>
+              {username.toUpperCase().substring(0, 2)}
+            </AvatarFallback>
           </Avatar>
           <div>
-            <h4 className="font-semibold">Profile name</h4>
-            <p>Profile email</p>
+            <h4 className="font-semibold">{username}</h4>
+            <p>{email}</p>
           </div>
           <div className="flex ml-auto items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
             <Button
@@ -99,6 +117,9 @@ const AccountsListComponent: React.FC<{
                 className="w-[200px]"
                 forceMount
               >
+                <DropdownMenuItem>
+                  <Link href="/settings/profile">Profile settings</Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="/settings/account">Account settings</Link>
                 </DropdownMenuItem>

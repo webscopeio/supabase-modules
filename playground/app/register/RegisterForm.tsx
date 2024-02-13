@@ -28,8 +28,7 @@ export const RegisterForm: React.FC = () => {
     isError,
     error,
   } = useSignUpWithEmailPassword({
-    onSuccess: (data) => {
-      console.log({ data });
+    onSuccess: () => {
       router.push("/");
     },
     onError: (error) => {
@@ -54,8 +53,29 @@ const FormSchema = z.object({
   password: z.string().min(5, { message: "Must be 5 or more characters long" }),
 });
 
+const getURL = () => {
+  const base =
+    process?.env?.NEXT_PUBLIC_SITE_URL ??
+    process?.env?.NEXT_PUBLIC_VERCEL_URL ??
+    "http://localhost:3000";
+  return `${base.startsWith("http") ? base : `https://${base}`}/`.replace(
+    /\/+$/,
+    "/"
+  );
+};
+
+const SETTINGS_PROFILE_URL = "settings/profile";
+
 const RegisterFormComponent: React.FC<{
-  onSubmit: ({ email, password }: { email: string; password: string }) => void;
+  onSubmit: ({
+    email,
+    password,
+    options,
+  }: {
+    email: string;
+    password: string;
+    options?: { emailRedirectTo?: string };
+  }) => void;
   isLoading: boolean;
   isError: boolean;
   errorMessage?: string;
@@ -69,7 +89,7 @@ const RegisterFormComponent: React.FC<{
   });
 
   return (
-    <div className="space-y-6 min-h-screen flex flex-col justify-center">
+    <div className="space-y-6 min-h-dvh flex flex-col justify-center">
       <header className="space-y-2">
         <h2 className="font-semibold text-4xl">Create an account</h2>
         <p>Please fill out the form below</p>
@@ -77,7 +97,11 @@ const RegisterFormComponent: React.FC<{
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(({ email, password }) => {
-            onSubmit({ email, password });
+            onSubmit({
+              email,
+              password,
+              options: { emailRedirectTo: getURL + SETTINGS_PROFILE_URL },
+            });
           })}
           className="space-y-6"
         >

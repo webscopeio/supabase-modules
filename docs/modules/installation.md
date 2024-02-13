@@ -55,3 +55,4 @@ Find all the modules you need for your Supabase project here. Quick to integrate
 | Modules                         | Dependencies |
 | ------------------------------- | :----------: |
 | [Authentication](/modules/auth) |      -       |
+| [Profile](/modules/profile)     |    `auth`    |

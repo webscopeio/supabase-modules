@@ -14,5 +14,5 @@ export default async function Page() {
     redirect("/login");
   }
 
-  return <AccountForm userId={user.id} userEmail={user.email} />;
+  return <AccountForm userEmail={user.email} />;
 }

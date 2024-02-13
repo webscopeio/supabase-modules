@@ -28,8 +28,7 @@ export const LoginForm: React.FC = () => {
     isError,
     error,
   } = useSignInWithEmailPassword({
-    onSuccess: (data) => {
-      console.log({ data });
+    onSuccess: () => {
       router.push("/");
     },
     onError: (error) => {
@@ -69,7 +68,7 @@ const LoginFormComponent: React.FC<{
   });
 
   return (
-    <div className="space-y-6 min-h-screen flex flex-col justify-center">
+    <div className="space-y-6 min-h-dvh flex flex-col justify-center">
       <header className="space-y-2">
         <h2 className="font-semibold text-4xl">Sign in</h2>
         <p>Welcome back!</p>

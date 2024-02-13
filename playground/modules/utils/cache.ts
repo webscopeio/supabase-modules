@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 
-export const clearCache = async (options?: { path: string }) => {
+export const revalidateCache = async (options?: { path: string }) => {
   try {
     if (options?.path) {
       return revalidatePath(options.path, "layout");
@@ -10,8 +10,8 @@ export const clearCache = async (options?: { path: string }) => {
     return revalidatePath("/", "layout");
   } catch (error) {
     if (error instanceof Error) {
-      return console.error(`clearCache util: ${error.message}`);
+      return console.error(`revalidateCache util: ${error.message}`);
     }
-    return console.error(`clearCache util: Unknown error`);
+    return console.error(`revalidateCache util: Unknown error`);
   }
 };

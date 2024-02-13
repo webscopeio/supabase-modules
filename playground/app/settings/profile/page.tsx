@@ -1,7 +1,7 @@
 import { useSupabaseServer } from "@/modules/utils/supabase-server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { Accounts } from "./Accounts";
+import { Profile } from "./Profile";
 
 export default async function Page() {
   const supabase = useSupabaseServer({ cookies });
@@ -14,5 +14,5 @@ export default async function Page() {
     redirect("/login");
   }
 
-  return <Accounts userId={user.id} />;
+  return <Profile userId={user.id} />;
 }

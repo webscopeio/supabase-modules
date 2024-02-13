@@ -11,7 +11,7 @@ import type { MutationOptions } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
 
 import { useSupabaseClient } from "../utils/supabase-client";
-import { clearCache } from "../utils/cache";
+import { revalidateCache } from "../utils/cache";
 
 type SignUpWithEmailPasswordCredentials = Extract<
   SignUpWithPasswordCredentials,
@@ -41,7 +41,7 @@ export const useSignUpWithEmailPassword = (
       if (data.user?.identities?.length === 0) {
         throw new Error("User already registered");
       }
-      clearCache();
+      revalidateCache();
       return data;
     },
     ...options,
@@ -69,7 +69,7 @@ export const useSignInWithEmailPassword = (
       if (error) {
         throw error;
       }
-      clearCache();
+      revalidateCache();
       return data;
     },
     ...options,
@@ -86,7 +86,7 @@ export const useSignOut = (
       if (error) {
         throw error;
       }
-      clearCache();
+      revalidateCache();
     },
     ...options,
   });
@@ -113,7 +113,7 @@ export const useUpdateUser = (
         throw error;
       }
 
-      clearCache();
+      revalidateCache();
       return data;
     },
     ...options,
