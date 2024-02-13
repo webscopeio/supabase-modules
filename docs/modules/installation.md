@@ -20,7 +20,7 @@ supabase gen types typescript --local > modules/types/index.ts
 
 ```bash [Using degit]
 cd modules
-degit iamhectorsosa/supabase-modules/modules/types types
+degit iamhectorsosa/supabase-modules/playground/modules/types types
 ```
 
 :::
@@ -37,8 +37,10 @@ Make sure you work in a `/modules` directory from the root repository.
 
 ```bash [Using degit]
 cd modules
-degit iamhectorsosa/supabase-modules/modules/utils utils
+degit iamhectorsosa/supabase-modules/playground/modules/utils utils
 ```
+
+<<< ../../playground/modules/utils/cache.ts [cache.ts]
 
 <<< ../../playground/modules/utils/supabase-client.ts [supabase-client.ts]
 
@@ -50,8 +52,6 @@ degit iamhectorsosa/supabase-modules/modules/utils utils
 
 Find all the modules you need for your Supabase project here. Quick to integrate, ready to use.
 
-| Modules                         |  Dependencies   |
-| ------------------------------- | :-------------: |
-| [Authentication](/modules/auth) |        -        |
-| [Avatar](/modules/avatar)       |        -        |
-| [Profile](/modules/profile)     | `auth` `avatar` |
+| Modules                         | Dependencies |
+| ------------------------------- | :----------: |
+| [Authentication](/modules/auth) |      -       |

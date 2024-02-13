@@ -45,7 +45,7 @@ export default defineConfig({
       { text: "Modules", link: "/modules/installation" },
       {
         text: "Demo",
-        link: "https://demo.supabase-modules-docs.vercel.app/",
+        link: "https://supabase-modules-demo.vercel.app/",
       },
     ],
     sidebar: [
