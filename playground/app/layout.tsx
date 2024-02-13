@@ -29,7 +29,7 @@ export default function RootLayout({
         )}
       >
         <Providers>
-          <main className="flex flex-col gap-4 max-w-xl mx-auto px-4 py-8">
+          <main className="max-w-xl mx-auto px-4">
             {children}
           </main>
         </Providers>

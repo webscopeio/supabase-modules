@@ -69,7 +69,7 @@ const LoginFormComponent: React.FC<{
   });
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6 min-h-screen flex flex-col justify-center">
       <header className="space-y-2">
         <h2 className="font-semibold text-4xl">Sign in</h2>
         <p>Welcome back!</p>
@@ -79,7 +79,7 @@ const LoginFormComponent: React.FC<{
           onSubmit={form.handleSubmit(({ email, password }) => {
             onSubmit({ email, password });
           })}
-          className="space-y-4"
+          className="space-y-6"
         >
           <FormField
             control={form.control}
@@ -107,24 +107,28 @@ const LoginFormComponent: React.FC<{
               </FormItem>
             )}
           />
-          <Button type="submit" disabled={isLoading} className="w-full">
-            {isLoading && <CircleIcon className="mr-2 h-4 w-4 animate-spin" />}
-            Sign in
-          </Button>
+          {isError && (
+            <Alert variant="destructive">
+              <CrossCircledIcon className="h-4 w-4" />
+              <AlertTitle>Something went wrong!</AlertTitle>
+              <AlertDescription>
+                {errorMessage ?? "Unknown error"}
+              </AlertDescription>
+            </Alert>
+          )}
+          <footer className="flex justify-end">
+            <Button type="submit" disabled={isLoading}>
+              {isLoading && (
+                <CircleIcon className="mr-2 h-4 w-4 animate-spin" />
+              )}
+              Sign in
+            </Button>
+            <Link href="/register">
+              <Button variant="link">Create new account</Button>
+            </Link>
+          </footer>
         </form>
       </Form>
-      {isError && (
-        <Alert variant="destructive">
-          <CrossCircledIcon className="h-4 w-4" />
-          <AlertTitle>Something went wrong!</AlertTitle>
-          <AlertDescription>{errorMessage ?? "Unknown error"}</AlertDescription>
-        </Alert>
-      )}
-      <footer className="flex justify-center">
-        <Link href="/register">
-          <Button variant="link">Create new account</Button>
-        </Link>
-      </footer>
     </div>
   );
 };

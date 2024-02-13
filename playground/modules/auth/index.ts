@@ -11,6 +11,7 @@ import type { MutationOptions } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
 
 import { useSupabaseClient } from "../utils/supabase-client";
+import { clearCache } from "../utils/cache";
 
 type SignUpWithEmailPasswordCredentials = Extract<
   SignUpWithPasswordCredentials,
@@ -22,7 +23,7 @@ export const useSignUpWithEmailPassword = (
     AuthResponse["data"],
     AuthResponse["error"],
     SignUpWithEmailPasswordCredentials
-  >,
+  >
 ) => {
   const supabase = useSupabaseClient();
   return useMutation({
@@ -40,6 +41,7 @@ export const useSignUpWithEmailPassword = (
       if (data.user?.identities?.length === 0) {
         throw new Error("User already registered");
       }
+      clearCache();
       return data;
     },
     ...options,
@@ -56,16 +58,18 @@ export const useSignInWithEmailPassword = (
     AuthTokenResponse["data"],
     AuthTokenResponse["error"],
     SignInWithEmailPasswordCredentials
-  >,
+  >
 ) => {
   const supabase = useSupabaseClient();
   return useMutation({
     mutationFn: async (credentials) => {
-      const { data, error } =
-        await supabase.auth.signInWithPassword(credentials);
+      const { data, error } = await supabase.auth.signInWithPassword(
+        credentials
+      );
       if (error) {
         throw error;
       }
+      clearCache();
       return data;
     },
     ...options,
@@ -73,7 +77,7 @@ export const useSignInWithEmailPassword = (
 };
 
 export const useSignOut = (
-  options?: MutationOptions<unknown, AuthTokenResponse["error"]>,
+  options?: MutationOptions<unknown, AuthTokenResponse["error"]>
 ) => {
   const supabase = useSupabaseClient();
   return useMutation({
@@ -82,6 +86,7 @@ export const useSignOut = (
       if (error) {
         throw error;
       }
+      clearCache();
     },
     ...options,
   });
@@ -97,7 +102,7 @@ export const useUpdateUser = (
   options: {
     onSuccess?: UseUpdateUser["onSuccess"];
     onError?: UseUpdateUser["onError"];
-  } = {},
+  } = {}
 ) => {
   const supabase = useSupabaseClient();
   return useMutation({
@@ -108,6 +113,7 @@ export const useUpdateUser = (
         throw error;
       }
 
+      clearCache();
       return data;
     },
     ...options,
