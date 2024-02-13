@@ -58,7 +58,7 @@ supabase init
 ```
 
 ```bash [Using degit]
-degit iamhectorsosa/supabase-modules/playground/supabase
+degit iamhectorsosa/supabase-modules/playground/supabase supabase
 ```
 
 :::
@@ -91,6 +91,7 @@ You can run the command below where you want to create the `providers.tsx` file 
 ::: code-group
 
 ```bash [Using degit]
+cd app
 degit iamhectorsosa/supabase-modules/playground/app/providers.tsx
 ```
 

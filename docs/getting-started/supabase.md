@@ -25,7 +25,7 @@ supabase init
 ```
 
 ```bash [Using degit]
-degit iamhectorsosa/supabase-modules/playground/supabase
+degit iamhectorsosa/supabase-modules/playground/supabase supabase
 ```
 
 :::
