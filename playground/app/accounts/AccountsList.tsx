@@ -67,61 +67,12 @@ const AccountsListComponent: React.FC<{
       <div className="space-y-6">
         <div className="flex gap-x-4 items-center">
           <Avatar>
-            <AvatarImage src="https://ui.shadcn.com/avatars/01.png" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarImage src="https://ui.shadcn.com/avatars/04.png" />
+            <AvatarFallback>HS</AvatarFallback>
           </Avatar>
           <div>
-            <h4 className="font-semibold">Hector Sosa</h4>
-            <p>hello@hectorsosa.me</p>
-          </div>
-          <div className="flex ml-auto items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
-            {false && (
-              <>
-                <Button
-                  onClick={() => signOut()}
-                  disabled={isLoading}
-                  variant="secondary"
-                  className="px-3 shadow-none"
-                >
-                  {isLoading && (
-                    <CircleIcon className="mr-2 h-4 w-4 animate-spin" />
-                  )}
-                  Sign out
-                </Button>
-                <Separator orientation="vertical" className="h-[20px]" />
-              </>
-            )}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="secondary" className="px-2 shadow-none">
-                  <ChevronDownIcon className="h-4 w-4 text-secondary-foreground" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="end"
-                alignOffset={-5}
-                className="w-[200px]"
-                forceMount
-              >
-                <DropdownMenuItem disabled={true}>
-                  <Link href="/settings/account">Account settings</Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <TrashIcon className="mr-2 h-4 w-4" /> Remove account
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </div>
-        <div className="flex gap-x-4 items-center">
-          <Avatar>
-            <AvatarImage src="https://ui.shadcn.com/avatars/01.png" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-          <div>
-            <h4 className="font-semibold">Hector Sosa (Work)</h4>
-            <p>sosa@webscope.io</p>
+            <h4 className="font-semibold">Profile name</h4>
+            <p>Profile email</p>
           </div>
           <div className="flex ml-auto items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
             <Button
@@ -148,11 +99,11 @@ const AccountsListComponent: React.FC<{
                 className="w-[200px]"
                 forceMount
               >
-                <DropdownMenuItem disabled={false}>
+                <DropdownMenuItem>
                   <Link href="/settings/account">Account settings</Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem disabled={true}>
                   <TrashIcon className="mr-2 h-4 w-4" /> Remove account
                 </DropdownMenuItem>
               </DropdownMenuContent>

@@ -1,6 +1,7 @@
 import { useSupabaseServer } from "@/modules/utils/supabase-server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { AccountForm } from "./AccountForm";
 
 export default async function Page() {
   const supabase = useSupabaseServer({ cookies });
@@ -9,9 +10,9 @@ export default async function Page() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
+  if (!user || !user.email) {
     redirect("/login");
   }
 
-  return <p>Hello</p>;
+  return <AccountForm userId={user.id} userEmail={user.email} />;
 }
