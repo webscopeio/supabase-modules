@@ -51,6 +51,8 @@ pnpm db:start & pnpm dev
 - `docs` will be available in port 3001
 - `playground` will be available in port 3000
 
+> Remember to run `pnpm db:stop` to save resources once you are done working with your local Supabase Instance.
+
 If you intended to develop with a cloud hosted Supabase Instance you only need:
 
 ```bash
