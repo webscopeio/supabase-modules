@@ -53,16 +53,6 @@ const FormSchema = z.object({
   password: z.string().min(5, { message: "Must be 5 or more characters long" }),
 });
 
-const getURL = () => {
-  const base = process?.env?.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000";
-  return `${base.startsWith("http") ? base : `https://${base}`}/`.replace(
-    /\/+$/,
-    "/"
-  );
-};
-
-const SETTINGS_PROFILE_URL = "settings/profile";
-
 const RegisterFormComponent: React.FC<{
   onSubmit: ({
     email,
@@ -110,7 +100,6 @@ const RegisterFormComponent: React.FC<{
             onSubmit({
               email,
               password,
-              options: { emailRedirectTo: getURL() + SETTINGS_PROFILE_URL },
             });
           })}
           className="space-y-6"

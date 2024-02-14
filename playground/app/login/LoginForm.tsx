@@ -20,8 +20,10 @@ import { CircleIcon, CrossCircledIcon, SlashIcon } from "@radix-ui/react-icons";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
 
+// #region auth-snippet
 export const LoginForm: React.FC = () => {
   const router = useRouter();
+
   const {
     mutate: onSubmit,
     isPending: isLoading,
@@ -47,6 +49,7 @@ export const LoginForm: React.FC = () => {
     />
   );
 };
+// #endregion auth-snippet
 
 const FormSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
