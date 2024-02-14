@@ -1,12 +1,8 @@
 # Installation
 
-::: warning Before proceeding
-If you are starting from an example project, all types, utilities are modules are installed by default. You can continue reviewing individual modules for more information about usage.
-:::
+If you are starting from an example project - all types, utilities, and modules are installed by default. You can continue reviewing individual modules for more information about usage.
 
 ## Database TypeScript types
-
-If you are starting from an example project, your database's TypeScript types are already included. However, if at any point you update your database, you might have to re-generate your database's TypeScript types as well.
 
 If you are adding Supabase Modules to an existing project. Before installing any modules, you will need to generate the database's TypeScript types.
 
@@ -30,8 +26,6 @@ degit iamhectorsosa/supabase-modules/playground/modules/types types
 :::
 
 ## Module Utilities
-
-If you are starting from an example project, module utilities are already included.
 
 If you are adding Supabase Modules to an existing project. Before installing any modules, you will need to add some database utils.
 

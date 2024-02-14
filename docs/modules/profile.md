@@ -1,10 +1,8 @@
 # Profile Module
 
+If you are starting from an example project - all types, utilities, and modules are installed by default. You can continue reviewing information about usage.
+
 ## Installation
-
-### Hooks
-
-Make sure you work in a `/modules/profile` directory from the root repository.
 
 ::: code-group
 
@@ -13,30 +11,16 @@ cd modules
 degit iamhectorsosa/supabase-modules/playground/modules/profile profile
 ```
 
-<<< ../../playground/modules/profile/index.ts [index.ts]
+<<< ../../playground/modules/profile/index.ts [./profile/index.ts]
+
+<<< ../../playground/modules/profile/migration.sql [./profile/migration.sql]
 
 :::
 
-### Migration
-
-Make sure you work in a `/supabase/migrations` directory from the root repository.
-
-::: code-group
-
-```bash [Using degit]
-cd modules
-degit iamhectorsosa/supabase-modules/playground/supabase/migrations
-
-# degit will copy all migrations, delete the ones you do not need
-# you only need `20240214100236_profile.sql` for this module
-```
-
-<<< ../../playground/supabase/migrations/20240214100236_profile.sql [20240214100236_profile.sql]
-
-:::
+Then copy, paste and execute the contents of file `migration.sql` in your Supabase SQL Editor.
 
 ## Usage
 
 ::: info
-VIP
+Work in progress
 :::
