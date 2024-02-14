@@ -10,11 +10,11 @@ This example project is based on a **Next 14 application**. More example project
 
 Clone the repository using `degit` and then install the project's dependencies.
 
-```bash [Using degit]
-degit iamhectorsosa/supabase-modules/playground
+```bash
+degit iamhectorsosa/supabase-modules/playground playground
 ```
 
-```bash [Using degit]
+```bash
 cd playground
 pnpm install
 ```
