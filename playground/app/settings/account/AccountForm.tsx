@@ -6,7 +6,7 @@ import * as z from "zod";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { useUpdateUser } from "@/modules/auth";
-import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
+import { CircleIcon, CrossCircledIcon, SlashIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -73,6 +73,25 @@ const AccountFormComponent: React.FC<{
   return (
     <div className="space-y-6 min-h-dvh flex flex-col justify-center">
       <header className="space-y-2">
+        <nav className="flex gap-x-1 items-center">
+          <Link href="/">
+            <Button className="px-1 h-fit text-muted-foreground" variant="link">
+              Home
+            </Button>
+          </Link>
+          <SlashIcon className="h-3 w-3" />
+          <Link href="/settings">
+            <Button className="px-1 h-fit text-muted-foreground" variant="link">
+              Settings
+            </Button>
+          </Link>
+          <SlashIcon className="h-3 w-3" />
+          <Link href="/settings/account">
+            <Button className="px-1 h-fit" variant="link">
+              Account
+            </Button>
+          </Link>
+        </nav>
         <h2 className="font-semibold text-4xl">Account Settings</h2>
         <p>Manage your account settings</p>
       </header>

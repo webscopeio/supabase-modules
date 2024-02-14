@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
+import { CircleIcon, CrossCircledIcon, SlashIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import {
   Form,
@@ -37,7 +37,7 @@ export const ProfileForm: React.FC<{
   } = useUpdateProfile({
     onSuccess: (data) => {
       data?.id && queryClient.invalidateQueries({ queryKey: [data.id] });
-      router.refresh();
+      router.push("/settings");
     },
     onError: (error) => {
       if (error instanceof Error) {
@@ -45,6 +45,7 @@ export const ProfileForm: React.FC<{
       }
     },
   });
+
   return (
     <ProfileFormComponent
       key={JSON.stringify({ username, fullName, preferredName })}
@@ -111,6 +112,25 @@ const ProfileFormComponent: React.FC<{
   return (
     <div className="space-y-6 min-h-dvh flex flex-col justify-center">
       <header className="space-y-2">
+        <nav className="flex gap-x-1 items-center">
+          <Link href="/">
+            <Button className="px-1 h-fit text-muted-foreground" variant="link">
+              Home
+            </Button>
+          </Link>
+          <SlashIcon className="h-3 w-3" />
+          <Link href="/settings">
+            <Button className="px-1 h-fit text-muted-foreground" variant="link">
+              Settings
+            </Button>
+          </Link>
+          <SlashIcon className="h-3 w-3" />
+          <Link href="/settings/profile">
+            <Button className="px-1 h-fit" variant="link">
+              Profile
+            </Button>
+          </Link>
+        </nav>
         <h2 className="font-semibold text-4xl">Profile Settings</h2>
         <p>Manage your profile settings</p>
       </header>

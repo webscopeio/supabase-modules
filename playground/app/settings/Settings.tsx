@@ -10,7 +10,7 @@ import {
 import * as React from "react";
 import { AccountsList } from "./AccountsList";
 
-export const Accounts: React.FC<{ userId: string }> = ({ userId }) => {
+export const Settings: React.FC<{ userId: string }> = ({ userId }) => {
   const { data, isLoading, isError, error } = useGetProfile({ id: userId });
 
   if (isLoading) {

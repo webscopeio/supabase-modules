@@ -16,6 +16,7 @@ import {
   ChevronDownIcon,
   CircleIcon,
   CrossCircledIcon,
+  SlashIcon,
   TrashIcon,
 } from "@radix-ui/react-icons";
 import Link from "next/link";
@@ -77,7 +78,20 @@ const AccountsListComponent: React.FC<{
   return (
     <div className="space-y-6 min-h-dvh flex flex-col justify-center">
       <header className="space-y-2">
-        <h2 className="font-semibold text-4xl">Accounts</h2>
+        <nav className="flex gap-x-1 items-center">
+          <Link href="/">
+            <Button className="px-1 h-fit text-muted-foreground" variant="link">
+              Home
+            </Button>
+          </Link>
+          <SlashIcon className="h-3 w-3" />
+          <Link href="/settings">
+            <Button className="px-1 h-fit text-muted-foreground" variant="link">
+              Settings
+            </Button>
+          </Link>
+        </nav>
+        <h2 className="font-semibold text-4xl">Settings</h2>
         <p>{preferredName ? `Hello, ${preferredName}!` : "Hi there!"}</p>
       </header>
       <div className="space-y-6">
@@ -89,7 +103,7 @@ const AccountsListComponent: React.FC<{
             </AvatarFallback>
           </Avatar>
           <div>
-            <h4 className="font-semibold">{username}</h4>
+            <h4 className="font-semibold">@{username}</h4>
             <p>{email}</p>
           </div>
           <div className="flex ml-auto items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
@@ -139,11 +153,6 @@ const AccountsListComponent: React.FC<{
           <AlertDescription>{errorMessage ?? "Unknown error"}</AlertDescription>
         </Alert>
       )}
-      <footer>
-        <Link href="/">
-          <Button variant="link">Go Home</Button>
-        </Link>
-      </footer>
     </div>
   );
 };

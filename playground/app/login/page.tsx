@@ -11,7 +11,7 @@ export default async function Page() {
   } = await supabase.auth.getUser();
 
   if (user) {
-    redirect("/accounts");
+    redirect("/settings");
   }
 
   return <LoginForm />;

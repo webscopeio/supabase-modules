@@ -16,7 +16,7 @@ import { useSignUpWithEmailPassword } from "@/modules/auth";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
+import { CircleIcon, CrossCircledIcon, SlashIcon } from "@radix-ui/react-icons";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
 
@@ -91,6 +91,19 @@ const RegisterFormComponent: React.FC<{
   return (
     <div className="space-y-6 min-h-dvh flex flex-col justify-center">
       <header className="space-y-2">
+        <nav className="flex gap-x-1 items-center">
+          <Link href="/">
+            <Button className="px-1 h-fit text-muted-foreground" variant="link">
+              Home
+            </Button>
+          </Link>
+          <SlashIcon className="h-3 w-3" />
+          <Link href="/register">
+            <Button className="px-1 h-fit text-muted-foreground" variant="link">
+              Create an account
+            </Button>
+          </Link>
+        </nav>
         <h2 className="font-semibold text-4xl">Create an account</h2>
         <p>Please fill out the form below</p>
       </header>

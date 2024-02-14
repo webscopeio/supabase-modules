@@ -40,7 +40,6 @@ export interface Database {
           email: string
           full_name: string | null
           id: string
-          is_admin: boolean
           preferred_name: string | null
           updated_at: string
           username: string
@@ -50,7 +49,6 @@ export interface Database {
           email: string
           full_name?: string | null
           id: string
-          is_admin?: boolean
           preferred_name?: string | null
           updated_at?: string
           username: string
@@ -60,7 +58,6 @@ export interface Database {
           email?: string
           full_name?: string | null
           id?: string
-          is_admin?: boolean
           preferred_name?: string | null
           updated_at?: string
           username?: string

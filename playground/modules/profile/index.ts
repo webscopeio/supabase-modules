@@ -20,7 +20,6 @@ export const useGetProfile = ({
   return useQuery({
     queryKey: [id],
     queryFn: async () => {
-      if (!id) return null;
       return await supabase
         .from("profile")
         .select("*")
