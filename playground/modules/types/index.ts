@@ -34,7 +34,7 @@ export interface Database {
   }
   public: {
     Tables: {
-      profile: {
+      profiles: {
         Row: {
           created_at: string
           email: string
@@ -64,7 +64,7 @@ export interface Database {
         }
         Relationships: [
           {
-            foreignKeyName: "profile_id_fkey"
+            foreignKeyName: "profiles_id_fkey"
             columns: ["id"]
             isOneToOne: true
             referencedRelation: "users"

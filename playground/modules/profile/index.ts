@@ -9,7 +9,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import type { Database } from "../types";
 import { useSupabaseClient } from "../utils/supabase-client";
 
-type Profile = Database["public"]["Tables"]["profile"]["Row"];
+type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 
 export const useGetProfile = ({
   id,
@@ -21,7 +21,7 @@ export const useGetProfile = ({
     queryKey: [id],
     queryFn: async () => {
       return await supabase
-        .from("profile")
+        .from("profiles")
         .select("*")
         .eq("id", id)
         .single()
@@ -46,7 +46,7 @@ export const useUpdateProfile = (
       }
 
       const { data, error } = await supabase
-        .from("profile")
+        .from("profiles")
         .update({
           ...profileUpdates,
         })
