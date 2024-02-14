@@ -49,5 +49,7 @@ pnpm dev
 :::
 
 ::: tip :tada: Congratulations!
-You are done! See [Installation](/modules/installation) to install individual Modules. Remember to run `pnpm db:stop` to save resources once you are done working with your local Supabase Instance.
+You are done! See [Installation](/modules/installation) for more information about the Modules. Remember that all modules are installed by default in this example. 
+
+Remember to run `pnpm db:stop` to save resources once you are done working with your local Supabase Instance.
 :::

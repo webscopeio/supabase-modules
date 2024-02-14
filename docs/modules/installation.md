@@ -1,5 +1,9 @@
 # Installation
 
+::: warning Before proceeding
+If you are starting from an example project, all types, utilities are modules are installed by default. You can continue reviewing individual modules for more information about usage.
+:::
+
 ## Database TypeScript types
 
 If you are starting from an example project, your database's TypeScript types are already included. However, if at any point you update your database, you might have to re-generate your database's TypeScript types as well.
