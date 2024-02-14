@@ -2,7 +2,7 @@
   "name": "@supabase-modules/workspace",
   "private": true,
   "scripts": {
-    "build": "turbo build",
+    "build": "dotenv -- turbo build",
     "dev": "dotenv -- turbo dev",
     "db:start": "turbo db:start",
     "db:stop": "turbo db:stop",
