@@ -54,10 +54,7 @@ const FormSchema = z.object({
 });
 
 const getURL = () => {
-  const base =
-    process?.env?.NEXT_PUBLIC_SITE_URL ??
-    process?.env?.NEXT_PUBLIC_VERCEL_URL ??
-    "http://localhost:3000";
+  const base = process?.env?.NEXT_PUBLIC_VERCEL_URL ?? "http://localhost:3000";
   return `${base.startsWith("http") ? base : `https://${base}`}/`.replace(
     /\/+$/,
     "/"
@@ -113,7 +110,7 @@ const RegisterFormComponent: React.FC<{
             onSubmit({
               email,
               password,
-              options: { emailRedirectTo: getURL + SETTINGS_PROFILE_URL },
+              options: { emailRedirectTo: getURL() + SETTINGS_PROFILE_URL },
             });
           })}
           className="space-y-6"
