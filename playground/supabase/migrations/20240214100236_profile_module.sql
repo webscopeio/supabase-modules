@@ -116,4 +116,4 @@ using ((auth.uid() = id))
 with check ((auth.uid() = id));
 
 
-
+CREATE TRIGGER handle_new_user_trigger AFTER INSERT ON auth.users FOR EACH ROW EXECUTE FUNCTION handle_new_user();
