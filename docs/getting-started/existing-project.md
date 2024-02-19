@@ -39,6 +39,7 @@ You will also need to update your `package.json` scripts to use Supabase CLI:
   "db:init": "supabase init", // [!code ++]
   "db:start": "supabase start", // [!code ++]
   "db:stop": "supabase stop", // [!code ++]
+  "db:reset": "supabase db reset", // [!code ++]
   "db:gen-types": "supabase gen types typescript --local > modules/types/index.ts" // [!code ++]
 }
 ```
@@ -58,7 +59,7 @@ supabase init
 ```
 
 ```bash [Using degit]
-degit iamhectorsosa/supabase-modules/playground/supabase supabase
+degit iamhectorsosa/supabase-modules/apps/next/supabase supabase
 ```
 
 :::
@@ -80,24 +81,13 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<SUPANASE_ANON_KEY>
 
 If you do not have these, you may have to run Supabase locally first before development. Read more on [Your Supabase Instance](/getting-started/supabase).
 
-## 4. Add Query and Middleware to your project
+## 4. Add Query, Middleware and API Route to your project
 
 ### TanStack Query
 
 To use TanStack Query you need to set a `QueryClientProvider`. Typically you would add this to your list of providers or create a provider if you don't have one already.
 
-You can run the command below where you want to create the `providers.tsx` file or use the code snippet to create your own.
-
-::: code-group
-
-```bash [Using degit]
-cd app
-degit iamhectorsosa/supabase-modules/playground/app/providers.tsx
-```
-
-<<< ../../playground/app/providers.tsx [Manual]
-
-:::
+<<< ../../apps/next/app/providers.tsx
 
 This provider has to be included in the project code. In a Next 13 application this would be in the main`layout.tsx` file. For more, see [TanStack Query Next.js app with streaming](https://tanstack.com/query/latest/docs/framework/react/examples/nextjs-suspense-streaming).
 
@@ -105,17 +95,13 @@ This provider has to be included in the project code. In a Next 13 application t
 
 Update or create a `middleware.ts` file at the root of your project. Since Server Components can't write cookies, you need middleware to refresh expired Auth tokens and store them.
 
-You can run the command below where you want to create the `middleware.ts` file or use the code snippet to create your own.
+<<< ../../apps/next/middleware.ts
 
-::: code-group
+### API Route
 
-```bash [Using degit]
-degit iamhectorsosa/supabase-modules/playground/middleware.ts
-```
+Chances are that you will need this route handler.
 
-<<< ../../playground/middleware.ts [Manual]
-
-:::
+<<< ../../apps/next/app/auth/confirm/route.ts
 
 ## 5. Start your development server
 

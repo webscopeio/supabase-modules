@@ -5,22 +5,26 @@ The Supabase Modules repository is a pnpm workspace managed using [Turborepo](ht
 ## Apps
 
 - `docs`: a [Vitepress](https://vitepress.dev/) app - to learn about the project
-- `playground`: another [Next.js](https://nextjs.org/) app - to play with the project
+- `apps/next`: a [Next.js](https://nextjs.org/) app - to use the project
 
 ### Directory structure
 
-There is no package/installable/CLI for the time being. The `playground` app has the modules source code and a Supabase project configuration that contains the migrations for all modules.
+There is no package/installable/CLI for the time being. The `apps/**` directory organizes by framework the modules source code and a Supabase project configuration for them.
+
+For example, our [Next.js](https://nextjs.org/) app looks like this:
 
 ```
-📁 docs
-📁 playground
-  📁 modules
-    📁 auth
-    📁 profile
-    📁 types
-    📁 utils
-  📁 supabase
-    📁 migrations
+📂 docs
+📂 apps
+  📂 next
+    📁 modules
+      📁 user
+        📁 hooks
+        📁 ui
+      📁 types
+      📁 utils
+    📁 supabase
+      📁 migrations
 ```
 
 To learn more about this project, please visit [Supabase Modules Documentation](https://supabase-modules-docs.vercel.app/).

@@ -15,13 +15,7 @@ importers:
         specifier: ^1.12.1
         version: 1.12.3
 
-  docs:
-    devDependencies:
-      vitepress:
-        specifier: 1.0.0-rc.42
-        version: 1.0.0-rc.42(@algolia/client-search@4.22.1)(search-insights@2.13.0)
-
-  playground:
+  apps/next:
     dependencies:
       '@hookform/resolvers':
         specifier: ^3.3.4
@@ -219,6 +213,12 @@ importers:
       typescript:
         specifier: ^5
         version: 5.3.3
+
+  docs:
+    devDependencies:
+      vitepress:
+        specifier: 1.0.0-rc.42
+        version: 1.0.0-rc.42(@algolia/client-search@4.22.1)(search-insights@2.13.0)
 
 packages:
 

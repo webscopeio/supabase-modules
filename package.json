@@ -6,6 +6,7 @@
     "dev": "dotenv -- turbo dev",
     "db:start": "turbo db:start",
     "db:stop": "turbo db:stop",
+    "db:reset": "supabase db reset",
     "db:gen-types": "turbo db:gen-types",
     "lint": "turbo lint"
   },

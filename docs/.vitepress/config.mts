@@ -75,8 +75,7 @@ export default defineConfig({
         text: "Modules",
         items: [
           { text: "Installation", link: "/modules/installation" },
-          { text: "Auth", link: "/modules/auth" },
-          { text: "Profile", link: "/modules/profile" },
+          { text: "User", link: "/modules/user" },
         ],
       },
     ],
