@@ -3,3 +3,6 @@ node_modules
 
 # Turbo
 .turbo
+
+#  Env files
+.env
