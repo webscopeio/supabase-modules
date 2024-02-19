@@ -17,13 +17,21 @@ async function setup() {
   const packageJsonExists = existsSync("./package.json");
 
   if (!packageJsonExists) {
-    await asyncExec("pnpm init").catch((err) => console.error(err));
+    await asyncExec("pnpm init").catch((err) => {
+      if (err instanceof Error) {
+        throw err;
+      }
+      throw new Error("Unknown error with `packageJsonExists`");
+    });
   }
 
   console.info("Adding dependencies... 📦");
-  await asyncExec("pnpm i -D @clack/prompts picocolors degit").catch((err) =>
-    console.error(err)
-  );
+  await asyncExec("pnpm i -D @clack/prompts picocolors degit").catch((err) => {
+    if (err instanceof Error) {
+      throw err;
+    }
+    throw new Error("Unknown error with `pnpm install`");
+  });
 
   console.info("Adding scripts... 📃");
   const packageJsonString = await fs.readFile("./package.json", {

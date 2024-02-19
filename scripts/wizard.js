@@ -37,7 +37,7 @@ async function wizard() {
       {
         label: "Add to Existing Project",
         value: "existing-project",
-        hint: "Enhance your current project by directly integrating Supabase Modules",
+        hint: "Not available but coming soon",
       },
     ],
   });
@@ -45,6 +45,34 @@ async function wizard() {
   handleCancel(projectStarter);
 
   if (projectStarter === "from-example") {
+    const framework = await select({
+      message: `${color.italic("Which")} framework would you like to use?`,
+      default: "next",
+      options: [
+        {
+          label: "Next",
+          value: "next",
+          hint: "using app router",
+        },
+        {
+          label: "Remix",
+          value: "remix",
+          hint: "Not available but coming soon",
+        },
+      ],
+    });
+
+    handleCancel(framework);
+
+    if (framework !== "next") {
+      outro(
+        `✅ ${color.green`Nothing to do here!`} Make sure to check out our docs at: \n ${color.magenta(
+          "https://supabase-modules-docs.vercel.app"
+        )} (hold cmd or ctl to click on URL)`
+      );
+      return process.exit(0);
+    }
+
     const dir = await text({
       message: `Which is your ${color.italic("project's working directory")}?`,
       initialValue: ".",
@@ -69,10 +97,10 @@ async function wizard() {
       const s = spinner();
       s.start("Installing project files... 👷🏽");
       await asyncExec(
-        `degit iamhectorsosa/iamhectorsosa/src/components/layout ${dir}/supabase --force`
+        `degit iamhectorsosa/supabase-modules/apps/next/supabase ${dir}/supabase --force`
       );
       await asyncExec(
-        `degit iamhectorsosa/iamhectorsosa/src/components/providers ${dir}/modules --force`
+        `degit iamhectorsosa/supabase-modules/apps/next/modules ${dir}/modules --force`
       );
 
       s.stop("Project files successfully installed 👷🏽");
@@ -121,7 +149,7 @@ async function wizard() {
   }
 
   outro(
-    `✅ ${color.green`Nothing to install!`} Make sure to check out our docs at: \n ${color.magenta(
+    `✅ ${color.green`Nothing to do here!`} Make sure to check out our docs at: \n ${color.magenta(
       "https://supabase-modules-docs.vercel.app"
     )} (hold cmd or ctl to click on URL)`
   );
