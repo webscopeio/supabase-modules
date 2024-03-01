@@ -30,7 +30,7 @@ async function setup() {
     if (err instanceof Error) {
       throw err;
     }
-    throw new Error("Unknown error with `pnpm install`");
+    throw new Error("Unknown error with `pnpm install `");
   });
 
   console.info("Adding scripts... 📃");
