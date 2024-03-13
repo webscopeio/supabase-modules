@@ -1,4 +1,4 @@
-import { RegisterForm } from "@/modules/user/ui";
+import { RegisterForm } from "@/components/user/register-form";
 import { useSupabaseServer } from "@/modules/utils/server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";

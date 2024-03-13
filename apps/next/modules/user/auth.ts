@@ -9,7 +9,7 @@ import type {
   UserAttributes,
   UserResponse,
 } from "@supabase/supabase-js";
-import type { MutationOptions } from "@tanstack/react-query";
+import type { MutationOptions, UseMutationResult } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
 
 type SignUpWithEmailPasswordCredentials = Extract<
@@ -17,13 +17,15 @@ type SignUpWithEmailPasswordCredentials = Extract<
   { email: string }
 >;
 
-export const useSignUpWithEmailPassword = (
-  options?: MutationOptions<
-    AuthResponse["data"],
-    AuthResponse["error"],
-    SignUpWithEmailPasswordCredentials
-  >
-) => {
+type UseSignUpWithEmailPassword<TData, TError, TVariables> = (
+  options?: MutationOptions<TData, TError, TVariables>
+) => UseMutationResult<TData, TError, TVariables>;
+
+export const useSignUpWithEmailPassword: UseSignUpWithEmailPassword<
+  AuthResponse["data"],
+  AuthResponse["error"],
+  SignUpWithEmailPasswordCredentials
+> = (options) => {
   const supabase = useSupabaseClient();
   return useMutation({
     mutationFn: async (credentials) => {
@@ -52,13 +54,15 @@ type SignInWithEmailPasswordCredentials = Extract<
   { email: string }
 >;
 
-export const useSignInWithEmailPassword = (
-  options?: MutationOptions<
-    AuthTokenResponse["data"],
-    AuthTokenResponse["error"],
-    SignInWithEmailPasswordCredentials
-  >
-) => {
+type UseSignInWithEmailPassword<TData, TError, TVariables> = (
+  options?: MutationOptions<TData, TError, TVariables>
+) => UseMutationResult<TData, TError, TVariables>;
+
+export const useSignInWithEmailPassword: UseSignInWithEmailPassword<
+  AuthTokenResponse["data"],
+  AuthTokenResponse["error"],
+  SignInWithEmailPasswordCredentials
+> = (options) => {
   const supabase = useSupabaseClient();
   return useMutation({
     mutationFn: async (credentials) => {
@@ -75,9 +79,11 @@ export const useSignInWithEmailPassword = (
   });
 };
 
-export const useSignOut = (
-  options?: MutationOptions<unknown, AuthTokenResponse["error"]>
-) => {
+type UseSignOut<TError> = (
+  options?: MutationOptions<unknown, TError>
+) => UseMutationResult<unknown, TError, void, unknown>;
+
+export const useSignOut: UseSignOut<AuthTokenResponse["error"]> = (options) => {
   const supabase = useSupabaseClient();
   return useMutation({
     mutationFn: async () => {
@@ -91,18 +97,15 @@ export const useSignOut = (
   });
 };
 
-type UseUpdateUser = MutationOptions<
+type UseUpdateUser<TData, TError, TVariables> = (
+  options?: MutationOptions<TData, TError, TVariables>
+) => UseMutationResult<TData, TError, TVariables>;
+
+export const useUpdateUser: UseUpdateUser<
   UserResponse["data"],
   AuthError | null,
   UserAttributes
->;
-
-export const useUpdateUser = (
-  options: {
-    onSuccess?: UseUpdateUser["onSuccess"];
-    onError?: UseUpdateUser["onError"];
-  } = {}
-) => {
+> = (options) => {
   const supabase = useSupabaseClient();
   return useMutation({
     mutationFn: async (attributes) => {

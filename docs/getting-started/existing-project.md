@@ -81,7 +81,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<SUPANASE_ANON_KEY>
 
 If you do not have these, you may have to run Supabase locally first before development. Read more on [Your Supabase Instance](/getting-started/supabase).
 
-## 4. Add Query, Middleware, API Route and TailwindCSS Config to your project
+## 4. Add Query, Middleware, API Route to your project
 
 ### TanStack Query
 
@@ -103,19 +103,6 @@ Chances are that you will need this route handler.
 
 <<< ../../apps/next/app/auth/confirm/route.ts
 
-### TailwindCSS Config
-
-Make sure that the module components are included in your TailwindCSS config.
-
-```ts
-const config = {
-  content: [
-    "./modules/**/*.{ts,tsx}", // [!code ++]
-    // ...
-  ],
-  // ...
-};
-```
 
 ## 5. Start your development server
 

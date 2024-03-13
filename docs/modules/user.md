@@ -6,36 +6,20 @@ If you are starting from an example project - all types, utilities, and modules 
 
 ::: code-group
 
-```bash [Install all]
+```bash [Install module]
 cd modules
 degit iamhectorsosa/supabase-modules/apps/next/modules/user user
 ```
 
-```bash [Only hooks]
-cd modules
-degit iamhectorsosa/supabase-modules/apps/next/modules/user/hooks user/hooks
-```
-
-```bash [Only components]
-cd modules
-degit iamhectorsosa/supabase-modules/apps/next/modules/user/ui user/ui
-```
-
-```bash [Only migrations]
-cd modules
-degit iamhectorsosa/supabase-modules/apps/next/modules/user/migrations user/migrations
+```bash [Install components]
+cd components
+degit iamhectorsosa/supabase-modules/apps/next/components/user user
 ```
 
 :::
 
-Then copy, paste and execute the contents of file `migration.sql` in your Supabase SQL Editor.
+Then copy, paste and execute the contents of file `modules/user/migration.sql` in your Supabase SQL Editor.
 
-## Examples
+## Usage
 
-### Creating a login page
-
-<<< ../../apps/next/app/login/page.tsx
-
-### Creating a register page
-
-<<< ../../apps/next/app/register/page.tsx
+### `useSignUpWithEmailPassword`

@@ -21,7 +21,6 @@ import { Separator } from "@/components/ui/separator";
 import { ChevronDownIcon, TrashIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useGetProfile, useSignOut } from "@/modules/user/hooks";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -29,6 +28,8 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { useGetProfile } from "@/modules/user/profile";
+import { useSignOut } from "@/modules/user/auth";
 
 export const Settings: React.FC<{ userId: string }> = ({ userId }) => {
   const { data, isLoading, isError, error } = useGetProfile({ id: userId });

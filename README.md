@@ -17,15 +17,19 @@ For example, our [Next.js](https://nextjs.org/) app looks like this:
 📂 docs
 📂 apps
   📂 next
+    📁 components
+      📁 user
     📁 modules
       📁 user
-        📁 hooks
-        📁 ui
       📁 types
       📁 utils
     📁 supabase
       📁 migrations
 ```
+
+* The UI lives in the `/components` directory categorized by module name i.e. *user*.
+* The logic lives in the `/modules` directory categorized by module name i.e. *user*.
+* The database configuration lives in the `/supabase` directory where migrations can be identified by module name i.e. *20240214100236_user.sql*.
 
 To learn more about this project, please visit [Supabase Modules Documentation](https://supabase-modules-docs.vercel.app/).
 

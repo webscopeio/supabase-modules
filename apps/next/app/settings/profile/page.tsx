@@ -1,4 +1,4 @@
-import { ProfileForm } from "@/modules/user/ui";
+import { ProfileForm } from "@/components/user/profile-form";
 import { useSupabaseServer } from "@/modules/utils/server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";

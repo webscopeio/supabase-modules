@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useUpdateUser } from "@/modules/user/hooks";
+import { useUpdateUser } from "@/modules/user/auth";
 import {
   Breadcrumb,
   BreadcrumbItem,

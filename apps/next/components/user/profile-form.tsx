@@ -23,7 +23,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
-import { useGetProfile, useUpdateProfile } from "@/modules/user/hooks";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -31,6 +31,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { useGetProfile, useUpdateProfile } from "@/modules/user/profile";
 
 export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
   const { data, isLoading, isError, error } = useGetProfile({ id: userId });

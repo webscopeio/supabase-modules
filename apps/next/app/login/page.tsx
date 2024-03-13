@@ -1,4 +1,4 @@
-import { LoginForm } from "@/modules/user/ui";
+import { LoginForm } from "@/components/user/login-form";
 import { useSupabaseServer } from "@/modules/utils/server";
 import { cookies } from "next/headers";
 

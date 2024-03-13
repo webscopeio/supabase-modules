@@ -19,7 +19,7 @@ import Link from "next/link";
 import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
-import { useSignInWithEmailPassword } from "@/modules/user/hooks";
+import { useSignInWithEmailPassword } from "@/modules/user/auth";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -38,7 +38,7 @@ export const LoginForm: React.FC = () => {
     error,
   } = useSignInWithEmailPassword({
     onSuccess: () => {
-      router.push("/");
+      router.push("/settings");
     },
     onError: (error) => {
       if (error instanceof Error) {

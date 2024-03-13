@@ -19,7 +19,7 @@ import Link from "next/link";
 import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
-import { useSignUpWithEmailPassword } from "@/modules/user/hooks";
+import { useSignUpWithEmailPassword } from "@/modules/user/auth";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -30,6 +30,7 @@ import {
 
 export const RegisterForm: React.FC = () => {
   const router = useRouter();
+  // #region useSignUpWithEmailPassword
   const {
     mutate: onSubmit,
     isPending: isLoading,
@@ -45,6 +46,7 @@ export const RegisterForm: React.FC = () => {
       }
     },
   });
+  // #endregion useSignUpWithEmailPassword
 
   return (
     <RegisterFormComponent

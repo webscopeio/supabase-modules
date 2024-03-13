@@ -1,4 +1,4 @@
-import { Settings } from "@/modules/user/ui";
+import { Settings } from "@/components/user/settings";
 import { useSupabaseServer } from "@/modules/utils/server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";

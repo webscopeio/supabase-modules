@@ -1,4 +1,4 @@
-import { AccountForm } from "@/modules/user/ui";
+import { AccountForm } from "@/components/user/account-form";
 import { useSupabaseServer } from "@/modules/utils/server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
