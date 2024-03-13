@@ -25,7 +25,7 @@ degit iamhectorsosa/supabase-modules/apps/next/modules/types types
 
 :::
 
-## Module Utilities
+## Module utilities
 
 If you are adding Supabase Modules to an existing project. Before installing any modules, you will need to add some database utils.
 
@@ -46,7 +46,7 @@ degit iamhectorsosa/supabase-modules/apps/next/modules/utils utils
 
 :::
 
-## List of Modules
+## List of modules
 
 Find all the modules you need for your Supabase project here. Quick to integrate, ready to use.
 

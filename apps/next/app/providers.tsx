@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 export const Providers: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [queryClient] = React.useState(
@@ -15,6 +16,15 @@ export const Providers: React.FC<React.PropsWithChildren> = ({ children }) => {
       })
   );
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <NextThemesProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        {children}
+      </NextThemesProvider>
+    </QueryClientProvider>
   );
 };

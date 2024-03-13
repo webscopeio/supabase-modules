@@ -27,11 +27,9 @@ For example, our [Next.js](https://nextjs.org/) app looks like this:
       📁 migrations
 ```
 
-* The UI lives in the `/components` directory categorized by module name i.e. *user*.
-* The logic lives in the `/modules` directory categorized by module name i.e. *user*.
-* The database configuration lives in the `/supabase` directory where migrations can be identified by module name i.e. *20240214100236_user.sql*.
-
-To learn more about this project, please visit [Supabase Modules Documentation](https://supabase-modules-docs.vercel.app/).
+- The UI lives in the `/components` directory categorized by module name i.e. _user_.
+- The logic lives in the `/modules` directory categorized by module name i.e. _user_.
+- The database configuration lives in the `/supabase` directory where migrations can be identified by module name i.e. _20240214100236_user.sql_.
 
 ## Install
 
@@ -74,3 +72,11 @@ To build, run the following command from the root repository:
 ```bash
 pnpm build
 ```
+
+## Contributing
+
+Excited to hear that you are interested in contributing to this project! Please visit [Contributing](https://supabase-modules-docs.vercel.app/introduction/contributing.html)
+
+## Documentation
+
+To learn more about this project, please visit [Supabase Modules Documentation](https://supabase-modules-docs.vercel.app/).

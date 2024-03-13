@@ -54,6 +54,7 @@ export default defineConfig({
         items: [
           { text: "Supabase Modules", link: "/introduction/modules" },
           { text: "Workspace", link: "/introduction/workspace" },
+          { text: "Contributing", link: "/introduction/contributing" },
         ],
       },
       {
