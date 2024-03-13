@@ -22,7 +22,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
 
 import {
   Breadcrumb,
@@ -91,15 +90,14 @@ export const ProfileFormContainer: React.FC<{
   preferredName: string | null;
 }> = ({ id, username, fullName, preferredName }) => {
   const router = useRouter();
-  const queryClient = useQueryClient();
+  // #region useUpdateProfile
   const {
     mutate: onSubmit,
     isPending: isLoading,
     isError,
     error,
   } = useUpdateProfile({
-    onSuccess: (data) => {
-      data?.id && queryClient.invalidateQueries({ queryKey: [data.id] });
+    onSuccess: () => {
       router.push("/settings");
     },
     onError: (error) => {
@@ -108,6 +106,7 @@ export const ProfileFormContainer: React.FC<{
       }
     },
   });
+  // #endregion useUpdateProfile
 
   return (
     <ProfileFormComponent

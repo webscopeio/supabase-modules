@@ -6,15 +6,15 @@ import type {
   UseMutationResult,
   UseQueryResult,
 } from "@tanstack/react-query";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 
-export const useGetProfile = ({
-  id,
-}: {
-  id: string;
-}): UseQueryResult<Profile | null> => {
+interface ProfileQuery {
+  ({ id }: { id: Profile["id"] }): UseQueryResult<Profile | null>;
+}
+
+export const useGetProfile: ProfileQuery = ({ id }) => {
   const supabase = useSupabaseClient();
   return useQuery({
     queryKey: [id],
@@ -30,16 +30,23 @@ export const useGetProfile = ({
   });
 };
 
-export const useUpdateProfile = (
-  options?: MutationOptions<
-    Profile | undefined,
-    PostgrestError,
-    Partial<Profile>
-  >
-): UseMutationResult<Profile | undefined, PostgrestError, Partial<Profile>> => {
+interface ProfileHook<TData, TError, TVariables> {
+  (options?: MutationOptions<TData, TError, TVariables>): UseMutationResult<
+    TData,
+    TError,
+    TVariables
+  >;
+}
+
+export const useUpdateProfile: ProfileHook<
+  Profile | undefined,
+  PostgrestError,
+  Partial<Profile>
+> = (options) => {
   const supabase = useSupabaseClient();
+  const queryClient = useQueryClient();
   return useMutation<Profile | undefined, PostgrestError, Partial<Profile>>({
-    mutationFn: async (profileUpdates): Promise<Profile | undefined> => {
+    mutationFn: async (profileUpdates) => {
       if (!profileUpdates.id) {
         throw new Error("Attempt error - an error occurred with your update");
       }
@@ -60,6 +67,7 @@ export const useUpdateProfile = (
       }
 
       const [userData] = data;
+      queryClient.invalidateQueries({ queryKey: [userData.id] });
 
       return userData;
     },

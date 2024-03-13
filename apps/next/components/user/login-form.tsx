@@ -31,6 +31,7 @@ import {
 export const LoginForm: React.FC = () => {
   const router = useRouter();
 
+  // #region useSignInWithEmailPassword
   const {
     mutate: onSubmit,
     isPending: isLoading,
@@ -46,6 +47,7 @@ export const LoginForm: React.FC = () => {
       }
     },
   });
+  // #endregion useSignInWithEmailPassword
 
   return (
     <LoginFormComponent

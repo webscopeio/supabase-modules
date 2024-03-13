@@ -30,6 +30,7 @@ import {
 export const AccountForm: React.FC<{ userEmail: string }> = ({ userEmail }) => {
   const router = useRouter();
 
+  // #region useUpdateUser
   const {
     mutate: onSubmit,
     isPending: isLoading,
@@ -45,6 +46,7 @@ export const AccountForm: React.FC<{ userEmail: string }> = ({ userEmail }) => {
       }
     },
   });
+  // #endregion useUpdateUser
 
   return (
     <AccountFormComponent

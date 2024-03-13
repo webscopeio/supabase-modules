@@ -30,6 +30,7 @@ import {
 
 export const RegisterForm: React.FC = () => {
   const router = useRouter();
+
   // #region useSignUpWithEmailPassword
   const {
     mutate: onSubmit,
@@ -38,7 +39,7 @@ export const RegisterForm: React.FC = () => {
     error,
   } = useSignUpWithEmailPassword({
     onSuccess: () => {
-      router.push("/");
+      router.push("/login");
     },
     onError: (error) => {
       if (error instanceof Error) {

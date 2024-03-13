@@ -1,6 +1,6 @@
 # Supabase Modules
 
-Supabase Modules is an open-source initiative designed to enhance and speed the development of applications using  **pre-built, modular components** that integrate seamlessly with [Supabase](https://supabase.com/).
+Supabase Modules is an open-source initiative designed to enhance and speed the development of applications using **pre-built, modular components** that integrate seamlessly with [Supabase](https://supabase.com/).
 
 > Our main goals is, regardless of the stage of development, to **significantly reduce the time and effort involved in creating robust, feature-rich applications** using Supabase.
 

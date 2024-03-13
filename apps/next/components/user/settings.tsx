@@ -32,7 +32,9 @@ import { useGetProfile } from "@/modules/user/profile";
 import { useSignOut } from "@/modules/user/auth";
 
 export const Settings: React.FC<{ userId: string }> = ({ userId }) => {
+  // #region useGetProfile
   const { data, isLoading, isError, error } = useGetProfile({ id: userId });
+  // #endregion useGetProfile
 
   if (isLoading) {
     return (
@@ -88,6 +90,7 @@ export const SettingsContainer: React.FC<{
 }> = ({ username, preferredName, email }) => {
   const router = useRouter();
 
+  // #region useSignOut
   const {
     mutate: signOut,
     isPending: isLoading,
@@ -103,6 +106,8 @@ export const SettingsContainer: React.FC<{
       }
     },
   });
+  // #endregion useSignOut
+
   return (
     <SettingsComponent
       username={username}

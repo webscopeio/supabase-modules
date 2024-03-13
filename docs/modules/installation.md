@@ -1,6 +1,6 @@
 # Installation
 
-If you are starting from an example project - all types, utilities, and modules are installed by default. You can continue reviewing individual modules for more information about usage.
+If you are starting from an example project - all types, utilities, and modules are installed by default. Therefore, you can continue reviewing individual modules for more information about usage.
 
 ## Database TypeScript types
 
