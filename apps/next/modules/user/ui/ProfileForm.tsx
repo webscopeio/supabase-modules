@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import {
   CircleIcon,
   CrossCircledIcon,
-  SlashIcon,
   InfoCircledIcon,
 } from "@radix-ui/react-icons";
 import Link from "next/link";
@@ -25,6 +24,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGetProfile, useUpdateProfile } from "@/modules/user/hooks";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
   const { data, isLoading, isError, error } = useGetProfile({ id: userId });
@@ -168,27 +174,27 @@ const ProfileFormComponent: React.FC<{
   return (
     <div className="space-y-6 flex flex-col">
       <header className="space-y-2">
-        <nav className="flex gap-x-1 items-center">
-          <Button
-            asChild
-            className="px-1 h-fit text-muted-foreground"
-            variant="link"
-          >
-            <Link href="/">Home</Link>
-          </Button>
-          <SlashIcon className="h-3 w-3" />
-          <Button
-            asChild
-            className="px-1 h-fit text-muted-foreground"
-            variant="link"
-          >
-            <Link href="/settings">Settings</Link>
-          </Button>
-          <SlashIcon className="h-3 w-3" />
-          <Button asChild className="px-1 h-fit" variant="link">
-            <Link href="/settings/profile">Profile</Link>
-          </Button>
-        </nav>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/">Home</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/settings">Settings</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/settings/profile">Profile</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         <h2 className="font-semibold text-4xl">Profile Settings</h2>
         <p>Manage your profile settings</p>
       </header>

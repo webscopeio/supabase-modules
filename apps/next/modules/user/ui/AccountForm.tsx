@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { CircleIcon, CrossCircledIcon, SlashIcon } from "@radix-ui/react-icons";
+import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -19,6 +19,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUpdateUser } from "@/modules/user/hooks";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export const AccountForm: React.FC<{ userEmail: string }> = ({ userEmail }) => {
   const router = useRouter();
@@ -73,27 +80,27 @@ const AccountFormComponent: React.FC<{
   return (
     <div className="space-y-6 min-h-dvh flex flex-col justify-center">
       <header className="space-y-2">
-        <nav className="flex gap-x-1 items-center">
-          <Button
-            asChild
-            className="px-1 h-fit text-muted-foreground"
-            variant="link"
-          >
-            <Link href="/">Home</Link>
-          </Button>
-          <SlashIcon className="h-3 w-3" />
-          <Button
-            asChild
-            className="px-1 h-fit text-muted-foreground"
-            variant="link"
-          >
-            <Link href="/settings">Settings</Link>
-          </Button>
-          <SlashIcon className="h-3 w-3" />
-          <Button asChild className="px-1 h-fit" variant="link">
-            <Link href="/settings/account">Account</Link>
-          </Button>
-        </nav>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/">Home</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/settings">Settings</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/settings/account">Account</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         <h2 className="font-semibold text-4xl">Account Settings</h2>
         <p>Manage your account settings</p>
       </header>

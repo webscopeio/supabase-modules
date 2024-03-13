@@ -16,10 +16,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { CircleIcon, CrossCircledIcon, SlashIcon } from "@radix-ui/react-icons";
+import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
 import { useSignInWithEmailPassword } from "@/modules/user/hooks";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export const LoginForm: React.FC = () => {
   const router = useRouter();
@@ -72,23 +79,21 @@ const LoginFormComponent: React.FC<{
   return (
     <div className="space-y-6">
       <header className="space-y-2">
-        <nav className="flex gap-x-1 items-center">
-          <Button
-            asChild
-            className="px-1 h-fit text-muted-foreground"
-            variant="link"
-          >
-            <Link href="/">Home</Link>
-          </Button>
-          <SlashIcon className="h-3 w-3" />
-          <Button
-            asChild
-            className="px-1 h-fit text-muted-foreground"
-            variant="link"
-          >
-            <Link href="/login">Sign in</Link>
-          </Button>
-        </nav>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/">Home</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/login">Login</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         <h2 className="font-semibold text-4xl">Sign in</h2>
         <p>Welcome back!</p>
       </header>
