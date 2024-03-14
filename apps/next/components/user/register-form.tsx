@@ -65,15 +65,7 @@ const FormSchema = z.object({
 });
 
 const RegisterFormComponent: React.FC<{
-  signUp: ({
-    email,
-    password,
-    options,
-  }: {
-    email: string;
-    password: string;
-    options?: { emailRedirectTo?: string };
-  }) => void;
+  signUp: ({ email, password }: { email: string; password: string }) => void;
   isPending: boolean;
   isError: boolean;
   errorMessage?: string;

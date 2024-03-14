@@ -28,13 +28,7 @@ export const useSignUpWithEmailPassword: AuthHook<
   const supabase = useSupabaseClient();
   return useMutation({
     mutationFn: async (credentials) => {
-      const { data, error } = await supabase.auth.signUp({
-        ...credentials,
-        options: {
-          emailRedirectTo: `${location.origin}/auth/callback`,
-          ...credentials.options,
-        },
-      });
+      const { data, error } = await supabase.auth.signUp(credentials);
       if (error) {
         throw error;
       }

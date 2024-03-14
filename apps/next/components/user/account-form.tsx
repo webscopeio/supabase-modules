@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -60,8 +61,11 @@ export const AccountForm: React.FC<{ userEmail: string }> = ({ userEmail }) => {
 };
 
 const FormSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
-  password: z.string().min(5, { message: "Must be 5 or more characters long" }),
+  email: z.string().email({ message: "Invalid email address" }).optional(),
+  password: z
+    .string()
+    .min(5, { message: "Must be 5 or more characters long" })
+    .optional(),
 });
 
 const AccountFormComponent: React.FC<{
@@ -70,8 +74,8 @@ const AccountFormComponent: React.FC<{
     email,
     password,
   }: {
-    email: string;
-    password: string;
+    email?: string;
+    password?: string;
   }) => void;
   isPending: boolean;
   isError: boolean;
@@ -129,6 +133,9 @@ const AccountFormComponent: React.FC<{
                 <FormControl>
                   <Input placeholder="sosa@webscope.io" {...field} />
                 </FormControl>
+                <FormDescription>
+                  (Optional) the new email you would like to use
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -142,6 +149,9 @@ const AccountFormComponent: React.FC<{
                 <FormControl>
                   <Input type="password" placeholder="Password" {...field} />
                 </FormControl>
+                <FormDescription>
+                  (Optional) the new password you would like to use
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

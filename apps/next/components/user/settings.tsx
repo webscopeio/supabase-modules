@@ -7,7 +7,6 @@ import {
   InfoCircledIcon,
 } from "@radix-ui/react-icons";
 import * as React from "react";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -167,7 +166,7 @@ const SettingsComponent: React.FC<{
           </AvatarFallback>
         </Avatar>
         <div>
-          <h4 className="font-semibold">@{username}</h4>
+          <h4 className="font-semibold">{username}</h4>
           <p>{email}</p>
         </div>
         <div className="flex ml-auto items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
