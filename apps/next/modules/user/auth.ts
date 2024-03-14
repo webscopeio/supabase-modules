@@ -63,6 +63,23 @@ export const useSignInWithEmailPassword: AuthHook<
   });
 };
 
+export const useResetPasswordForEmail: AuthHook<
+  unknown,
+  AuthTokenResponse["error"],
+  string
+> = (options) => {
+  const supabase = useSupabaseClient();
+  return useMutation({
+    mutationFn: async (email) => {
+      const { error } = await supabase.auth.resetPasswordForEmail(email);
+      if (error) {
+        throw error;
+      }
+    },
+    ...options,
+  });
+};
+
 export const useSignOut: AuthHook<unknown, AuthTokenResponse["error"], void> = (
   options
 ) => {

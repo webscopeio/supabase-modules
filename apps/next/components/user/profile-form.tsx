@@ -255,15 +255,15 @@ const ProfileFormComponent: React.FC<{
               </AlertDescription>
             </Alert>
           )}
-          <footer className="flex justify-end">
+          <footer className="flex justify-end space-x-2">
+            <Button asChild variant="link">
+              <Link href="/settings/account">Account Settings</Link>
+            </Button>
             <Button type="submit" disabled={isPending}>
               {isPending && (
                 <CircleIcon className="mr-2 h-4 w-4 animate-spin" />
               )}
               Update Settings
-            </Button>
-            <Button asChild variant="link">
-              <Link href="/settings/account">Account Settings</Link>
             </Button>
           </footer>
         </form>

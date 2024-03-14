@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -128,6 +129,14 @@ const LoginFormComponent: React.FC<{
                 <FormControl>
                   <Input type="password" placeholder="Password" {...field} />
                 </FormControl>
+                <FormDescription className="pt-1">
+                  <Link
+                    className="hover:underline underline-offset-4"
+                    href="/login/reset-password"
+                  >
+                    Forgot password?
+                  </Link>
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -141,15 +150,15 @@ const LoginFormComponent: React.FC<{
               </AlertDescription>
             </Alert>
           )}
-          <footer className="flex justify-end">
+          <footer className="flex justify-end space-x-2">
+            <Button asChild variant="link">
+              <Link href="/register">Create new account</Link>
+            </Button>
             <Button type="submit" disabled={isPending}>
               {isPending && (
                 <CircleIcon className="mr-2 h-4 w-4 animate-spin" />
               )}
               Sign in
-            </Button>
-            <Button asChild variant="link">
-              <Link href="/register">Create new account</Link>
             </Button>
           </footer>
         </form>

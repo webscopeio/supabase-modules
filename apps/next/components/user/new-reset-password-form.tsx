@@ -19,7 +19,7 @@ import Link from "next/link";
 import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
-import { useSignUpWithEmailPassword } from "@/modules/user/auth";
+import { useUpdateUser } from "@/modules/user/auth";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -28,18 +28,18 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-export const RegisterForm: React.FC = () => {
+export const NewResetPasswordForm: React.FC = () => {
   const router = useRouter();
 
-  // #region useSignUpWithEmailPassword
+  // #region useUpdateUser
   const {
-    mutate: signUp,
+    mutate: updateUser,
     isPending,
     isError,
     error,
-  } = useSignUpWithEmailPassword({
+  } = useUpdateUser({
     onSuccess: () => {
-      router.push("/login");
+      router.push("/settings");
     },
     onError: (error) => {
       if (error instanceof Error) {
@@ -47,11 +47,11 @@ export const RegisterForm: React.FC = () => {
       }
     },
   });
-  // #endregion useSignUpWithEmailPassword
+  // #endregion useUpdateUser
 
   return (
-    <RegisterFormComponent
-      signUp={signUp}
+    <NewResetPasswordFormComponent
+      updateUser={updateUser}
       isPending={isPending}
       isError={isError}
       errorMessage={error?.message}
@@ -60,20 +60,18 @@ export const RegisterForm: React.FC = () => {
 };
 
 const FormSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
   password: z.string().min(5, { message: "Must be 5 or more characters long" }),
 });
 
-const RegisterFormComponent: React.FC<{
-  signUp: ({ email, password }: { email: string; password: string }) => void;
+const NewResetPasswordFormComponent: React.FC<{
+  updateUser: ({ password }: { password: string }) => void;
   isPending: boolean;
   isError: boolean;
   errorMessage?: string;
-}> = ({ signUp, isPending, isError, errorMessage }) => {
+}> = ({ updateUser, isPending, isError, errorMessage }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: "",
       password: "",
     },
   });
@@ -91,37 +89,33 @@ const RegisterFormComponent: React.FC<{
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href="/register">Register</Link>
+                <Link href="/login">Login</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/login/reset-password">Reset Password</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/login/reset-password/new">New Password</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <h2 className="font-semibold text-4xl">Create an account</h2>
+        <h2 className="font-semibold text-4xl">New Password</h2>
         <p>Please fill out the form below</p>
       </header>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(({ email, password }) => {
-            signUp({
-              email,
-              password,
-            });
+          onSubmit={form.handleSubmit(({ password }) => {
+            updateUser({ password });
           })}
           className="space-y-6"
         >
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input placeholder="sosa@webscope.io" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <FormField
             control={form.control}
             name="password"
@@ -146,13 +140,13 @@ const RegisterFormComponent: React.FC<{
           )}
           <footer className="flex justify-end space-x-2">
             <Button asChild variant="link">
-              <Link href="/login">I already have an account</Link>
+              <Link href="/login">Back to Login</Link>
             </Button>
             <Button type="submit" disabled={isPending}>
               {isPending && (
                 <CircleIcon className="mr-2 h-4 w-4 animate-spin" />
               )}
-              Create account
+              Set new password
             </Button>
           </footer>
         </form>
