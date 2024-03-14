@@ -40,6 +40,12 @@ Then copy, paste and execute the contents of file `modules/user/migration.sql` i
 <<< ../../apps/next/components/user/login-form.tsx#useSignInWithEmailPassword
 :::
 
+### `useResetPasswordForEmail`
+
+::: code-group
+<<< ../../apps/next/components/user/reset-password-form.tsx#useResetPasswordForEmail
+:::
+
 ### `useSignOut`
 
 ::: code-group
