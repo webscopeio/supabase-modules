@@ -32,8 +32,8 @@ export const AccountForm: React.FC<{ userEmail: string }> = ({ userEmail }) => {
 
   // #region useUpdateUser
   const {
-    mutate: onSubmit,
-    isPending: isLoading,
+    mutate: updateUser,
+    isPending,
     isError,
     error,
   } = useUpdateUser({
@@ -51,8 +51,8 @@ export const AccountForm: React.FC<{ userEmail: string }> = ({ userEmail }) => {
   return (
     <AccountFormComponent
       userEmail={userEmail}
-      onSubmit={onSubmit}
-      isLoading={isLoading}
+      updateUser={updateUser}
+      isPending={isPending}
       isError={isError}
       errorMessage={error?.message}
     />
@@ -66,11 +66,17 @@ const FormSchema = z.object({
 
 const AccountFormComponent: React.FC<{
   userEmail: string;
-  onSubmit: ({ email, password }: { email: string; password: string }) => void;
-  isLoading: boolean;
+  updateUser: ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => void;
+  isPending: boolean;
   isError: boolean;
   errorMessage?: string;
-}> = ({ userEmail, onSubmit, isLoading, isError, errorMessage }) => {
+}> = ({ userEmail, updateUser, isPending, isError, errorMessage }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -109,7 +115,7 @@ const AccountFormComponent: React.FC<{
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(({ email, password }) => {
-            onSubmit({ email, password });
+            updateUser({ email, password });
             form.reset();
           })}
           className="space-y-6"
@@ -150,8 +156,8 @@ const AccountFormComponent: React.FC<{
             </Alert>
           )}
           <footer className="flex justify-end">
-            <Button type="submit" disabled={isLoading}>
-              {isLoading && (
+            <Button type="submit" disabled={isPending}>
+              {isPending && (
                 <CircleIcon className="mr-2 h-4 w-4 animate-spin" />
               )}
               Update Settings

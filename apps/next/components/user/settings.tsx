@@ -93,7 +93,7 @@ export const SettingsContainer: React.FC<{
   // #region useSignOut
   const {
     mutate: signOut,
-    isPending: isLoading,
+    isPending,
     isError,
     error,
   } = useSignOut({
@@ -114,7 +114,7 @@ export const SettingsContainer: React.FC<{
       preferredName={preferredName}
       email={email}
       signOut={signOut}
-      isLoading={isLoading}
+      isPending={isPending}
       isError={isError}
       errorMessage={error?.message}
     />
@@ -126,7 +126,7 @@ const SettingsComponent: React.FC<{
   preferredName: string | null;
   email: string;
   signOut: () => void;
-  isLoading: boolean;
+  isPending: boolean;
   isError: boolean;
   errorMessage?: string;
 }> = ({
@@ -134,7 +134,7 @@ const SettingsComponent: React.FC<{
   preferredName,
   email,
   signOut,
-  isLoading,
+  isPending,
   isError,
   errorMessage,
 }) => {
@@ -173,11 +173,11 @@ const SettingsComponent: React.FC<{
         <div className="flex ml-auto items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
           <Button
             onClick={() => signOut()}
-            disabled={isLoading}
+            disabled={isPending}
             variant="secondary"
             className="px-3 shadow-none"
           >
-            {isLoading && <CircleIcon className="mr-2 h-4 w-4 animate-spin" />}
+            {isPending && <CircleIcon className="mr-2 h-4 w-4 animate-spin" />}
             Sign out
           </Button>
           <Separator orientation="vertical" className="h-[20px]" />

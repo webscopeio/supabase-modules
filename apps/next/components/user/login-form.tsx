@@ -33,8 +33,8 @@ export const LoginForm: React.FC = () => {
 
   // #region useSignInWithEmailPassword
   const {
-    mutate: onSubmit,
-    isPending: isLoading,
+    mutate: signIn,
+    isPending,
     isError,
     error,
   } = useSignInWithEmailPassword({
@@ -51,8 +51,8 @@ export const LoginForm: React.FC = () => {
 
   return (
     <LoginFormComponent
-      onSubmit={onSubmit}
-      isLoading={isLoading}
+      signIn={signIn}
+      isPending={isPending}
       isError={isError}
       errorMessage={error?.message}
     />
@@ -65,11 +65,11 @@ const FormSchema = z.object({
 });
 
 const LoginFormComponent: React.FC<{
-  onSubmit: ({ email, password }: { email: string; password: string }) => void;
-  isLoading: boolean;
+  signIn: ({ email, password }: { email: string; password: string }) => void;
+  isPending: boolean;
   isError: boolean;
   errorMessage?: string;
-}> = ({ onSubmit, isLoading, isError, errorMessage }) => {
+}> = ({ signIn, isPending, isError, errorMessage }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -102,7 +102,7 @@ const LoginFormComponent: React.FC<{
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(({ email, password }) => {
-            onSubmit({ email, password });
+            signIn({ email, password });
           })}
           className="space-y-6"
         >
@@ -142,8 +142,8 @@ const LoginFormComponent: React.FC<{
             </Alert>
           )}
           <footer className="flex justify-end">
-            <Button type="submit" disabled={isLoading}>
-              {isLoading && (
+            <Button type="submit" disabled={isPending}>
+              {isPending && (
                 <CircleIcon className="mr-2 h-4 w-4 animate-spin" />
               )}
               Sign in

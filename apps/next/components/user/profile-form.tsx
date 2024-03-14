@@ -92,8 +92,8 @@ export const ProfileFormContainer: React.FC<{
   const router = useRouter();
   // #region useUpdateProfile
   const {
-    mutate: onSubmit,
-    isPending: isLoading,
+    mutate: updateProfile,
+    isPending,
     isError,
     error,
   } = useUpdateProfile({
@@ -115,8 +115,8 @@ export const ProfileFormContainer: React.FC<{
       username={username}
       fullName={fullName}
       preferredName={preferredName}
-      onSubmit={onSubmit}
-      isLoading={isLoading}
+      updateProfile={updateProfile}
+      isPending={isPending}
       isError={isError}
       errorMessage={error?.message}
     />
@@ -138,7 +138,7 @@ const ProfileFormComponent: React.FC<{
   username: string;
   fullName: string | null;
   preferredName: string | null;
-  onSubmit: ({
+  updateProfile: ({
     id,
     username,
     full_name,
@@ -149,7 +149,7 @@ const ProfileFormComponent: React.FC<{
     full_name: string;
     preferred_name?: string;
   }) => void;
-  isLoading: boolean;
+  isPending: boolean;
   isError: boolean;
   errorMessage?: string;
 }> = ({
@@ -157,8 +157,8 @@ const ProfileFormComponent: React.FC<{
   username,
   fullName,
   preferredName,
-  onSubmit,
-  isLoading,
+  updateProfile,
+  isPending,
   isError,
   errorMessage,
 }) => {
@@ -202,7 +202,7 @@ const ProfileFormComponent: React.FC<{
         <form
           onSubmit={form.handleSubmit(
             ({ username, full_name, preferred_name }) => {
-              onSubmit({ id, username, full_name, preferred_name });
+              updateProfile({ id, username, full_name, preferred_name });
             }
           )}
           className="space-y-6"
@@ -256,8 +256,8 @@ const ProfileFormComponent: React.FC<{
             </Alert>
           )}
           <footer className="flex justify-end">
-            <Button type="submit" disabled={isLoading}>
-              {isLoading && (
+            <Button type="submit" disabled={isPending}>
+              {isPending && (
                 <CircleIcon className="mr-2 h-4 w-4 animate-spin" />
               )}
               Update Settings
