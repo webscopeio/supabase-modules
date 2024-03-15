@@ -1,4 +1,4 @@
-import { RegisterForm } from "@/components/user/register-form";
+import { CredentialsForm } from "@/components/user/credentials-form";
 import { useSupabaseServer } from "@/modules/utils/server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -10,13 +10,9 @@ export default async function Page() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (user) {
-    redirect("/settings");
+  if (!user || !user.email) {
+    redirect("/login");
   }
 
-  return (
-    <div className="grid min-h-dvh items-center">
-      <RegisterForm />
-    </div>
-  );
+  return <CredentialsForm userEmail={user.email} />;
 }

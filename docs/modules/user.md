@@ -63,13 +63,13 @@ Authentication supports the following methods:
 ### `useSignOut`
 
 ::: code-group
-<<< ../../apps/next/components/user/settings.tsx#useSignOut
+<<< ../../apps/next/components/user/accounts.tsx#useSignOut
 :::
 
 ### `useUpdateUser`
 
 ::: code-group
-<<< ../../apps/next/components/user/account-form.tsx#useUpdateUser
+<<< ../../apps/next/components/user/credentials-form.tsx#useUpdateUser
 :::
 
 ## Profile
@@ -81,7 +81,7 @@ Profile supports the following methods:
 ### `useGetProfile`
 
 ::: code-group
-<<< ../../apps/next/components/user/settings.tsx#useGetProfile
+<<< ../../apps/next/components/user/accounts.tsx#useGetProfile
 :::
 
 ### `useUpdateProfile`

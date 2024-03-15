@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "build": "dotenv -- turbo build",
-    "dev": "dotenv -- turbo dev",
+    "dev-remote": "dotenv -e .env -- turbo dev",
+    "dev": "dotenv -e .env.local -- turbo dev",
     "db:start": "turbo db:start",
     "db:stop": "turbo db:stop",
     "db:reset": "supabase db reset",

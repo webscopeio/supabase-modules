@@ -21,13 +21,6 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
 import { useVerifyOtp } from "@/modules/user/auth";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
@@ -86,28 +79,9 @@ const OtpLoginFormComponent: React.FC<{
   return (
     <div className="space-y-6">
       <header className="space-y-2">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/">Home</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/login">Login</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/login/otp">OTP Login</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        <h2 className="text-4xl font-semibold">One-Time password login</h2>
+        <h2 className="text-4xl font-semibold tracking-tight">
+          One-Time password login
+        </h2>
         <p>Almost there!</p>
       </header>
       <Form {...form}>
@@ -127,11 +101,11 @@ const OtpLoginFormComponent: React.FC<{
                   <InputOTP
                     maxLength={6}
                     render={({ slots }) => (
-                      <InputOTPGroup className="space-x-2">
+                      <InputOTPGroup className="w-full space-x-2">
                         {slots.map((slot, index) => (
                           <InputOTPSlot
                             key={index}
-                            className="rounded-md border"
+                            className="aspect-square size-full rounded-md border sm:size-9"
                             {...slot}
                           />
                         ))}
@@ -156,15 +130,13 @@ const OtpLoginFormComponent: React.FC<{
               </AlertDescription>
             </Alert>
           )}
-          <footer className="flex flex-col gap-y-2">
+          <footer className="flex flex-col gap-2 sm:flex-row">
             <Button type="submit" disabled={isPending}>
-              {isPending && (
-                <CircleIcon className="mr-2 size-4 animate-spin" />
-              )}
+              {isPending && <CircleIcon className="mr-2 size-4 animate-spin" />}
               Sign in
             </Button>
             <Button asChild variant="link">
-              <Link href="/register">Create new account</Link>
+              <Link href="/login/new">Create new account</Link>
             </Button>
           </footer>
         </form>

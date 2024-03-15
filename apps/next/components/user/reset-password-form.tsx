@@ -20,13 +20,6 @@ import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
 import { useResetPasswordForEmail } from "@/modules/user/auth";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 
 export const ResetPasswordForm: React.FC = () => {
   const router = useRouter();
@@ -79,28 +72,9 @@ const ResetPasswordFormComponent: React.FC<{
   return (
     <div className="space-y-6">
       <header className="space-y-2">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/">Home</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/login">Login</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/login/reset-password">Reset Password</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        <h2 className="text-4xl font-semibold">Reset Password</h2>
+        <h2 className="text-4xl font-semibold tracking-tight">
+          Reset Password
+        </h2>
         <p>Please fill out the form below</p>
       </header>
       <Form {...form}>
@@ -132,11 +106,9 @@ const ResetPasswordFormComponent: React.FC<{
               </AlertDescription>
             </Alert>
           )}
-          <footer className="flex flex-col gap-y-2">
+          <footer className="flex flex-col gap-2 sm:flex-row">
             <Button type="submit" disabled={isPending}>
-              {isPending && (
-                <CircleIcon className="mr-2 size-4 animate-spin" />
-              )}
+              {isPending && <CircleIcon className="mr-2 size-4 animate-spin" />}
               Reset password
             </Button>
             <Button asChild variant="link">

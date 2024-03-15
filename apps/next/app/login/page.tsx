@@ -15,9 +15,5 @@ export default async function Page() {
     redirect("/settings");
   }
 
-  return (
-    <div className="grid min-h-dvh items-center">
-      <LoginForm />
-    </div>
-  );
+  return <LoginForm />;
 }

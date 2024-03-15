@@ -1,7 +1,8 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDotEnv": [
-    ".env"
+    ".env",
+    ".env.local"
   ],
   "pipeline": {
     "build": {
@@ -12,7 +13,15 @@
         "dist/**"
       ]
     },
+    "dev-remote": {
+      "dotEnv": [
+        ".env"
+      ]
+    },
     "dev": {
+      "dotEnv": [
+        ".env.local"
+      ],
       "dependsOn": [
         "^build"
       ],

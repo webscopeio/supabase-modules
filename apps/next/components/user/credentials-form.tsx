@@ -20,15 +20,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUpdateUser } from "@/modules/user/auth";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 
-export const AccountForm: React.FC<{ userEmail: string }> = ({ userEmail }) => {
+export const CredentialsForm: React.FC<{ userEmail: string }> = ({
+  userEmail,
+}) => {
   const router = useRouter();
 
   // #region useUpdateUser
@@ -50,7 +45,7 @@ export const AccountForm: React.FC<{ userEmail: string }> = ({ userEmail }) => {
   // #endregion useUpdateUser
 
   return (
-    <AccountFormComponent
+    <CredentialsFormComponent
       userEmail={userEmail}
       updateUser={updateUser}
       isPending={isPending}
@@ -68,7 +63,7 @@ const FormSchema = z.object({
     .optional(),
 });
 
-const AccountFormComponent: React.FC<{
+const CredentialsFormComponent: React.FC<{
   userEmail: string;
   updateUser: ({
     email,
@@ -90,31 +85,12 @@ const AccountFormComponent: React.FC<{
   });
 
   return (
-    <div className="flex min-h-dvh flex-col justify-center space-y-6">
+    <div className="space-y-6">
       <header className="space-y-2">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/">Home</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/settings">Settings</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/settings/account">Account</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        <h2 className="text-4xl font-semibold">Account Settings</h2>
-        <p>Manage your account settings</p>
+        <h2 className="text-2xl font-semibold tracking-tight">
+          Credentials Settings
+        </h2>
+        <p>Manage your credentials settings</p>
       </header>
       <Form {...form}>
         <form
@@ -165,11 +141,9 @@ const AccountFormComponent: React.FC<{
               </AlertDescription>
             </Alert>
           )}
-          <footer className="flex flex-col gap-y-2">
+          <footer className="flex flex-col gap-2 sm:flex-row">
             <Button type="submit" disabled={isPending}>
-              {isPending && (
-                <CircleIcon className="mr-2 size-4 animate-spin" />
-              )}
+              {isPending && <CircleIcon className="mr-2 size-4 animate-spin" />}
               Update Settings
             </Button>
             <Button asChild variant="link">

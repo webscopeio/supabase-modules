@@ -20,13 +20,6 @@ import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
 import { useSignUpWithEmailPassword } from "@/modules/user/auth";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 
 export const RegisterForm: React.FC = () => {
   const router = useRouter();
@@ -81,22 +74,9 @@ const RegisterFormComponent: React.FC<{
   return (
     <div className="space-y-6">
       <header className="space-y-2">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/">Home</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/register">Register</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        <h2 className="text-4xl font-semibold">Create an account</h2>
+        <h2 className="text-4xl font-semibold tracking-tight">
+          Create an account
+        </h2>
         <p>Please fill out the form below</p>
       </header>
       <Form {...form}>
@@ -144,11 +124,9 @@ const RegisterFormComponent: React.FC<{
               </AlertDescription>
             </Alert>
           )}
-          <footer className="flex flex-col gap-y-2">
+          <footer className="flex flex-col gap-2 sm:flex-row">
             <Button type="submit" disabled={isPending}>
-              {isPending && (
-                <CircleIcon className="mr-2 size-4 animate-spin" />
-              )}
+              {isPending && <CircleIcon className="mr-2 size-4 animate-spin" />}
               Create account
             </Button>
             <Button asChild variant="link">

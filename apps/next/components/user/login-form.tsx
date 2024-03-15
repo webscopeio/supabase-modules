@@ -24,13 +24,6 @@ import {
   useSignInWithEmailPassword,
   useSignInWithEmailOtp,
 } from "@/modules/user/auth";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 
@@ -113,22 +106,7 @@ const LoginFormComponent: React.FC<{
   return (
     <div className="space-y-6">
       <header className="space-y-2">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/">Home</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/login">Login</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        <h2 className="text-4xl font-semibold">Sign in</h2>
+        <h2 className="text-4xl font-semibold tracking-tight">Sign in</h2>
         <p>Welcome back!</p>
       </header>
       <Form {...form}>
@@ -191,15 +169,13 @@ const LoginFormComponent: React.FC<{
             />
             <Label htmlFor="OTP-login">Login with One-Time password</Label>
           </div>
-          <footer className="flex flex-col gap-y-2">
+          <footer className="flex flex-col gap-2 sm:flex-row">
             <Button type="submit" disabled={isPending}>
-              {isPending && (
-                <CircleIcon className="mr-2 size-4 animate-spin" />
-              )}
+              {isPending && <CircleIcon className="mr-2 size-4 animate-spin" />}
               {isLoginWithOTP ? "Email me a One-Time password" : "Sign in"}
             </Button>
             <Button asChild variant="link">
-              <Link href="/register">Create new account</Link>
+              <Link href="/login/new">Create new account</Link>
             </Button>
           </footer>
         </form>

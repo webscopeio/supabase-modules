@@ -16,7 +16,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="grid min-h-dvh items-center">
+    <div className="mx-auto w-full max-w-2xl py-52">
       <div className="space-y-6">
         <header className="space-y-2 text-center">
           <h2 className="text-6xl font-bold tracking-tight">
@@ -26,12 +26,12 @@ export default async function Home() {
             Build smarter with pre-built modules today
           </p>
         </header>
-        <footer className="mx-auto w-full max-w-md md:flex md:w-fit">
-          <Button asChild className="w-full">
+        <footer className="flex flex-col justify-center gap-2 sm:flex-row">
+          <Button asChild>
             <Link href="/login">Sign in</Link>
           </Button>
-          <Button variant="link" className="w-full">
-            <Link href="/register">Create an account</Link>
+          <Button variant="link">
+            <Link href="/login/new">Create an account</Link>
           </Button>
         </footer>
       </div>

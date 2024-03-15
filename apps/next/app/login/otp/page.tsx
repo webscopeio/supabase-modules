@@ -34,9 +34,5 @@ export default async function Page({
     redirect("/login");
   }
 
-  return (
-    <div className="grid min-h-dvh items-center">
-      <OtpLoginForm email={searchParams.email} />
-    </div>
-  );
+  return <OtpLoginForm email={searchParams.email} />;
 }

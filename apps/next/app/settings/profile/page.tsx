@@ -14,9 +14,5 @@ export default async function Page() {
     redirect("/login");
   }
 
-  return (
-    <div className="grid min-h-dvh items-center">
-      <ProfileForm userId={user.id} />
-    </div>
-  );
+  return <ProfileForm userId={user.id} />;
 }

@@ -1,4 +1,3 @@
-import { Settings } from "@/components/user/settings";
 import { useSupabaseServer } from "@/modules/utils/server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -14,9 +13,5 @@ export default async function Page() {
     redirect("/login");
   }
 
-  return (
-    <div className="grid min-h-dvh items-center">
-      <Settings userId={user.id} />
-    </div>
-  );
+  redirect("/settings/accounts");
 }

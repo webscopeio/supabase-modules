@@ -23,13 +23,6 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { useGetProfile, useUpdateProfile } from "@/modules/user/profile";
 
 export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
@@ -37,7 +30,7 @@ export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-dvh flex-col items-center justify-center">
+      <div className="flex h-full flex-col items-center justify-center">
         <div className="animate-pulse">
           <CircleIcon className="size-8 animate-spin" />
         </div>
@@ -47,7 +40,7 @@ export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
 
   if (isError) {
     return (
-      <div className="flex min-h-dvh flex-col py-6">
+      <div className="flex flex-col items-center justify-center">
         <Alert variant="destructive">
           <CrossCircledIcon className="size-4" />
           <AlertTitle>Something went wrong!</AlertTitle>
@@ -61,7 +54,7 @@ export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
 
   if (!data) {
     return (
-      <div className="flex min-h-dvh flex-col py-6">
+      <div className="flex flex-col items-center justify-center">
         <Alert>
           <InfoCircledIcon className="size-4" />
           <AlertTitle>No data found!</AlertTitle>
@@ -172,30 +165,11 @@ const ProfileFormComponent: React.FC<{
   });
 
   return (
-    <div className="flex flex-col space-y-6">
+    <div className="space-y-6">
       <header className="space-y-2">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/">Home</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/settings">Settings</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/settings/profile">Profile</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        <h2 className="text-4xl font-semibold">Profile Settings</h2>
+        <h2 className="text-2xl font-semibold tracking-tight">
+          Profile Settings
+        </h2>
         <p>Manage your profile settings</p>
       </header>
       <Form {...form}>
@@ -255,11 +229,9 @@ const ProfileFormComponent: React.FC<{
               </AlertDescription>
             </Alert>
           )}
-          <footer className="flex flex-col gap-y-2">
+          <footer className="flex flex-col gap-2 sm:flex-row">
             <Button type="submit" disabled={isPending}>
-              {isPending && (
-                <CircleIcon className="mr-2 size-4 animate-spin" />
-              )}
+              {isPending && <CircleIcon className="mr-2 size-4 animate-spin" />}
               Update Settings
             </Button>
             <Button asChild variant="link">

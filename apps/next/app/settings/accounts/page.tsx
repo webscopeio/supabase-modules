@@ -1,7 +1,6 @@
-import { NewResetPasswordForm } from "@/components/user/new-reset-password-form";
+import { Accounts } from "@/components/user/accounts";
 import { useSupabaseServer } from "@/modules/utils/server";
 import { cookies } from "next/headers";
-
 import { redirect } from "next/navigation";
 
 export default async function Page() {
@@ -15,5 +14,5 @@ export default async function Page() {
     redirect("/login");
   }
 
-  return <NewResetPasswordForm />;
+  return <Accounts userId={user.id} />;
 }

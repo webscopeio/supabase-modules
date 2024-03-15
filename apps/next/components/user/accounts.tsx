@@ -20,24 +20,17 @@ import { Separator } from "@/components/ui/separator";
 import { ChevronDownIcon, TrashIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { useGetProfile } from "@/modules/user/profile";
 import { useSignOut } from "@/modules/user/auth";
 
-export const Settings: React.FC<{ userId: string }> = ({ userId }) => {
+export const Accounts: React.FC<{ userId: string }> = ({ userId }) => {
   // #region useGetProfile
   const { data, isLoading, isError, error } = useGetProfile({ id: userId });
   // #endregion useGetProfile
 
   if (isLoading) {
     return (
-      <div className="flex min-h-dvh flex-col items-center justify-center">
+      <div className="flex h-full flex-col items-center justify-center">
         <div className="animate-pulse">
           <CircleIcon className="size-8 animate-spin" />
         </div>
@@ -47,7 +40,7 @@ export const Settings: React.FC<{ userId: string }> = ({ userId }) => {
 
   if (isError) {
     return (
-      <div className="flex min-h-dvh flex-col py-6">
+      <div className="flex flex-col items-center justify-center">
         <Alert variant="destructive">
           <CrossCircledIcon className="size-4" />
           <AlertTitle>Something went wrong!</AlertTitle>
@@ -61,7 +54,7 @@ export const Settings: React.FC<{ userId: string }> = ({ userId }) => {
 
   if (!data) {
     return (
-      <div className="flex min-h-dvh flex-col py-6">
+      <div className="flex flex-col items-center justify-center">
         <Alert>
           <InfoCircledIcon className="size-4" />
           <AlertTitle>No data found!</AlertTitle>
@@ -74,7 +67,7 @@ export const Settings: React.FC<{ userId: string }> = ({ userId }) => {
   }
 
   return (
-    <SettingsContainer
+    <AccountsContainer
       username={data.username}
       preferredName={data.preferred_name}
       email={data.email}
@@ -82,7 +75,7 @@ export const Settings: React.FC<{ userId: string }> = ({ userId }) => {
   );
 };
 
-export const SettingsContainer: React.FC<{
+export const AccountsContainer: React.FC<{
   username: string;
   preferredName: string | null;
   email: string;
@@ -108,7 +101,7 @@ export const SettingsContainer: React.FC<{
   // #endregion useSignOut
 
   return (
-    <SettingsComponent
+    <AccountsComponent
       username={username}
       preferredName={preferredName}
       email={email}
@@ -120,7 +113,7 @@ export const SettingsContainer: React.FC<{
   );
 };
 
-const SettingsComponent: React.FC<{
+const AccountsComponent: React.FC<{
   username: string;
   preferredName: string | null;
   email: string;
@@ -138,24 +131,9 @@ const SettingsComponent: React.FC<{
   errorMessage,
 }) => {
   return (
-    <div className="flex flex-col space-y-6">
+    <div className="space-y-6">
       <header className="space-y-2">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/">Home</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/settings">Settings</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        <h2 className="text-4xl font-semibold">Settings</h2>
+        <h2 className="text-2xl font-semibold tracking-tight">Accounts</h2>
         <p>{preferredName ? `Hello, ${preferredName}!` : "Hi there!"}</p>
       </header>
       <div className="flex items-center gap-x-4">
