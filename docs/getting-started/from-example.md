@@ -23,12 +23,11 @@ pnpm install
 
 Create an `.env.local` file to store your environment variables.
 
-```.env
-NEXT_PUBLIC_SUPABASE_URL=<SUPABASE_URL>
-NEXT_PUBLIC_SUPABASE_ANON_KEY=<SUPANASE_ANON_KEY>
-```
+<<< ../../.env.example
 
-If you do not have these, you may have to run Supabase locally first before development. Read more on [Your Supabase Instance](/getting-started/supabase).
+The `.env.example` file above contains the environment variables that you can use for local development.
+
+To generate these environment variables you have to run Supabase locally first before development. Read more on [Your Supabase Instance](/getting-started/supabase).
 
 ## 3. Start your development server.
 
@@ -49,7 +48,7 @@ pnpm dev
 :::
 
 ::: tip :tada: Congratulations!
-You are done! See [Installation](/modules/installation) for more information about the Modules. Remember that all modules are installed by default in this example. 
+You are done! See [Installation](/modules/installation) for more information about the Modules. Remember that all modules are installed by default in this example.
 
 Remember to run `pnpm db:stop` to save resources once you are done working with your local Supabase Instance.
 :::

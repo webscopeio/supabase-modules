@@ -19,10 +19,18 @@
       "cache": false,
       "persistent": true
     },
-    "db:start": {},
-    "db:stop": {},
-    "db:reset": {},
+    "db:start": {
+      "cache": false
+    },
+    "db:stop": {
+      "cache": false
+    },
+    "db:reset": {
+      "cache": false
+    },
     "db:gen-types": {},
-    "lint": {}
+    "lint": {
+      "cache": false
+    }
   }
 }

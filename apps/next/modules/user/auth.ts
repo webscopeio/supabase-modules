@@ -2,12 +2,15 @@ import { revalidateCache } from "@/modules/utils/cache";
 import { useSupabaseClient } from "@/modules/utils/client";
 import type {
   AuthError,
+  AuthOtpResponse,
   AuthResponse,
   AuthTokenResponse,
   SignInWithPasswordCredentials,
+  SignInWithPasswordlessCredentials,
   SignUpWithPasswordCredentials,
   UserAttributes,
   UserResponse,
+  VerifyOtpParams,
 } from "@supabase/supabase-js";
 import type { MutationOptions, UseMutationResult } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
@@ -58,6 +61,74 @@ export const useSignInWithEmailPassword: AuthHook<
       }
       revalidateCache();
       return data;
+    },
+    ...options,
+  });
+};
+
+export const useSignUpWithEmailOtp: AuthHook<
+  unknown,
+  AuthOtpResponse["error"],
+  Extract<SignInWithPasswordlessCredentials, { email: string }>
+> = (options) => {
+  const supabase = useSupabaseClient();
+  return useMutation({
+    mutationFn: async (credentials) => {
+      const { error } = await supabase.auth.signInWithOtp({
+        email: credentials.email,
+        options: {
+          shouldCreateUser: true,
+          ...credentials.options,
+        },
+      });
+      if (error) {
+        throw error;
+      }
+    },
+    ...options,
+  });
+};
+
+export const useSignInWithEmailOtp: AuthHook<
+  unknown,
+  AuthOtpResponse["error"],
+  Extract<SignInWithPasswordlessCredentials, { email: string }>
+> = (options) => {
+  const supabase = useSupabaseClient();
+  return useMutation({
+    mutationFn: async (credentials) => {
+      const { error } = await supabase.auth.signInWithOtp({
+        email: credentials.email,
+        options: {
+          shouldCreateUser: false,
+          ...credentials.options,
+        },
+      });
+      if (error) {
+        throw error;
+      }
+    },
+    ...options,
+  });
+};
+
+export const useVerifyOtp: AuthHook<
+  unknown,
+  AuthOtpResponse["error"],
+  Omit<Extract<VerifyOtpParams, { email: string }>, "type">
+> = (options) => {
+  const supabase = useSupabaseClient();
+  return useMutation({
+    mutationFn: async (credentials) => {
+      const { error } = await supabase.auth.verifyOtp({
+        email: credentials.email,
+        token: credentials.token,
+        type: "email",
+      });
+      if (error) {
+        throw error;
+      }
+      revalidateCache();
     },
     ...options,
   });

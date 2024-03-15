@@ -24,12 +24,12 @@ export default function RootLayout({
     <html lang="en" className="dark" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-dvh bg-background font-sans antialiased",
+          "bg-background min-h-dvh font-sans antialiased",
           fontSans.variable
         )}
       >
         <Providers>
-          <main className="max-w-xl mx-auto px-4">{children}</main>
+          <main className="mx-auto max-w-xl px-4">{children}</main>
         </Providers>
       </body>
     </html>

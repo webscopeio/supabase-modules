@@ -22,6 +22,13 @@ Then copy, paste and execute the contents of file `modules/user/migration.sql` i
 
 ## Authentication
 
+Authentication supports the following methods:
+* Sign ups using email and password
+* Sign ins using email and password
+* Sign ins using email One-Time password (OTP workflow)
+* Password reset using email (Magic Link workflow)
+* Updating credentials email and/or password
+
 ### `useSignUpWithEmailPassword`
 
 ::: code-group
@@ -34,11 +41,18 @@ Then copy, paste and execute the contents of file `modules/user/migration.sql` i
 <<< ../../apps/next/components/user/login-form.tsx#useSignInWithEmailPassword
 :::
 
-### `useSignInWithEmailPassword`
+### `useSignInWithEmailOtp`
 
 ::: code-group
-<<< ../../apps/next/components/user/login-form.tsx#useSignInWithEmailPassword
+<<< ../../apps/next/components/user/login-form.tsx#useSignInWithEmailOtp
 :::
+
+### `useVerifyOtp`
+
+::: code-group
+<<< ../../apps/next/components/user/otp-login-form.tsx#useVerifyOtp
+:::
+
 
 ### `useResetPasswordForEmail`
 
@@ -59,6 +73,10 @@ Then copy, paste and execute the contents of file `modules/user/migration.sql` i
 :::
 
 ## Profile
+
+Profile supports the following methods:
+* Get Profile information
+* Update Profile information
 
 ### `useGetProfile`
 

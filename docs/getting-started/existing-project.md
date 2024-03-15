@@ -74,12 +74,11 @@ When you initialize a Supabase projecet. You do not need to generate VS Code set
 
 Update or create an `.env.local` file to store your environment variables.
 
-```.env
-NEXT_PUBLIC_SUPABASE_URL=<SUPABASE_URL>
-NEXT_PUBLIC_SUPABASE_ANON_KEY=<SUPANASE_ANON_KEY>
-```
+<<< ../../.env.example
 
-If you do not have these, you may have to run Supabase locally first before development. Read more on [Your Supabase Instance](/getting-started/supabase).
+The `.env.example` file above contains the environment variables that you can use for local development.
+
+To generate these environment variables you have to run Supabase locally first before development. Read more on [Your Supabase Instance](/getting-started/supabase).
 
 ## 4. Add Query, Middleware, API Route to your project
 
@@ -102,7 +101,6 @@ Update or create a `middleware.ts` file at the root of your project. Since Serve
 Chances are that you will need this route handler.
 
 <<< ../../apps/next/app/auth/confirm/route.ts
-
 
 ## 5. Start your development server
 

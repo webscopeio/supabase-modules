@@ -37,9 +37,9 @@ export const Settings: React.FC<{ userId: string }> = ({ userId }) => {
 
   if (isLoading) {
     return (
-      <div className="min-h-dvh flex flex-col items-center justify-center">
+      <div className="flex min-h-dvh flex-col items-center justify-center">
         <div className="animate-pulse">
-          <CircleIcon className="h-8 w-8 animate-spin" />
+          <CircleIcon className="size-8 animate-spin" />
         </div>
       </div>
     );
@@ -47,9 +47,9 @@ export const Settings: React.FC<{ userId: string }> = ({ userId }) => {
 
   if (isError) {
     return (
-      <div className="min-h-dvh flex flex-col py-6">
+      <div className="flex min-h-dvh flex-col py-6">
         <Alert variant="destructive">
-          <CrossCircledIcon className="h-4 w-4" />
+          <CrossCircledIcon className="size-4" />
           <AlertTitle>Something went wrong!</AlertTitle>
           <AlertDescription>
             {error instanceof Error ? error.message : "Unknown error"}
@@ -61,9 +61,9 @@ export const Settings: React.FC<{ userId: string }> = ({ userId }) => {
 
   if (!data) {
     return (
-      <div className="min-h-dvh flex flex-col py-6">
+      <div className="flex min-h-dvh flex-col py-6">
         <Alert>
-          <InfoCircledIcon className="h-4 w-4" />
+          <InfoCircledIcon className="size-4" />
           <AlertTitle>No data found!</AlertTitle>
           <AlertDescription>
             Please contact the administrator for more information.
@@ -138,7 +138,7 @@ const SettingsComponent: React.FC<{
   errorMessage,
 }) => {
   return (
-    <div className="space-y-6 flex flex-col">
+    <div className="flex flex-col space-y-6">
       <header className="space-y-2">
         <Breadcrumb>
           <BreadcrumbList>
@@ -155,10 +155,10 @@ const SettingsComponent: React.FC<{
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <h2 className="font-semibold text-4xl">Settings</h2>
+        <h2 className="text-4xl font-semibold">Settings</h2>
         <p>{preferredName ? `Hello, ${preferredName}!` : "Hi there!"}</p>
       </header>
-      <div className="flex gap-x-4 items-center">
+      <div className="flex items-center gap-x-4">
         <Avatar>
           <AvatarImage src="https://ui.shadcn.com/avatars/04.png" />
           <AvatarFallback>
@@ -169,21 +169,21 @@ const SettingsComponent: React.FC<{
           <h4 className="font-semibold">{username}</h4>
           <p>{email}</p>
         </div>
-        <div className="flex ml-auto items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
+        <div className="bg-secondary text-secondary-foreground ml-auto flex items-center space-x-1 rounded-md">
           <Button
             onClick={() => signOut()}
             disabled={isPending}
             variant="secondary"
             className="px-3 shadow-none"
           >
-            {isPending && <CircleIcon className="mr-2 h-4 w-4 animate-spin" />}
+            {isPending && <CircleIcon className="mr-2 size-4 animate-spin" />}
             Sign out
           </Button>
           <Separator orientation="vertical" className="h-[20px]" />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" className="px-2 shadow-none">
-                <ChevronDownIcon className="h-4 w-4 text-secondary-foreground" />
+                <ChevronDownIcon className="text-secondary-foreground size-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -200,7 +200,7 @@ const SettingsComponent: React.FC<{
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem disabled={true}>
-                <TrashIcon className="mr-2 h-4 w-4" /> Remove account
+                <TrashIcon className="mr-2 size-4" /> Remove account
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -208,7 +208,7 @@ const SettingsComponent: React.FC<{
       </div>
       {isError && (
         <Alert variant="destructive">
-          <CrossCircledIcon className="h-4 w-4" />
+          <CrossCircledIcon className="size-4" />
           <AlertTitle>Something went wrong!</AlertTitle>
           <AlertDescription>{errorMessage ?? "Unknown error"}</AlertDescription>
         </Alert>

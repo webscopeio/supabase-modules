@@ -90,7 +90,7 @@ const AccountFormComponent: React.FC<{
   });
 
   return (
-    <div className="space-y-6 min-h-dvh flex flex-col justify-center">
+    <div className="flex min-h-dvh flex-col justify-center space-y-6">
       <header className="space-y-2">
         <Breadcrumb>
           <BreadcrumbList>
@@ -113,7 +113,7 @@ const AccountFormComponent: React.FC<{
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <h2 className="font-semibold text-4xl">Account Settings</h2>
+        <h2 className="text-4xl font-semibold">Account Settings</h2>
         <p>Manage your account settings</p>
       </header>
       <Form {...form}>
@@ -158,22 +158,22 @@ const AccountFormComponent: React.FC<{
           />
           {isError && (
             <Alert variant="destructive">
-              <CrossCircledIcon className="h-4 w-4" />
+              <CrossCircledIcon className="size-4" />
               <AlertTitle>Something went wrong!</AlertTitle>
               <AlertDescription>
                 {errorMessage ?? "Unknown error"}
               </AlertDescription>
             </Alert>
           )}
-          <footer className="flex justify-end space-x-2">
-            <Button asChild variant="link">
-              <Link href="/settings/profile">Profile Settings</Link>
-            </Button>
+          <footer className="flex flex-col gap-y-2">
             <Button type="submit" disabled={isPending}>
               {isPending && (
-                <CircleIcon className="mr-2 h-4 w-4 animate-spin" />
+                <CircleIcon className="mr-2 size-4 animate-spin" />
               )}
               Update Settings
+            </Button>
+            <Button asChild variant="link">
+              <Link href="/settings/profile">Profile Settings</Link>
             </Button>
           </footer>
         </form>

@@ -15,7 +15,7 @@ export default async function Page() {
   }
 
   return (
-    <div className="min-h-dvh grid items-center">
+    <div className="grid min-h-dvh items-center">
       <Settings userId={user.id} />
     </div>
   );

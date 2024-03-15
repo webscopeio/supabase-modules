@@ -7,19 +7,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
-import { useUpdateUser } from "@/modules/user/auth";
+import { useVerifyOtp } from "@/modules/user/auth";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -27,17 +27,22 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 
-export const NewResetPasswordForm: React.FC = () => {
+export const OtpLoginForm: React.FC<{ email: string }> = ({ email }) => {
   const router = useRouter();
 
-  // #region useUpdateUser
+  // #region useVerifyOtp
   const {
-    mutate: updateUser,
+    mutate: verifyOtp,
     isPending,
     isError,
     error,
-  } = useUpdateUser({
+  } = useVerifyOtp({
     onSuccess: () => {
       router.push("/settings");
     },
@@ -47,11 +52,11 @@ export const NewResetPasswordForm: React.FC = () => {
       }
     },
   });
-  // #endregion useUpdateUser
+  // #endregion useVerifyOtp
 
   return (
-    <NewResetPasswordFormComponent
-      updateUser={updateUser}
+    <OtpLoginFormComponent
+      verifyOtp={({ token }) => verifyOtp({ email, token })}
       isPending={isPending}
       isError={isError}
       errorMessage={error?.message}
@@ -60,19 +65,21 @@ export const NewResetPasswordForm: React.FC = () => {
 };
 
 const FormSchema = z.object({
-  password: z.string().min(5, { message: "Must be 5 or more characters long" }),
+  token: z.string().min(6, {
+    message: "Your one-time password must be 6 characters.",
+  }),
 });
 
-const NewResetPasswordFormComponent: React.FC<{
-  updateUser: ({ password }: { password: string }) => void;
+const OtpLoginFormComponent: React.FC<{
+  verifyOtp: ({ token }: { token: string }) => void;
   isPending: boolean;
   isError: boolean;
   errorMessage?: string;
-}> = ({ updateUser, isPending, isError, errorMessage }) => {
+}> = ({ verifyOtp, isPending, isError, errorMessage }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      password: "",
+      token: "",
     },
   });
 
@@ -95,36 +102,47 @@ const NewResetPasswordFormComponent: React.FC<{
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href="/login/reset-password">Reset Password</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/login/reset-password/new">New Password</Link>
+                <Link href="/login/otp">OTP Login</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <h2 className="text-4xl font-semibold">New Password</h2>
-        <p>Please fill out the form below</p>
+        <h2 className="text-4xl font-semibold">One-Time password login</h2>
+        <p>Almost there!</p>
       </header>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(({ password }) => {
-            updateUser({ password });
+          onSubmit={form.handleSubmit(({ token }) => {
+            verifyOtp({ token });
           })}
           className="space-y-6"
         >
           <FormField
             control={form.control}
-            name="password"
+            name="token"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>One-Time password</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="Password" {...field} />
+                  <InputOTP
+                    maxLength={6}
+                    render={({ slots }) => (
+                      <InputOTPGroup className="space-x-2">
+                        {slots.map((slot, index) => (
+                          <InputOTPSlot
+                            key={index}
+                            className="rounded-md border"
+                            {...slot}
+                          />
+                        ))}
+                      </InputOTPGroup>
+                    )}
+                    {...field}
+                  />
                 </FormControl>
+                <FormDescription>
+                  Please enter the one-time password sent to your email
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -143,10 +161,10 @@ const NewResetPasswordFormComponent: React.FC<{
               {isPending && (
                 <CircleIcon className="mr-2 size-4 animate-spin" />
               )}
-              Set new password
+              Sign in
             </Button>
             <Button asChild variant="link">
-              <Link href="/login">Back to Login</Link>
+              <Link href="/register">Create new account</Link>
             </Button>
           </footer>
         </form>

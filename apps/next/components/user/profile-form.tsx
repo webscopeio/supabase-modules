@@ -37,9 +37,9 @@ export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
 
   if (isLoading) {
     return (
-      <div className="min-h-dvh flex flex-col items-center justify-center">
+      <div className="flex min-h-dvh flex-col items-center justify-center">
         <div className="animate-pulse">
-          <CircleIcon className="h-8 w-8 animate-spin" />
+          <CircleIcon className="size-8 animate-spin" />
         </div>
       </div>
     );
@@ -47,9 +47,9 @@ export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
 
   if (isError) {
     return (
-      <div className="min-h-dvh flex flex-col py-6">
+      <div className="flex min-h-dvh flex-col py-6">
         <Alert variant="destructive">
-          <CrossCircledIcon className="h-4 w-4" />
+          <CrossCircledIcon className="size-4" />
           <AlertTitle>Something went wrong!</AlertTitle>
           <AlertDescription>
             {error instanceof Error ? error.message : "Unknown error"}
@@ -61,9 +61,9 @@ export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
 
   if (!data) {
     return (
-      <div className="min-h-dvh flex flex-col py-6">
+      <div className="flex min-h-dvh flex-col py-6">
         <Alert>
-          <InfoCircledIcon className="h-4 w-4" />
+          <InfoCircledIcon className="size-4" />
           <AlertTitle>No data found!</AlertTitle>
           <AlertDescription>
             Please contact the administrator for more information.
@@ -172,7 +172,7 @@ const ProfileFormComponent: React.FC<{
   });
 
   return (
-    <div className="space-y-6 flex flex-col">
+    <div className="flex flex-col space-y-6">
       <header className="space-y-2">
         <Breadcrumb>
           <BreadcrumbList>
@@ -195,7 +195,7 @@ const ProfileFormComponent: React.FC<{
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <h2 className="font-semibold text-4xl">Profile Settings</h2>
+        <h2 className="text-4xl font-semibold">Profile Settings</h2>
         <p>Manage your profile settings</p>
       </header>
       <Form {...form}>
@@ -248,22 +248,22 @@ const ProfileFormComponent: React.FC<{
           />
           {isError && (
             <Alert variant="destructive">
-              <CrossCircledIcon className="h-4 w-4" />
+              <CrossCircledIcon className="size-4" />
               <AlertTitle>Something went wrong!</AlertTitle>
               <AlertDescription>
                 {errorMessage ?? "Unknown error"}
               </AlertDescription>
             </Alert>
           )}
-          <footer className="flex justify-end space-x-2">
-            <Button asChild variant="link">
-              <Link href="/settings/account">Account Settings</Link>
-            </Button>
+          <footer className="flex flex-col gap-y-2">
             <Button type="submit" disabled={isPending}>
               {isPending && (
-                <CircleIcon className="mr-2 h-4 w-4 animate-spin" />
+                <CircleIcon className="mr-2 size-4 animate-spin" />
               )}
               Update Settings
+            </Button>
+            <Button asChild variant="link">
+              <Link href="/settings/account">Account Settings</Link>
             </Button>
           </footer>
         </form>

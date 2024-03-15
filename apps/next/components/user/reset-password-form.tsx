@@ -100,7 +100,7 @@ const ResetPasswordFormComponent: React.FC<{
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <h2 className="font-semibold text-4xl">Reset Password</h2>
+        <h2 className="text-4xl font-semibold">Reset Password</h2>
         <p>Please fill out the form below</p>
       </header>
       <Form {...form}>
@@ -125,22 +125,22 @@ const ResetPasswordFormComponent: React.FC<{
           />
           {isError && (
             <Alert variant="destructive">
-              <CrossCircledIcon className="h-4 w-4" />
+              <CrossCircledIcon className="size-4" />
               <AlertTitle>Something went wrong!</AlertTitle>
               <AlertDescription>
                 {errorMessage ?? "Unknown error"}
               </AlertDescription>
             </Alert>
           )}
-          <footer className="flex justify-end space-x-2">
-            <Button asChild variant="link">
-              <Link href="/login">Back to Login</Link>
-            </Button>
+          <footer className="flex flex-col gap-y-2">
             <Button type="submit" disabled={isPending}>
               {isPending && (
-                <CircleIcon className="mr-2 h-4 w-4 animate-spin" />
+                <CircleIcon className="mr-2 size-4 animate-spin" />
               )}
               Reset password
+            </Button>
+            <Button asChild variant="link">
+              <Link href="/login">Back to Login</Link>
             </Button>
           </footer>
         </form>
