@@ -8,14 +8,14 @@ This example project is based on a **Next 14 application**. More example project
 
 ## 1. Clone project and installing dependencies
 
-Clone the repository using `degit` and then install the project's dependencies.
+Clone the repository using `gh` CLI and then install the project's dependencies.
 
 ```bash
-degit iamhectorsosa/supabase-modules/apps/next my-app
+gh repo clone iamhectorsosa/supabase-modules
 ```
 
 ```bash
-cd my-app
+cd supabase-modules
 pnpm install
 ```
 
@@ -46,6 +46,8 @@ pnpm dev
 ```
 
 :::
+
+If you are working with the Supabase Modules Workspace please refer to [Workspace](/introduction/workspace).
 
 ::: tip :tada: Congratulations!
 You are done! See [Installation](/modules/installation) for more information about the Modules. Remember that all modules are installed by default in this example.

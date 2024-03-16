@@ -16,17 +16,17 @@ export default async function Home() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-2xl py-52">
-      <div className="space-y-6">
-        <header className="space-y-2 text-center">
-          <h2 className="text-6xl font-bold tracking-tight">
+    <div className="mx-auto grid min-h-[60vh] max-w-2xl items-center space-y-6 lg:max-w-4xl">
+      <div className="space-y-4">
+        <header className="space-y-2">
+          <h2 className="text-5xl font-bold tracking-tight lg:text-7xl">
             Supabase Modules
           </h2>
           <p className="text-muted-foreground text-xl">
             Build smarter with pre-built modules today
           </p>
         </header>
-        <footer className="flex flex-col justify-center gap-2 sm:flex-row">
+        <footer className="flex flex-col gap-2 sm:flex-row">
           <Button asChild>
             <Link href="/login">Sign in</Link>
           </Button>

@@ -174,7 +174,7 @@ const AccountsComponent: React.FC<{
                 <Link href="/settings/profile">Profile settings</Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Link href="/settings/account">Account settings</Link>
+                <Link href="/settings/credentials">Credentials settings</Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem disabled={true}>

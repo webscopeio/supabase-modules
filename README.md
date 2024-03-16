@@ -41,7 +41,9 @@ pnpm install
 
 ## Environment variables
 
-Please refer to `.env.example` when working environment variables from the root repository. You should set all variables in `.env` located in the root repository.
+Please refer to `.env.example` when working with environment variables. This repository is local-first development, so you should set all of your development variables in `.env.local` located in the root repository. 
+
+If you want to connect to a remote Supabase instance you can set all of your variables in `.env` located in the root repository.
 
 If you do not have these, you may have to run Supabase locally first before development. Read more on [Your Supabase Instance](https://supabase-modules-docs.vercel.app/getting-started/supabase).
 
@@ -59,10 +61,10 @@ pnpm db:start & pnpm dev
 
 > Remember to run `pnpm db:stop` to save resources once you are done working with your local Supabase Instance.
 
-If you intended to develop with a cloud hosted Supabase Instance you only need:
+If you intended to develop with a cloud hosted Supabase Instance you only need to run:
 
 ```bash
-pnpm dev
+pnpm dev-remote
 ```
 
 ## Build

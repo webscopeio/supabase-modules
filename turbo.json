@@ -38,6 +38,12 @@
       "cache": false
     },
     "db:gen-types": {},
+    "email:dev": {
+      "cache": false
+    },
+    "email:export": {
+      "cache": false
+    },
     "lint": {
       "cache": false
     }

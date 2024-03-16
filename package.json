@@ -7,8 +7,10 @@
     "dev": "dotenv -e .env.local -- turbo dev",
     "db:start": "turbo db:start",
     "db:stop": "turbo db:stop",
-    "db:reset": "supabase db reset",
+    "db:reset": "turbo db:reset",
     "db:gen-types": "turbo db:gen-types",
+    "email:dev": "turbo email:dev",
+    "email:export": "turbo email:export",
     "lint": "turbo lint"
   },
   "devDependencies": {

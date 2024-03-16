@@ -57,10 +57,7 @@ export const CredentialsForm: React.FC<{ userEmail: string }> = ({
 
 const FormSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }).optional(),
-  password: z
-    .string()
-    .min(5, { message: "Must be 5 or more characters long" })
-    .optional(),
+  password: z.string().optional(),
 });
 
 const CredentialsFormComponent: React.FC<{
@@ -95,7 +92,14 @@ const CredentialsFormComponent: React.FC<{
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(({ email, password }) => {
-            updateUser({ email, password });
+            const updates: { email?: string; password?: string } = {};
+
+            if (email) updates.email = email;
+            if (password) updates.password = password;
+
+            if (Object.keys(updates).length > 0) {
+              updateUser(updates);
+            }
             form.reset();
           })}
           className="space-y-6"
