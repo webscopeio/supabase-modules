@@ -97,6 +97,10 @@ enable_confirmations = true
 subject = "Confirm your signup"
 content_path = "./supabase/templates/confirmation.html"
 
+[auth.email.template.invite]
+subject = "You have been invited"
+content_path = "./supabase/templates/invite.html"
+
 [auth.email.template.email_change]
 subject = "Confirm email change"
 content_path = "./supabase/templates/email_change.html"

@@ -64,7 +64,7 @@ pnpm db:start & pnpm dev
 If you intended to develop with a cloud hosted Supabase Instance you only need to run:
 
 ```bash
-pnpm dev-remote
+pnpm dev:remote
 ```
 
 ## Build
