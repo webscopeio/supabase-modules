@@ -1,13 +1,16 @@
 "use client";
 
 import * as React from "react";
-import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
+import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { useUpdateUser } from "@/modules/user/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 import {
   Form,
   FormControl,
@@ -17,9 +20,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useUpdateUser } from "@/modules/user/auth";
 
 export const CredentialsForm: React.FC<{ userEmail: string }> = ({
   userEmail,

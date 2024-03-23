@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { useSupabaseServer } from "@/modules/utils/server";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { useSupabaseServer } from "@/modules/utils/server";
 
 export default async function Home() {
   const supabase = useSupabaseServer({ cookies });

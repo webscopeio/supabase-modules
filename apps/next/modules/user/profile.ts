@@ -1,6 +1,6 @@
 import { Database } from "@/modules/types";
-import { useSupabaseClient } from "@/modules/utils/client";
 import type { PostgrestError } from "@supabase/supabase-js";
+import { useSupabaseClient } from "@/modules/utils/client";
 import type {
   MutationOptions,
   UseMutationResult,
@@ -10,9 +10,11 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 
-interface ProfileQuery {
-  ({ id }: { id: Profile["id"] }): UseQueryResult<Profile | null>;
-}
+type ProfileQuery = ({
+  id,
+}: {
+  id: Profile["id"];
+}) => UseQueryResult<Profile | null>;
 
 export const useGetProfile: ProfileQuery = ({ id }) => {
   const supabase = useSupabaseClient();
@@ -30,13 +32,9 @@ export const useGetProfile: ProfileQuery = ({ id }) => {
   });
 };
 
-interface ProfileHook<TData, TError, TVariables> {
-  (options?: MutationOptions<TData, TError, TVariables>): UseMutationResult<
-    TData,
-    TError,
-    TVariables
-  >;
-}
+type ProfileHook<TData, TError, TVariables> = (
+  options?: MutationOptions<TData, TError, TVariables>
+) => UseMutationResult<TData, TError, TVariables>;
 
 export const useUpdateProfile: ProfileHook<
   Profile | undefined,
@@ -67,7 +65,7 @@ export const useUpdateProfile: ProfileHook<
       }
 
       const [userData] = data;
-      queryClient.invalidateQueries({ queryKey: [userData.id] });
+      await queryClient.invalidateQueries({ queryKey: [userData.id] });
 
       return userData;
     },

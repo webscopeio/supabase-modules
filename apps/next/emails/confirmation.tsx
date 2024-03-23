@@ -1,3 +1,6 @@
+import * as React from "react";
+import * as styles from "./_components/styles";
+import { EmailOtpType } from "@supabase/supabase-js";
 import {
   Body,
   Button,
@@ -11,9 +14,6 @@ import {
   Section,
   Text,
 } from "@react-email/components";
-import * as React from "react";
-import * as styles from "./_components/styles";
-import { EmailOtpType } from "@supabase/supabase-js";
 
 const redirectTo = `/login`;
 const type: EmailOtpType = "signup";

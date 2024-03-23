@@ -1,32 +1,50 @@
 {
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": true
+  },
+  "plugins": ["@typescript-eslint", "tailwindcss"],
   "extends": [
     "next/core-web-vitals",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:@typescript-eslint/stylistic-type-checked",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:@tanstack/eslint-plugin-query/recommended",
     "plugin:tailwindcss/recommended"
   ],
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["import", "@typescript-eslint"],
-  "root": true,
   "rules": {
-    "@tanstack/query/exhaustive-deps": "error",
-    "@tanstack/query/no-rest-destructuring": "warn",
-    "@tanstack/query/stable-query-client": "error",
-    "react/display-name": "off",
+    "@typescript-eslint/consistent-type-definitions": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": {
+          "attributes": false
+        }
+      }
+    ],
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": true,
+        "memberSyntaxSortOrder": ["all", "single", "multiple", "none"]
+      }
+    ],
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
-    "tailwindcss/no-custom-classname": "off"
+    "tailwindcss/no-custom-classname": "off",
+    "tailwindcss/classnames-order": "error"
   },
   "settings": {
     "tailwindcss": {
       "callees": ["cn", "cva"],
       "config": "tailwind.config.ts"
-    },
-    "react": {
-      "version": "detect"
     }
-  }
+  },
+  "ignorePatterns": ["/lib/env.ts", "/postcss.config.js", "/modules/types"]
 }

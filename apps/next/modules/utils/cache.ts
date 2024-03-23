@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 
-export const revalidateCache = async (options?: { path: string }) => {
+export const revalidateCache = (options?: { path: string }) => {
   try {
     if (options?.path) {
       return revalidatePath(options.path, "layout");

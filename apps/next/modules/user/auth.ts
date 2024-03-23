@@ -1,4 +1,5 @@
 import { revalidateCache } from "@/modules/utils/cache";
+import { useMutation } from "@tanstack/react-query";
 import { useSupabaseClient } from "@/modules/utils/client";
 import type {
   AuthError,
@@ -13,15 +14,10 @@ import type {
   VerifyOtpParams,
 } from "@supabase/supabase-js";
 import type { MutationOptions, UseMutationResult } from "@tanstack/react-query";
-import { useMutation } from "@tanstack/react-query";
 
-interface AuthHook<TData, TError, TVariables> {
-  (options?: MutationOptions<TData, TError, TVariables>): UseMutationResult<
-    TData,
-    TError,
-    TVariables
-  >;
-}
+type AuthHook<TData, TError, TVariables> = (
+  options?: MutationOptions<TData, TError, TVariables>
+) => UseMutationResult<TData, TError, TVariables>;
 
 export const useSignUpWithEmailPassword: AuthHook<
   AuthResponse["data"],

@@ -1,9 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { useVerifyOtp } from "@/modules/user/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
 import {
   Form,
   FormControl,
@@ -13,13 +19,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useRouter } from "next/navigation";
-import { useVerifyOtp } from "@/modules/user/auth";
 import {
   InputOTP,
   InputOTPGroup,

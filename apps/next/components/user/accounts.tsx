@@ -1,14 +1,20 @@
 "use client";
 
+import * as React from "react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
+import { useGetProfile } from "@/modules/user/profile";
+import { useRouter } from "next/navigation";
+import { useSignOut } from "@/modules/user/auth";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ChevronDownIcon, TrashIcon } from "@radix-ui/react-icons";
 import {
   CircleIcon,
   CrossCircledIcon,
   InfoCircledIcon,
 } from "@radix-ui/react-icons";
-import * as React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,12 +22,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Separator } from "@/components/ui/separator";
-import { ChevronDownIcon, TrashIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useGetProfile } from "@/modules/user/profile";
-import { useSignOut } from "@/modules/user/auth";
 
 export const Accounts: React.FC<{ userId: string }> = ({ userId }) => {
   // #region useGetProfile

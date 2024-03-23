@@ -1,3 +1,5 @@
+import * as React from "react";
+import * as styles from "./_components/styles";
 import {
   Body,
   Container,
@@ -9,8 +11,6 @@ import {
   Preview,
   Text,
 } from "@react-email/components";
-import * as React from "react";
-import * as styles from "./_components/styles";
 
 export default function Email() {
   return (

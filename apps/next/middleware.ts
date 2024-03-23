@@ -1,6 +1,6 @@
+import { createServerClient } from "@supabase/ssr";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { createServerClient } from "@supabase/ssr";
 
 export const middleware = async (request: NextRequest) => {
   let response = NextResponse.next({
@@ -10,8 +10,8 @@ export const middleware = async (request: NextRequest) => {
   });
 
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
       cookies: {
         get: (name) => request.cookies.get(name)?.value,

@@ -1,8 +1,7 @@
-import { type EmailOtpType } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
-import { type NextRequest, NextResponse } from "next/server";
-
+import { type EmailOtpType } from "@supabase/supabase-js";
 import { CookieOptions, createServerClient } from "@supabase/ssr";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -18,8 +17,8 @@ export async function GET(request: NextRequest) {
   if (token_hash && type) {
     const cookieStore = cookies();
     const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
       {
         cookies: {
           get(name: string) {

@@ -1,8 +1,7 @@
-import { OtpLoginForm } from "@/components/user/otp-login-form";
-import { useSupabaseServer } from "@/modules/utils/server";
 import { cookies } from "next/headers";
-
+import { OtpLoginForm } from "@/components/user/otp-login-form";
 import { redirect } from "next/navigation";
+import { useSupabaseServer } from "@/modules/utils/server";
 import { z } from "zod";
 
 const emailSchema = z.object({
