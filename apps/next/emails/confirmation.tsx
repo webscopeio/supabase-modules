@@ -23,7 +23,7 @@ export default function Email() {
   return (
     <Html>
       <Head />
-      <Preview>Configm your signup</Preview>
+      <Preview>Confirm your signup</Preview>
       <Body style={styles.main}>
         <Container style={styles.container}>
           <Heading style={styles.h1}>Confirm your signup</Heading>
