@@ -22,7 +22,7 @@ export default async function Home() {
           <h2 className="text-5xl font-bold tracking-tight lg:text-7xl">
             Supabase Modules
           </h2>
-          <p className="text-muted-foreground text-xl">
+          <p className="text-xl text-muted-foreground">
             Build smarter with pre-built modules today
           </p>
         </header>

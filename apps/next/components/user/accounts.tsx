@@ -147,7 +147,7 @@ const AccountsComponent: React.FC<{
           <h4 className="font-semibold">{username}</h4>
           <p>{email}</p>
         </div>
-        <div className="bg-secondary text-secondary-foreground ml-auto flex items-center space-x-1 rounded-md">
+        <div className="ml-auto flex items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
           <Button
             onClick={() => signOut()}
             disabled={isPending}
@@ -161,7 +161,7 @@ const AccountsComponent: React.FC<{
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" className="px-2 shadow-none">
-                <ChevronDownIcon className="text-secondary-foreground size-4" />
+                <ChevronDownIcon className="size-4 text-secondary-foreground" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
