@@ -126,9 +126,6 @@ importers:
       eslint-config-next:
         specifier: 14.1.0
         version: 14.1.0(eslint@8.56.0)(typescript@5.3.3)
-      eslint-plugin-import:
-        specifier: ^2.29.1
-        version: 2.29.1(@typescript-eslint/parser@6.21.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0)
       eslint-plugin-react:
         specifier: ^7.33.2
         version: 7.33.2(eslint@8.56.0)
