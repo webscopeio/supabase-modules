@@ -80,7 +80,7 @@ The `.env.example` file above contains the environment variables that you can us
 
 To generate these environment variables you have to run Supabase locally first before development. Read more on [Your Supabase Instance](/getting-started/supabase).
 
-## 4. Add Query, Middleware, API Route to your project
+## 4. Add Query and API Route Handler to your project
 
 ### TanStack Query
 
@@ -90,13 +90,7 @@ To use TanStack Query you need to set a `QueryClientProvider`. Typically you wou
 
 This provider has to be included in the project code. In a Next 13 application this would be in the main`layout.tsx` file. For more, see [TanStack Query Next.js app with streaming](https://tanstack.com/query/latest/docs/framework/react/examples/nextjs-suspense-streaming).
 
-### Middleware
-
-Update or create a `middleware.ts` file at the root of your project. Since Server Components can't write cookies, you need middleware to refresh expired Auth tokens and store them.
-
-<<< ../../apps/next/middleware.ts
-
-### API Route
+### API Route Handler
 
 Chances are that you will need this route handler.
 
@@ -145,35 +139,6 @@ pnpm add -D @tanstack/eslint-plugin-query @typescript-eslint/eslint-plugin @type
 
 2. Then configure your `eslintc.json`
 
-```bash
-{
-  "extends": [
-    "next/core-web-vitals",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:import/recommended",
-    "plugin:react/recommended", // [!code ++]
-    "plugin:react-hooks/recommended", // [!code ++]
-    "plugin:@tanstack/eslint-plugin-query/recommended" // [!code ++]
-  ],
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["import", "@typescript-eslint"],
-  "root": true,
-  "rules": {
-    "@tanstack/query/exhaustive-deps": "error", // [!code ++]
-    "@tanstack/query/no-rest-destructuring": "warn", // [!code ++]
-    "@tanstack/query/stable-query-client": "error", // [!code ++]
-    "react/display-name": "off",
-    "react/prop-types": "off",
-    "react/react-in-jsx-scope": "off"
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  }
-}
-
-```
+<<< ../../apps/next/.eslintrc.json
 
 :::

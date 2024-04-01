@@ -5,9 +5,9 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { signUpWithEmailPassword } from "@/modules/user/auth";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { useSignUpWithEmailPassword } from "@/modules/user/auth";
+import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
@@ -21,32 +21,24 @@ import {
 } from "@/components/ui/form";
 
 export const RegisterForm: React.FC = () => {
-  const router = useRouter();
-
-  // #region useSignUpWithEmailPassword
-  const {
-    mutate: signUp,
-    isPending,
-    isError,
-    error,
-  } = useSignUpWithEmailPassword({
-    onSuccess: () => {
-      router.push("/login");
-    },
-    onError: (error) => {
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
-    },
+  const signUp = useMutation({
+    mutationFn: signUpWithEmailPassword,
   });
-  // #endregion useSignUpWithEmailPassword
 
   return (
     <RegisterFormComponent
-      signUp={signUp}
-      isPending={isPending}
-      isError={isError}
-      errorMessage={error?.message}
+      signUp={({ email, password }: { email: string; password: string }) =>
+        signUp.mutate({
+          email,
+          password,
+          redirect: {
+            url: "/login",
+          },
+        })
+      }
+      isPending={signUp.isPending}
+      isError={signUp.isError}
+      errorMessage={signUp.error?.message}
     />
   );
 };

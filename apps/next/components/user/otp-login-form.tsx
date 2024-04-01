@@ -5,8 +5,8 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { useVerifyOtp } from "@/modules/user/auth";
+import { useMutation } from "@tanstack/react-query";
+import { verifyOtp } from "@/modules/user/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
@@ -26,32 +26,24 @@ import {
 } from "@/components/ui/input-otp";
 
 export const OtpLoginForm: React.FC<{ email: string }> = ({ email }) => {
-  const router = useRouter();
-
-  // #region useVerifyOtp
-  const {
-    mutate: verifyOtp,
-    isPending,
-    isError,
-    error,
-  } = useVerifyOtp({
-    onSuccess: () => {
-      router.push("/settings");
-    },
-    onError: (error) => {
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
-    },
+  const verify = useMutation({
+    mutationFn: verifyOtp,
   });
-  // #endregion useVerifyOtp
 
   return (
     <OtpLoginFormComponent
-      verifyOtp={({ token }) => verifyOtp({ email, token })}
-      isPending={isPending}
-      isError={isError}
-      errorMessage={error?.message}
+      verifyOtp={({ token }) =>
+        verify.mutate({
+          email,
+          token,
+          redirect: {
+            url: "/settings/accounts",
+          },
+        })
+      }
+      isPending={verify.isPending}
+      isError={verify.isError}
+      errorMessage={verify.error?.message}
     />
   );
 };

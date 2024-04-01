@@ -1,185 +1,115 @@
-import { revalidateCache } from "@/modules/utils/cache";
-import { useMutation } from "@tanstack/react-query";
-import { useSupabaseClient } from "@/modules/utils/client";
+"use server";
+
+import { createClient } from "../utils/server";
+import { redirect as _redirect, type RedirectType } from "next/navigation";
 import type {
-  AuthError,
-  AuthOtpResponse,
-  AuthResponse,
-  AuthTokenResponse,
   SignInWithPasswordCredentials,
   SignInWithPasswordlessCredentials,
   SignUpWithPasswordCredentials,
   UserAttributes,
-  UserResponse,
   VerifyOtpParams,
 } from "@supabase/supabase-js";
-import type { MutationOptions, UseMutationResult } from "@tanstack/react-query";
 
-type AuthHook<TData, TError, TVariables> = (
-  options?: MutationOptions<TData, TError, TVariables>
-) => UseMutationResult<TData, TError, TVariables>;
-
-export const useSignUpWithEmailPassword: AuthHook<
-  AuthResponse["data"],
-  AuthResponse["error"],
-  Extract<SignUpWithPasswordCredentials, { email: string }>
-> = (options) => {
-  const supabase = useSupabaseClient();
-  return useMutation({
-    mutationFn: async (credentials) => {
-      const { data, error } = await supabase.auth.signUp(credentials);
-      if (error) {
-        throw error;
-      }
-      if (data.user?.identities?.length === 0) {
-        throw new Error("User already registered");
-      }
-      revalidateCache();
-      return data;
-    },
-    ...options,
-  });
+type WithRedirect<TArg = unknown> = TArg & {
+  redirect?: {
+    url?: string;
+    type?: RedirectType;
+  };
 };
 
-export const useSignInWithEmailPassword: AuthHook<
-  AuthTokenResponse["data"],
-  AuthTokenResponse["error"],
-  Extract<SignInWithPasswordCredentials, { email: string }>
-> = (options) => {
-  const supabase = useSupabaseClient();
-  return useMutation({
-    mutationFn: async (credentials) => {
-      const { data, error } = await supabase.auth.signInWithPassword(
-        credentials
-      );
-      if (error) {
-        throw error;
-      }
-      revalidateCache();
-      return data;
-    },
-    ...options,
+// #region signUpWithEmailPassword
+export async function signUpWithEmailPassword(
+  options: WithRedirect<
+    Extract<SignUpWithPasswordCredentials, { email: string }>
+  >
+): Promise<void> {
+  const { redirect, ...credentials } = options;
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.signUp(credentials);
+  if (error) throw error;
+  if (data.user?.identities?.length === 0) {
+    throw new Error("User already registered");
+  }
+  redirect?.url && _redirect(redirect.url, redirect.type);
+}
+// #endregion signUpWithEmailPassword
+
+// #region signInWithEmailPassword
+export async function signInWithEmailPassword(
+  options: WithRedirect<
+    Extract<SignInWithPasswordCredentials, { email: string }>
+  >
+): Promise<void> {
+  const { redirect, ...credentials } = options;
+  const supabase = createClient();
+  const { error } = await supabase.auth.signInWithPassword(credentials);
+  if (error) throw error;
+  redirect?.url && _redirect(redirect.url, redirect.type);
+}
+// #endregion signInWithEmailPassword
+
+// #region signInWithOtp
+export async function signInWithOtp(
+  options: WithRedirect<
+    Extract<SignInWithPasswordlessCredentials, { email: string }>
+  >
+): Promise<void> {
+  const { redirect, ...credentials } = options;
+  const supabase = createClient();
+  const { error } = await supabase.auth.signInWithOtp(credentials);
+  if (error) throw error;
+  redirect?.url && _redirect(redirect.url, redirect.type);
+}
+// #endregion signInWithOtp
+
+// #region verifyOtp
+export async function verifyOtp(
+  options: WithRedirect<
+    Omit<Extract<VerifyOtpParams, { email: string }>, "type">
+  >
+): Promise<void> {
+  const { redirect, ...credentials } = options;
+  const supabase = createClient();
+  const { error } = await supabase.auth.verifyOtp({
+    email: credentials.email,
+    token: credentials.token,
+    type: "email",
   });
-};
+  if (error) throw error;
+  redirect?.url && _redirect(redirect.url, redirect.type);
+}
+// #endregion verifyOtp
 
-export const useSignUpWithEmailOtp: AuthHook<
-  unknown,
-  AuthOtpResponse["error"],
-  Extract<SignInWithPasswordlessCredentials, { email: string }>
-> = (options) => {
-  const supabase = useSupabaseClient();
-  return useMutation({
-    mutationFn: async (credentials) => {
-      const { error } = await supabase.auth.signInWithOtp({
-        email: credentials.email,
-        options: {
-          shouldCreateUser: true,
-          ...credentials.options,
-        },
-      });
-      if (error) {
-        throw error;
-      }
-    },
-    ...options,
-  });
-};
+// #region resetPasswordForEmail
+export async function resetPasswordForEmail(
+  options: WithRedirect<{ email: string }>
+): Promise<void> {
+  const { redirect, email } = options;
+  const supabase = createClient();
+  const { error } = await supabase.auth.resetPasswordForEmail(email);
+  if (error) throw error;
+  redirect?.url && _redirect(redirect.url, redirect.type);
+}
+// #endregion resetPasswordForEmail
 
-export const useSignInWithEmailOtp: AuthHook<
-  unknown,
-  AuthOtpResponse["error"],
-  Extract<SignInWithPasswordlessCredentials, { email: string }>
-> = (options) => {
-  const supabase = useSupabaseClient();
-  return useMutation({
-    mutationFn: async (credentials) => {
-      const { error } = await supabase.auth.signInWithOtp({
-        email: credentials.email,
-        options: {
-          shouldCreateUser: false,
-          ...credentials.options,
-        },
-      });
-      if (error) {
-        throw error;
-      }
-    },
-    ...options,
-  });
-};
+// #region signOut
+export async function signOut(options: WithRedirect): Promise<void> {
+  const { redirect } = options;
+  const supabase = createClient();
+  const { error } = await supabase.auth.signOut();
+  if (error) throw error;
+  redirect?.url && _redirect(redirect.url, redirect.type);
+}
+// #endregion signOut
 
-export const useVerifyOtp: AuthHook<
-  unknown,
-  AuthOtpResponse["error"],
-  Omit<Extract<VerifyOtpParams, { email: string }>, "type">
-> = (options) => {
-  const supabase = useSupabaseClient();
-  return useMutation({
-    mutationFn: async (credentials) => {
-      const { error } = await supabase.auth.verifyOtp({
-        email: credentials.email,
-        token: credentials.token,
-        type: "email",
-      });
-      if (error) {
-        throw error;
-      }
-      revalidateCache();
-    },
-    ...options,
-  });
-};
-
-export const useResetPasswordForEmail: AuthHook<
-  unknown,
-  AuthTokenResponse["error"],
-  string
-> = (options) => {
-  const supabase = useSupabaseClient();
-  return useMutation({
-    mutationFn: async (email) => {
-      const { error } = await supabase.auth.resetPasswordForEmail(email);
-      if (error) {
-        throw error;
-      }
-    },
-    ...options,
-  });
-};
-
-export const useSignOut: AuthHook<unknown, AuthTokenResponse["error"], void> = (
-  options
-) => {
-  const supabase = useSupabaseClient();
-  return useMutation({
-    mutationFn: async () => {
-      const { error } = await supabase.auth.signOut();
-      if (error) {
-        throw error;
-      }
-      revalidateCache();
-    },
-    ...options,
-  });
-};
-
-export const useUpdateUser: AuthHook<
-  UserResponse["data"],
-  AuthError | null,
-  UserAttributes
-> = (options) => {
-  const supabase = useSupabaseClient();
-  return useMutation({
-    mutationFn: async (attributes) => {
-      const { data, error } = await supabase.auth.updateUser(attributes);
-
-      if (error) {
-        throw error;
-      }
-
-      revalidateCache();
-      return data;
-    },
-    ...options,
-  });
-};
+// #region updateUser
+export async function updateUser(
+  options: WithRedirect<UserAttributes>
+): Promise<void> {
+  const { redirect, ...attributes } = options;
+  const supabase = createClient();
+  const { error } = await supabase.auth.updateUser(attributes);
+  if (error) throw error;
+  redirect?.url && _redirect(redirect.url, redirect.type);
+}
+// #endregion updateUser

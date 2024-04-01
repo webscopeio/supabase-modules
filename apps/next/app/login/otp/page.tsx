@@ -1,7 +1,6 @@
-import { cookies } from "next/headers";
+import { createClient } from "@/modules/utils/server";
 import { OtpLoginForm } from "@/components/user/otp-login-form";
 import { redirect } from "next/navigation";
-import { useSupabaseServer } from "@/modules/utils/server";
 import { z } from "zod";
 
 const emailSchema = z.object({
@@ -13,7 +12,7 @@ export default async function Page({
 }: {
   searchParams: { email?: string };
 }) {
-  const supabase = useSupabaseServer({ cookies });
+  const supabase = createClient();
 
   const {
     data: { user },

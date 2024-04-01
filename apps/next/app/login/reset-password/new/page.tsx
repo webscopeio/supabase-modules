@@ -1,10 +1,9 @@
-import { cookies } from "next/headers";
+import { createClient } from "@/modules/utils/server";
 import { NewResetPasswordForm } from "@/components/user/new-reset-password-form";
 import { redirect } from "next/navigation";
-import { useSupabaseServer } from "@/modules/utils/server";
 
 export default async function Page() {
-  const supabase = useSupabaseServer({ cookies });
+  const supabase = createClient();
 
   const {
     data: { user },

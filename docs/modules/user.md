@@ -29,63 +29,40 @@ Authentication supports the following methods:
 * Password reset using email (Magic Link workflow)
 * Updating credentials email and/or password
 
-### `useSignUpWithEmailPassword`
+### `signUpWithEmailPassword`
 
-::: code-group
-<<< ../../apps/next/components/user/register-form.tsx#useSignUpWithEmailPassword
-:::
+<<< ../../apps/next/modules/user/auth.ts#signUpWithEmailPassword
 
-### `useSignInWithEmailPassword`
+### `signInWithEmailPassword`
 
-::: code-group
-<<< ../../apps/next/components/user/login-form.tsx#useSignInWithEmailPassword
-:::
+<<< ../../apps/next/modules/user/auth.ts#signInWithEmailPassword
 
-### `useSignInWithEmailOtp`
+### `signInWithOtp`
 
-::: code-group
-<<< ../../apps/next/components/user/login-form.tsx#useSignInWithEmailOtp
-:::
+<<< ../../apps/next/modules/user/auth.ts#signInWithOtp
 
-### `useVerifyOtp`
+### `verifyOtp`
 
-::: code-group
-<<< ../../apps/next/components/user/otp-login-form.tsx#useVerifyOtp
-:::
+<<< ../../apps/next/modules/user/auth.ts#verifyOtp
 
+### `resetPasswordForEmail`
 
-### `useResetPasswordForEmail`
+<<< ../../apps/next/modules/user/auth.ts#resetPasswordForEmail
 
-::: code-group
-<<< ../../apps/next/components/user/reset-password-form.tsx#useResetPasswordForEmail
-:::
+### `signOut`
 
-### `useSignOut`
+<<< ../../apps/next/modules/user/auth.ts#signOut
 
-::: code-group
-<<< ../../apps/next/components/user/accounts.tsx#useSignOut
-:::
+### `updateUser`
 
-### `useUpdateUser`
-
-::: code-group
-<<< ../../apps/next/components/user/credentials-form.tsx#useUpdateUser
-:::
+<<< ../../apps/next/modules/user/auth.ts#updateUser
 
 ## Profile
 
-Profile supports the following methods:
-* Get Profile information
-* Update Profile information
+### `getProfile`
 
-### `useGetProfile`
+<<< ../../apps/next/modules/user/profile.ts#getProfile
 
-::: code-group
-<<< ../../apps/next/components/user/accounts.tsx#useGetProfile
-:::
+### `updateProfile`
 
-### `useUpdateProfile`
-
-::: code-group
-<<< ../../apps/next/components/user/profile-form.tsx#useUpdateProfile
-:::
+<<< ../../apps/next/modules/user/profile.ts#updateProfile

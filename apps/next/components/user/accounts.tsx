@@ -2,11 +2,10 @@
 
 import * as React from "react";
 import { Button } from "@/components/ui/button";
+import { getProfile } from "@/modules/user/profile";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
-import { useGetProfile } from "@/modules/user/profile";
-import { useRouter } from "next/navigation";
-import { useSignOut } from "@/modules/user/auth";
+import { signOut } from "@/modules/user/auth";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ChevronDownIcon, TrashIcon } from "@radix-ui/react-icons";
@@ -22,13 +21,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const Accounts: React.FC<{ userId: string }> = ({ userId }) => {
-  // #region useGetProfile
-  const { data, isLoading, isError, error } = useGetProfile({ id: userId });
-  // #endregion useGetProfile
+  const profile = useQuery({
+    queryKey: ["profiles", userId],
+    queryFn: () => getProfile({ id: userId }),
+  });
 
-  if (isLoading) {
+  if (profile.isLoading) {
     return (
       <div className="flex h-full flex-col items-center justify-center">
         <div className="animate-pulse">
@@ -38,21 +39,23 @@ export const Accounts: React.FC<{ userId: string }> = ({ userId }) => {
     );
   }
 
-  if (isError) {
+  if (profile.isError) {
     return (
       <div className="flex flex-col items-center justify-center">
         <Alert variant="destructive">
           <CrossCircledIcon className="size-4" />
           <AlertTitle>Something went wrong!</AlertTitle>
           <AlertDescription>
-            {error instanceof Error ? error.message : "Unknown error"}
+            {profile.error instanceof Error
+              ? profile.error.message
+              : "Unknown error"}
           </AlertDescription>
         </Alert>
       </div>
     );
   }
 
-  if (!data) {
+  if (!profile.data) {
     return (
       <div className="flex flex-col items-center justify-center">
         <Alert>
@@ -68,9 +71,9 @@ export const Accounts: React.FC<{ userId: string }> = ({ userId }) => {
 
   return (
     <AccountsContainer
-      username={data.username}
-      preferredName={data.preferred_name}
-      email={data.email}
+      username={profile.data.username}
+      preferredName={profile.data.preferred_name}
+      email={profile.data.email}
     />
   );
 };
@@ -80,35 +83,25 @@ export const AccountsContainer: React.FC<{
   preferredName: string | null;
   email: string;
 }> = ({ username, preferredName, email }) => {
-  const router = useRouter();
-
-  // #region useSignOut
-  const {
-    mutate: signOut,
-    isPending,
-    isError,
-    error,
-  } = useSignOut({
-    onSuccess: () => {
-      router.push("/login");
-    },
-    onError: (error) => {
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
-    },
+  const logout = useMutation({
+    mutationFn: signOut,
   });
-  // #endregion useSignOut
 
   return (
     <AccountsComponent
       username={username}
       preferredName={preferredName}
       email={email}
-      signOut={signOut}
-      isPending={isPending}
-      isError={isError}
-      errorMessage={error?.message}
+      signOut={() =>
+        logout.mutate({
+          redirect: {
+            url: "/login",
+          },
+        })
+      }
+      isPending={logout.isPending}
+      isError={logout.isError}
+      errorMessage={logout.error?.message}
     />
   );
 };

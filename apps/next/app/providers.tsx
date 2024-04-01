@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { Toaster } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export const Providers: React.FC<React.PropsWithChildren> = ({ children }) => {
@@ -24,6 +25,7 @@ export const Providers: React.FC<React.PropsWithChildren> = ({ children }) => {
         disableTransitionOnChange
       >
         {children}
+        <Toaster />
       </NextThemesProvider>
     </QueryClientProvider>
   );

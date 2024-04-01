@@ -5,9 +5,9 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { updateUser } from "@/modules/user/auth";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { useUpdateUser } from "@/modules/user/auth";
+import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
@@ -21,32 +21,30 @@ import {
 } from "@/components/ui/form";
 
 export const NewResetPasswordForm: React.FC = () => {
-  const router = useRouter();
-
-  // #region useUpdateUser
-  const {
-    mutate: updateUser,
-    isPending,
-    isError,
-    error,
-  } = useUpdateUser({
-    onSuccess: () => {
-      router.push("/settings");
-    },
-    onError: (error) => {
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
-    },
+  const update = useMutation({
+    mutationFn: updateUser,
   });
-  // #endregion useUpdateUser
 
   return (
     <NewResetPasswordFormComponent
-      updateUser={updateUser}
-      isPending={isPending}
-      isError={isError}
-      errorMessage={error?.message}
+      updateUser={({
+        email,
+        password,
+      }: {
+        email?: string;
+        password?: string;
+      }) => {
+        update.mutate({
+          email,
+          password,
+          redirect: {
+            url: "/settings/accounts",
+          },
+        });
+      }}
+      isPending={update.isPending}
+      isError={update.isError}
+      errorMessage={update.error?.message}
     />
   );
 };

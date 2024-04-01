@@ -38,8 +38,6 @@ cd modules
 degit iamhectorsosa/supabase-modules/apps/next/modules/utils utils
 ```
 
-<<< ../../apps/next/modules/utils/cache.ts [cache.ts]
-
 <<< ../../apps/next/modules/utils/client.ts [client.ts]
 
 <<< ../../apps/next/modules/utils/server.ts [server.ts]

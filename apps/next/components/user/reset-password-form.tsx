@@ -5,9 +5,9 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { resetPasswordForEmail } from "@/modules/user/auth";
 import { useForm } from "react-hook-form";
-import { useResetPasswordForEmail } from "@/modules/user/auth";
-import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
@@ -21,32 +21,16 @@ import {
 } from "@/components/ui/form";
 
 export const ResetPasswordForm: React.FC = () => {
-  const router = useRouter();
-
-  // #region useResetPasswordForEmail
-  const {
-    mutate: resetPassword,
-    isPending,
-    isError,
-    error,
-  } = useResetPasswordForEmail({
-    onSuccess: () => {
-      router.push("/login");
-    },
-    onError: (error) => {
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
-    },
+  const reset = useMutation({
+    mutationFn: resetPasswordForEmail,
   });
-  // #endregion useResetPasswordForEmail
 
   return (
     <ResetPasswordFormComponent
-      resetPassword={resetPassword}
-      isPending={isPending}
-      isError={isError}
-      errorMessage={error?.message}
+      resetPassword={(email: string) => reset.mutate({ email })}
+      isPending={reset.isPending}
+      isError={reset.isError}
+      errorMessage={reset.error?.message}
     />
   );
 };

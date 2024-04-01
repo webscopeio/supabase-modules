@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { Switch } from "@/components/ui/switch";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
@@ -21,58 +21,46 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  useSignInWithEmailOtp,
-  useSignInWithEmailPassword,
-} from "@/modules/user/auth";
+import { signInWithEmailPassword, signInWithOtp } from "@/modules/user/auth";
 
 export const LoginForm: React.FC = () => {
-  const router = useRouter();
-
-  // #region useSignInWithEmailPassword
-  const {
-    mutate: signIn,
-    isPending,
-    isError,
-    error,
-  } = useSignInWithEmailPassword({
-    onSuccess: () => {
-      router.push("/settings");
-    },
-    onError: (error) => {
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
-    },
+  const signIn = useMutation({
+    mutationFn: signInWithEmailPassword,
   });
-  // #endregion useSignInWithEmailPassword
 
-  // #region useSignInWithEmailOtp
-  const {
-    mutate: signInWithOtp,
-    isPending: isPendingWithOtp,
-    isError: isErrorWithOtp,
-    error: errorWithOtp,
-  } = useSignInWithEmailOtp({
-    onSuccess: (_, variables) => {
-      router.push(`/login/otp?email=${variables.email}`);
-    },
-    onError: (error) => {
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
-    },
+  const passwordlessSignIn = useMutation({
+    mutationFn: signInWithOtp,
   });
-  // #endregion useSignInWithEmailOtp
+
+  function handleSignIn({
+    email,
+    password,
+  }: {
+    email: string;
+    password?: string;
+  }): void {
+    password
+      ? signIn.mutate({
+          email,
+          password,
+          redirect: {
+            url: "/settings/accounts",
+          },
+        })
+      : passwordlessSignIn.mutate({
+          email,
+          redirect: {
+            url: `/login/otp?email=${email}`,
+          },
+        });
+  }
 
   return (
     <LoginFormComponent
-      signIn={({ email, password }) => {
-        password ? signIn({ email, password }) : signInWithOtp({ email });
-      }}
-      isPending={isPending || isPendingWithOtp}
-      isError={isError || isErrorWithOtp}
-      errorMessage={error?.message ?? errorWithOtp?.message}
+      signIn={handleSignIn}
+      isPending={signIn.isPending || passwordlessSignIn.isPending}
+      isError={signIn.isError || passwordlessSignIn.isError}
+      errorMessage={signIn.error?.message ?? passwordlessSignIn.error?.message}
     />
   );
 };

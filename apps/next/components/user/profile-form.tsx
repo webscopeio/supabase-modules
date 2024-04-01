@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
@@ -22,12 +21,16 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useGetProfile, useUpdateProfile } from "@/modules/user/profile";
+import { getProfile, updateProfile } from "@/modules/user/profile";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
-  const { data, isLoading, isError, error } = useGetProfile({ id: userId });
+  const profile = useQuery({
+    queryKey: ["profiles", userId],
+    queryFn: () => getProfile({ id: userId }),
+  });
 
-  if (isLoading) {
+  if (profile.isLoading) {
     return (
       <div className="flex h-full flex-col items-center justify-center">
         <div className="animate-pulse">
@@ -37,21 +40,23 @@ export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
     );
   }
 
-  if (isError) {
+  if (profile.isError) {
     return (
       <div className="flex flex-col items-center justify-center">
         <Alert variant="destructive">
           <CrossCircledIcon className="size-4" />
           <AlertTitle>Something went wrong!</AlertTitle>
           <AlertDescription>
-            {error instanceof Error ? error.message : "Unknown error"}
+            {profile.error instanceof Error
+              ? profile.error.message
+              : "Unknown error"}
           </AlertDescription>
         </Alert>
       </div>
     );
   }
 
-  if (!data) {
+  if (!profile.data) {
     return (
       <div className="flex flex-col items-center justify-center">
         <Alert>
@@ -67,10 +72,10 @@ export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
 
   return (
     <ProfileFormContainer
-      id={data.id}
-      username={data.username}
-      fullName={data.full_name}
-      preferredName={data.preferred_name}
+      id={profile.data.id}
+      username={profile.data.username}
+      fullName={profile.data.full_name}
+      preferredName={profile.data.preferred_name}
     />
   );
 };
@@ -81,24 +86,13 @@ export const ProfileFormContainer: React.FC<{
   fullName: string | null;
   preferredName: string | null;
 }> = ({ id, username, fullName, preferredName }) => {
-  const router = useRouter();
-  // #region useUpdateProfile
-  const {
-    mutate: updateProfile,
-    isPending,
-    isError,
-    error,
-  } = useUpdateProfile({
-    onSuccess: () => {
-      router.push("/settings");
-    },
-    onError: (error) => {
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
+  const queryClient = useQueryClient();
+  const update = useMutation({
+    mutationFn: updateProfile,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["profiles", id] });
     },
   });
-  // #endregion useUpdateProfile
 
   return (
     <ProfileFormComponent
@@ -107,10 +101,30 @@ export const ProfileFormContainer: React.FC<{
       username={username}
       fullName={fullName}
       preferredName={preferredName}
-      updateProfile={updateProfile}
-      isPending={isPending}
-      isError={isError}
-      errorMessage={error?.message}
+      updateProfile={({
+        id,
+        username,
+        full_name,
+        preferred_name,
+      }: {
+        id: string;
+        username: string;
+        full_name: string;
+        preferred_name?: string;
+      }) =>
+        update.mutate({
+          id,
+          username,
+          full_name,
+          preferred_name,
+          redirect: {
+            url: "/settings/accounts",
+          },
+        })
+      }
+      isPending={update.isPending}
+      isError={update.isError}
+      errorMessage={update.error?.message}
     />
   );
 };

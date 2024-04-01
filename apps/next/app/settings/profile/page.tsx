@@ -1,10 +1,9 @@
-import { cookies } from "next/headers";
+import { createClient } from "@/modules/utils/server";
 import { ProfileForm } from "@/components/user/profile-form";
 import { redirect } from "next/navigation";
-import { useSupabaseServer } from "@/modules/utils/server";
 
 export default async function Page() {
-  const supabase = useSupabaseServer({ cookies });
+  const supabase = createClient();
 
   const {
     data: { user },
