@@ -11,7 +11,7 @@ export default async function Home() {
   } = await supabase.auth.getUser();
 
   if (user) {
-    redirect("/settings");
+    redirect("/settings/accounts");
   }
 
   return (

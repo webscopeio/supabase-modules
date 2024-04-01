@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as styles from "./_components/styles";
+import * as styles from "./_shared/styles";
 import { EmailOtpType } from "@supabase/supabase-js";
 import {
   Body,

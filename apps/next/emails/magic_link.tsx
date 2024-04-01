@@ -1,5 +1,6 @@
 import * as React from "react";
-import * as styles from "./_components/styles";
+import * as styles from "./_shared/styles";
+import { EmailOtpType } from "@supabase/supabase-js";
 import {
   Body,
   Container,
@@ -12,6 +13,11 @@ import {
   Text,
 } from "@react-email/components";
 
+const redirectTo = `/settings/accounts`;
+const type: EmailOtpType = "magiclink";
+
+const confirmationURL = `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=${type}&next=${redirectTo}`;
+
 export default function Email() {
   return (
     <Html>
@@ -22,6 +28,12 @@ export default function Email() {
           <Heading style={styles.h1}>Your One-Time password</Heading>
           <Text style={styles.text}>Copy and paste this temporary code:</Text>
           <code style={styles.code}>{`{{ .Token }}`}</code>
+          <Text style={styles.text}>
+            You can also log in using this{" "}
+            <Link href={confirmationURL} target="_blank" style={styles.link}>
+              Magic Link
+            </Link>
+          </Text>
           <Text
             style={{
               ...styles.text,

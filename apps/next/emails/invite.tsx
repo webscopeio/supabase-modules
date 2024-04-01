@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as styles from "./_components/styles";
+import * as styles from "./_shared/styles";
 import { EmailOtpType } from "@supabase/supabase-js";
 import {
   Body,
@@ -15,7 +15,7 @@ import {
   Text,
 } from "@react-email/components";
 
-const redirectTo = `/settings`;
+const redirectTo = `/settings/accounts`;
 const type: EmailOtpType = "invite";
 const confirmationURL = `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=${type}&next=${redirectTo}`;
 
