@@ -1,16 +1,15 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import { signUpWithEmailPassword } from "@/modules/user/auth";
-import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
+import * as React from "react"
+import Link from "next/link"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons"
+import { useMutation } from "@tanstack/react-query"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -18,12 +17,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+
+import { signUpWithEmailPassword } from "@/modules/user/auth"
 
 export const RegisterForm: React.FC = () => {
   const signUp = useMutation({
     mutationFn: signUpWithEmailPassword,
-  });
+  })
 
   return (
     <RegisterFormComponent
@@ -40,19 +42,19 @@ export const RegisterForm: React.FC = () => {
       isError={signUp.isError}
       errorMessage={signUp.error?.message}
     />
-  );
-};
+  )
+}
 
 const FormSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   password: z.string().min(5, { message: "Must be 5 or more characters long" }),
-});
+})
 
 const RegisterFormComponent: React.FC<{
-  signUp: ({ email, password }: { email: string; password: string }) => void;
-  isPending: boolean;
-  isError: boolean;
-  errorMessage?: string;
+  signUp: ({ email, password }: { email: string; password: string }) => void
+  isPending: boolean
+  isError: boolean
+  errorMessage?: string
 }> = ({ signUp, isPending, isError, errorMessage }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -60,7 +62,7 @@ const RegisterFormComponent: React.FC<{
       email: "",
       password: "",
     },
-  });
+  })
 
   return (
     <div className="space-y-6">
@@ -76,7 +78,7 @@ const RegisterFormComponent: React.FC<{
             signUp({
               email,
               password,
-            });
+            })
           })}
           className="space-y-6"
         >
@@ -127,5 +129,5 @@ const RegisterFormComponent: React.FC<{
         </form>
       </Form>
     </div>
-  );
-};
+  )
+}

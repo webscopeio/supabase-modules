@@ -12,7 +12,10 @@
     "email:dev": "email dev -p 4000",
     "email:export": "email export --outDir supabase/templates --pretty",
     "build": "next build",
-    "lint": "eslint ."
+    "lint": "eslint . --max-warnings 0 --report-unused-disable-directives",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier . --check",
+    "format:fix": "prettier . --write"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -44,6 +47,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.2.1",
     "@tanstack/eslint-plugin-query": "^5.18.1",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -53,10 +57,13 @@
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-tailwindcss": "^3.15.1",
     "postcss": "^8",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.13",
     "react-email": "^2.1.0",
     "supabase": "^1.142.1",
     "tailwindcss": "^3.4.0",

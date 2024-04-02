@@ -1,4 +1,4 @@
-import { DynamicBreadCrumbs } from "@/components/dynamic-breadcrumbs";
+import { DynamicBreadCrumbs } from "@/components/dynamic-breadcrumbs"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -6,5 +6,5 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <DynamicBreadCrumbs />
       {children}
     </section>
-  );
+  )
 }

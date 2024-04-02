@@ -1,34 +1,35 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import * as React from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+} from "@/components/ui/breadcrumb"
 
 export const DynamicBreadCrumbs: React.FC = () => {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   const paths = React.useMemo(() => {
-    const segments = pathname.split("/").filter(Boolean);
+    const segments = pathname.split("/").filter(Boolean)
 
     return segments.reduce<{ href: string; label: string }[]>(
       (acc, curr, index) => {
-        const href = `/${segments.slice(0, index + 1).join("/")}`;
+        const href = `/${segments.slice(0, index + 1).join("/")}`
         const label =
-          curr.charAt(0).toUpperCase() + curr.slice(1).replaceAll("-", " ");
+          curr.charAt(0).toUpperCase() + curr.slice(1).replaceAll("-", " ")
 
-        acc.push({ href, label });
-        return acc;
+        acc.push({ href, label })
+        return acc
       },
       [{ href: "/", label: "Home" }]
-    );
-  }, [pathname]);
+    )
+  }, [pathname])
 
   return (
     <Breadcrumb>
@@ -51,5 +52,5 @@ export const DynamicBreadCrumbs: React.FC = () => {
         ))}
       </BreadcrumbList>
     </Breadcrumb>
-  );
-};
+  )
+}

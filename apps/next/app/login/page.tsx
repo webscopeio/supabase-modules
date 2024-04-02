@@ -1,17 +1,19 @@
-import { createClient } from "@/modules/utils/server";
-import { LoginForm } from "@/components/user/login-form";
-import { redirect } from "next/navigation";
+import { redirect } from "next/navigation"
+
+import { LoginForm } from "@/components/user/login-form"
+
+import { createClient } from "@/modules/utils/server"
 
 export default async function Page() {
-  const supabase = createClient();
+  const supabase = createClient()
 
   const {
     data: { user },
-  } = await supabase.auth.getUser();
+  } = await supabase.auth.getUser()
 
   if (user) {
-    redirect("/settings/accounts");
+    redirect("/settings/accounts")
   }
 
-  return <LoginForm />;
+  return <LoginForm />
 }

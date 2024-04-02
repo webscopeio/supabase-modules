@@ -1,18 +1,19 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import * as React from "react"
+import Link from "next/link"
+import { zodResolver } from "@hookform/resolvers/zod"
 import {
   CircleIcon,
   CrossCircledIcon,
   InfoCircledIcon,
-} from "@radix-ui/react-icons";
+} from "@radix-ui/react-icons"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -20,15 +21,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { getProfile, updateProfile } from "@/modules/user/profile";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+
+import { getProfile, updateProfile } from "@/modules/user/profile"
 
 export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
   const profile = useQuery({
     queryKey: ["profiles", userId],
     queryFn: () => getProfile({ id: userId }),
-  });
+  })
 
   if (profile.isLoading) {
     return (
@@ -37,7 +39,7 @@ export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
           <CircleIcon className="size-8 animate-spin" />
         </div>
       </div>
-    );
+    )
   }
 
   if (profile.isError) {
@@ -53,7 +55,7 @@ export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
           </AlertDescription>
         </Alert>
       </div>
-    );
+    )
   }
 
   if (!profile.data) {
@@ -67,7 +69,7 @@ export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
           </AlertDescription>
         </Alert>
       </div>
-    );
+    )
   }
 
   return (
@@ -77,22 +79,22 @@ export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
       fullName={profile.data.full_name}
       preferredName={profile.data.preferred_name}
     />
-  );
-};
+  )
+}
 
 export const ProfileFormContainer: React.FC<{
-  id: string;
-  username: string;
-  fullName: string | null;
-  preferredName: string | null;
+  id: string
+  username: string
+  fullName: string | null
+  preferredName: string | null
 }> = ({ id, username, fullName, preferredName }) => {
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
   const update = useMutation({
     mutationFn: updateProfile,
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["profiles", id] });
+      await queryClient.invalidateQueries({ queryKey: ["profiles", id] })
     },
-  });
+  })
 
   return (
     <ProfileFormComponent
@@ -107,10 +109,10 @@ export const ProfileFormContainer: React.FC<{
         full_name,
         preferred_name,
       }: {
-        id: string;
-        username: string;
-        full_name: string;
-        preferred_name?: string;
+        id: string
+        username: string
+        full_name: string
+        preferred_name?: string
       }) =>
         update.mutate({
           id,
@@ -126,8 +128,8 @@ export const ProfileFormContainer: React.FC<{
       isError={update.isError}
       errorMessage={update.error?.message}
     />
-  );
-};
+  )
+}
 
 const FormSchema = z.object({
   username: z.string().min(3, { message: "Must be 3 or more characters long" }),
@@ -137,27 +139,27 @@ const FormSchema = z.object({
   preferred_name: z
     .string()
     .min(3, { message: "Must be 3 or more characters long" }),
-});
+})
 
 const ProfileFormComponent: React.FC<{
-  id: string;
-  username: string;
-  fullName: string | null;
-  preferredName: string | null;
+  id: string
+  username: string
+  fullName: string | null
+  preferredName: string | null
   updateProfile: ({
     id,
     username,
     full_name,
     preferred_name,
   }: {
-    id: string;
-    username: string;
-    full_name: string;
-    preferred_name?: string;
-  }) => void;
-  isPending: boolean;
-  isError: boolean;
-  errorMessage?: string;
+    id: string
+    username: string
+    full_name: string
+    preferred_name?: string
+  }) => void
+  isPending: boolean
+  isError: boolean
+  errorMessage?: string
 }> = ({
   id,
   username,
@@ -175,7 +177,7 @@ const ProfileFormComponent: React.FC<{
       full_name: fullName ?? "",
       preferred_name: preferredName ?? "",
     },
-  });
+  })
 
   return (
     <div className="space-y-6">
@@ -189,7 +191,7 @@ const ProfileFormComponent: React.FC<{
         <form
           onSubmit={form.handleSubmit(
             ({ username, full_name, preferred_name }) => {
-              updateProfile({ id, username, full_name, preferred_name });
+              updateProfile({ id, username, full_name, preferred_name })
             }
           )}
           className="space-y-6"
@@ -254,5 +256,5 @@ const ProfileFormComponent: React.FC<{
         </form>
       </Form>
     </div>
-  );
-};
+  )
+}

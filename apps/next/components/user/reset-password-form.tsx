@@ -1,16 +1,15 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import { resetPasswordForEmail } from "@/modules/user/auth";
-import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
+import * as React from "react"
+import Link from "next/link"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons"
+import { useMutation } from "@tanstack/react-query"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -18,12 +17,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+
+import { resetPasswordForEmail } from "@/modules/user/auth"
 
 export const ResetPasswordForm: React.FC = () => {
   const reset = useMutation({
     mutationFn: resetPasswordForEmail,
-  });
+  })
 
   return (
     <ResetPasswordFormComponent
@@ -32,25 +34,25 @@ export const ResetPasswordForm: React.FC = () => {
       isError={reset.isError}
       errorMessage={reset.error?.message}
     />
-  );
-};
+  )
+}
 
 const FormSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
-});
+})
 
 const ResetPasswordFormComponent: React.FC<{
-  resetPassword: (email: string) => void;
-  isPending: boolean;
-  isError: boolean;
-  errorMessage?: string;
+  resetPassword: (email: string) => void
+  isPending: boolean
+  isError: boolean
+  errorMessage?: string
 }> = ({ resetPassword, isPending, isError, errorMessage }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       email: "",
     },
-  });
+  })
 
   return (
     <div className="space-y-6">
@@ -63,7 +65,7 @@ const ResetPasswordFormComponent: React.FC<{
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(({ email }) => {
-            resetPassword(email);
+            resetPassword(email)
           })}
           className="space-y-6"
         >
@@ -101,5 +103,5 @@ const ResetPasswordFormComponent: React.FC<{
         </form>
       </Form>
     </div>
-  );
-};
+  )
+}

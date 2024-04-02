@@ -1,17 +1,19 @@
-import { createClient } from "@/modules/utils/server";
-import { CredentialsForm } from "@/components/user/credentials-form";
-import { redirect } from "next/navigation";
+import { redirect } from "next/navigation"
+
+import { CredentialsForm } from "@/components/user/credentials-form"
+
+import { createClient } from "@/modules/utils/server"
 
 export default async function Page() {
-  const supabase = createClient();
+  const supabase = createClient()
 
   const {
     data: { user },
-  } = await supabase.auth.getUser();
+  } = await supabase.auth.getUser()
 
   if (!user?.email) {
-    redirect("/login");
+    redirect("/login")
   }
 
-  return <CredentialsForm userEmail={user.email} />;
+  return <CredentialsForm userEmail={user.email} />
 }

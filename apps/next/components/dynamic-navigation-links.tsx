@@ -1,14 +1,15 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import * as React from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+
+import { Button } from "@/components/ui/button"
 
 export const DynamicNavigationLinks: React.FC<{
-  items: { href: string; label: string }[];
+  items: { href: string; label: string }[]
 }> = ({ items }) => {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   return (
     <div className="space-x-1 lg:space-x-0 lg:space-y-1">
@@ -27,5 +28,5 @@ export const DynamicNavigationLinks: React.FC<{
         </Button>
       ))}
     </div>
-  );
-};
+  )
+}

@@ -1,16 +1,15 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import { updateUser } from "@/modules/user/auth";
-import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
+import * as React from "react"
+import Link from "next/link"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons"
+import { useMutation } from "@tanstack/react-query"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -18,12 +17,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+
+import { updateUser } from "@/modules/user/auth"
 
 export const NewResetPasswordForm: React.FC = () => {
   const update = useMutation({
     mutationFn: updateUser,
-  });
+  })
 
   return (
     <NewResetPasswordFormComponent
@@ -31,8 +33,8 @@ export const NewResetPasswordForm: React.FC = () => {
         email,
         password,
       }: {
-        email?: string;
-        password?: string;
+        email?: string
+        password?: string
       }) => {
         update.mutate({
           email,
@@ -40,31 +42,31 @@ export const NewResetPasswordForm: React.FC = () => {
           redirect: {
             url: "/settings/accounts",
           },
-        });
+        })
       }}
       isPending={update.isPending}
       isError={update.isError}
       errorMessage={update.error?.message}
     />
-  );
-};
+  )
+}
 
 const FormSchema = z.object({
   password: z.string().min(5, { message: "Must be 5 or more characters long" }),
-});
+})
 
 const NewResetPasswordFormComponent: React.FC<{
-  updateUser: ({ password }: { password: string }) => void;
-  isPending: boolean;
-  isError: boolean;
-  errorMessage?: string;
+  updateUser: ({ password }: { password: string }) => void
+  isPending: boolean
+  isError: boolean
+  errorMessage?: string
 }> = ({ updateUser, isPending, isError, errorMessage }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       password: "",
     },
-  });
+  })
 
   return (
     <div className="space-y-6">
@@ -75,7 +77,7 @@ const NewResetPasswordFormComponent: React.FC<{
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(({ password }) => {
-            updateUser({ password });
+            updateUser({ password })
           })}
           className="space-y-6"
         >
@@ -113,5 +115,5 @@ const NewResetPasswordFormComponent: React.FC<{
         </form>
       </Form>
     </div>
-  );
-};
+  )
+}

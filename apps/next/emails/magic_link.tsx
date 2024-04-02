@@ -1,6 +1,4 @@
-import * as React from "react";
-import * as styles from "./_shared/styles";
-import { EmailOtpType } from "@supabase/supabase-js";
+import * as React from "react"
 import {
   Body,
   Container,
@@ -11,12 +9,15 @@ import {
   Link,
   Preview,
   Text,
-} from "@react-email/components";
+} from "@react-email/components"
+import { EmailOtpType } from "@supabase/supabase-js"
 
-const redirectTo = `/settings/accounts`;
-const type: EmailOtpType = "magiclink";
+import * as styles from "./_shared/styles"
 
-const confirmationURL = `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=${type}&next=${redirectTo}`;
+const redirectTo = `/settings/accounts`
+const type: EmailOtpType = "magiclink"
+
+const confirmationURL = `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=${type}&next=${redirectTo}`
 
 export default function Email() {
   return (
@@ -57,5 +58,5 @@ export default function Email() {
         </Container>
       </Body>
     </Html>
-  );
+  )
 }

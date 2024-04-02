@@ -1,17 +1,19 @@
-import { Accounts } from "@/components/user/accounts";
-import { createClient } from "@/modules/utils/server";
-import { redirect } from "next/navigation";
+import { redirect } from "next/navigation"
+
+import { Accounts } from "@/components/user/accounts"
+
+import { createClient } from "@/modules/utils/server"
 
 export default async function Page() {
-  const supabase = createClient();
+  const supabase = createClient()
 
   const {
     data: { user },
-  } = await supabase.auth.getUser();
+  } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect("/login");
+    redirect("/login")
   }
 
-  return <Accounts userId={user.id} />;
+  return <Accounts userId={user.id} />
 }

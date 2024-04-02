@@ -1,17 +1,19 @@
-import { createClient } from "@/modules/utils/server";
-import { NewResetPasswordForm } from "@/components/user/new-reset-password-form";
-import { redirect } from "next/navigation";
+import { redirect } from "next/navigation"
+
+import { NewResetPasswordForm } from "@/components/user/new-reset-password-form"
+
+import { createClient } from "@/modules/utils/server"
 
 export default async function Page() {
-  const supabase = createClient();
+  const supabase = createClient()
 
   const {
     data: { user },
-  } = await supabase.auth.getUser();
+  } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect("/login");
+    redirect("/login")
   }
 
-  return <NewResetPasswordForm />;
+  return <NewResetPasswordForm />
 }

@@ -1,33 +1,36 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Button } from "@/components/ui/button";
-import { getProfile } from "@/modules/user/profile";
-import Link from "next/link";
-import { Separator } from "@/components/ui/separator";
-import { signOut } from "@/modules/user/auth";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ChevronDownIcon, TrashIcon } from "@radix-ui/react-icons";
+import * as React from "react"
+import Link from "next/link"
 import {
+  ChevronDownIcon,
   CircleIcon,
   CrossCircledIcon,
   InfoCircledIcon,
-} from "@radix-ui/react-icons";
+  TrashIcon,
+} from "@radix-ui/react-icons"
+import { useMutation, useQuery } from "@tanstack/react-query"
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useMutation, useQuery } from "@tanstack/react-query";
+} from "@/components/ui/dropdown-menu"
+import { Separator } from "@/components/ui/separator"
+
+import { signOut } from "@/modules/user/auth"
+import { getProfile } from "@/modules/user/profile"
 
 export const Accounts: React.FC<{ userId: string }> = ({ userId }) => {
   const profile = useQuery({
     queryKey: ["profiles", userId],
     queryFn: () => getProfile({ id: userId }),
-  });
+  })
 
   if (profile.isLoading) {
     return (
@@ -36,7 +39,7 @@ export const Accounts: React.FC<{ userId: string }> = ({ userId }) => {
           <CircleIcon className="size-8 animate-spin" />
         </div>
       </div>
-    );
+    )
   }
 
   if (profile.isError) {
@@ -52,7 +55,7 @@ export const Accounts: React.FC<{ userId: string }> = ({ userId }) => {
           </AlertDescription>
         </Alert>
       </div>
-    );
+    )
   }
 
   if (!profile.data) {
@@ -66,7 +69,7 @@ export const Accounts: React.FC<{ userId: string }> = ({ userId }) => {
           </AlertDescription>
         </Alert>
       </div>
-    );
+    )
   }
 
   return (
@@ -75,17 +78,17 @@ export const Accounts: React.FC<{ userId: string }> = ({ userId }) => {
       preferredName={profile.data.preferred_name}
       email={profile.data.email}
     />
-  );
-};
+  )
+}
 
 export const AccountsContainer: React.FC<{
-  username: string;
-  preferredName: string | null;
-  email: string;
+  username: string
+  preferredName: string | null
+  email: string
 }> = ({ username, preferredName, email }) => {
   const logout = useMutation({
     mutationFn: signOut,
-  });
+  })
 
   return (
     <AccountsComponent
@@ -103,17 +106,17 @@ export const AccountsContainer: React.FC<{
       isError={logout.isError}
       errorMessage={logout.error?.message}
     />
-  );
-};
+  )
+}
 
 const AccountsComponent: React.FC<{
-  username: string;
-  preferredName: string | null;
-  email: string;
-  signOut: () => void;
-  isPending: boolean;
-  isError: boolean;
-  errorMessage?: string;
+  username: string
+  preferredName: string | null
+  email: string
+  signOut: () => void
+  isPending: boolean
+  isError: boolean
+  errorMessage?: string
 }> = ({
   username,
   preferredName,
@@ -185,5 +188,5 @@ const AccountsComponent: React.FC<{
         </Alert>
       )}
     </div>
-  );
-};
+  )
+}

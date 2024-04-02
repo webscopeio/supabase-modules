@@ -1,24 +1,27 @@
-import { cn } from "@/lib/utils";
-import { Schibsted_Grotesk as FontSans } from "next/font/google";
-import type { Metadata } from "next";
-import { Providers } from "./providers";
-import "./globals.css";
+import type { Metadata } from "next"
+import { Schibsted_Grotesk as FontSans } from "next/font/google"
+
+import { cn } from "@/lib/utils"
+
+import { Providers } from "./providers"
+
+import "./globals.css"
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
-});
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://supabase-modules-demo.vercel.app/"),
   title: "The Playground",
   description: "Supabase Modules - Build smarter with pre-built modules today",
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
@@ -35,5 +38,5 @@ export default function RootLayout({
         </Providers>
       </body>
     </html>
-  );
+  )
 }

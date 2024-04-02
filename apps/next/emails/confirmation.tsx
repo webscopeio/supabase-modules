@@ -1,6 +1,4 @@
-import * as React from "react";
-import * as styles from "./_shared/styles";
-import { EmailOtpType } from "@supabase/supabase-js";
+import * as React from "react"
 import {
   Body,
   Button,
@@ -13,11 +11,14 @@ import {
   Preview,
   Section,
   Text,
-} from "@react-email/components";
+} from "@react-email/components"
+import { EmailOtpType } from "@supabase/supabase-js"
 
-const redirectTo = `/login`;
-const type: EmailOtpType = "signup";
-const confirmationURL = `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=${type}&next=${redirectTo}`;
+import * as styles from "./_shared/styles"
+
+const redirectTo = `/login`
+const type: EmailOtpType = "signup"
+const confirmationURL = `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=${type}&next=${redirectTo}`
 
 export default function Email() {
   return (
@@ -59,5 +60,5 @@ export default function Email() {
         </Container>
       </Body>
     </Html>
-  );
+  )
 }

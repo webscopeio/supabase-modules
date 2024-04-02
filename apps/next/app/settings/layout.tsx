@@ -1,5 +1,5 @@
-import { DynamicBreadCrumbs } from "@/components/dynamic-breadcrumbs";
-import { DynamicNavigationLinks } from "@/components/dynamic-navigation-links";
+import { DynamicBreadCrumbs } from "@/components/dynamic-breadcrumbs"
+import { DynamicNavigationLinks } from "@/components/dynamic-navigation-links"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -31,5 +31,5 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="w-full">{children}</div>
       </div>
     </section>
-  );
+  )
 }

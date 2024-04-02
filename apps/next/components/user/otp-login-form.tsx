@@ -1,15 +1,15 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import { verifyOtp } from "@/modules/user/auth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
+import * as React from "react"
+import Link from "next/link"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons"
+import { useMutation } from "@tanstack/react-query"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -18,17 +18,19 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from "@/components/ui/form"
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
-} from "@/components/ui/input-otp";
+} from "@/components/ui/input-otp"
+
+import { verifyOtp } from "@/modules/user/auth"
 
 export const OtpLoginForm: React.FC<{ email: string }> = ({ email }) => {
   const verify = useMutation({
     mutationFn: verifyOtp,
-  });
+  })
 
   return (
     <OtpLoginFormComponent
@@ -45,27 +47,27 @@ export const OtpLoginForm: React.FC<{ email: string }> = ({ email }) => {
       isError={verify.isError}
       errorMessage={verify.error?.message}
     />
-  );
-};
+  )
+}
 
 const FormSchema = z.object({
   token: z.string().min(6, {
     message: "Your one-time password must be 6 characters.",
   }),
-});
+})
 
 const OtpLoginFormComponent: React.FC<{
-  verifyOtp: ({ token }: { token: string }) => void;
-  isPending: boolean;
-  isError: boolean;
-  errorMessage?: string;
+  verifyOtp: ({ token }: { token: string }) => void
+  isPending: boolean
+  isError: boolean
+  errorMessage?: string
 }> = ({ verifyOtp, isPending, isError, errorMessage }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       token: "",
     },
-  });
+  })
 
   return (
     <div className="space-y-6">
@@ -78,7 +80,7 @@ const OtpLoginFormComponent: React.FC<{
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(({ token }) => {
-            verifyOtp({ token });
+            verifyOtp({ token })
           })}
           className="space-y-6"
         >
@@ -133,5 +135,5 @@ const OtpLoginFormComponent: React.FC<{
         </form>
       </Form>
     </div>
-  );
-};
+  )
+}

@@ -1,25 +1,25 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": true
-  },
-  "plugins": ["@typescript-eslint", "tailwindcss"],
   "extends": [
     "next/core-web-vitals",
-    "plugin:@typescript-eslint/recommended-type-checked",
-    "plugin:@typescript-eslint/stylistic-type-checked",
+    "eslint:recommended",
+    "prettier",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:tailwindcss/recommended"
   ],
+  "plugins": ["@typescript-eslint", "react", "react-hooks", "tailwindcss"],
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": true,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "rules": {
     "@typescript-eslint/consistent-type-definitions": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      {
-        "argsIgnorePattern": "^_"
-      }
-    ],
     "@typescript-eslint/no-misused-promises": [
       "error",
       {
@@ -28,22 +28,18 @@
         }
       }
     ],
-    "sort-imports": [
-      "error",
-      {
-        "ignoreCase": true,
-        "memberSyntaxSortOrder": ["all", "single", "multiple", "none"]
-      }
-    ],
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
     "tailwindcss/no-custom-classname": "off",
-    "tailwindcss/classnames-order": "error"
+    "tailwindcss/classnames-order": "off"
   },
   "settings": {
     "tailwindcss": {
       "callees": ["cn", "cva"],
       "config": "tailwind.config.ts"
+    },
+    "react": {
+      "version": "detect"
     }
   },
   "ignorePatterns": ["/lib/env.ts", "/postcss.config.js", "/modules/types"]

@@ -1,16 +1,15 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import { updateUser } from "@/modules/user/auth";
-import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons";
+import * as React from "react"
+import Link from "next/link"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons"
+import { useMutation } from "@tanstack/react-query"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -19,14 +18,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+
+import { updateUser } from "@/modules/user/auth"
 
 export const CredentialsForm: React.FC<{ userEmail: string }> = ({
   userEmail,
 }) => {
   const update = useMutation({
     mutationFn: updateUser,
-  });
+  })
 
   return (
     <CredentialsFormComponent
@@ -35,8 +37,8 @@ export const CredentialsForm: React.FC<{ userEmail: string }> = ({
         email,
         password,
       }: {
-        email?: string;
-        password?: string;
+        email?: string
+        password?: string
       }) => {
         update.mutate({
           email,
@@ -44,32 +46,32 @@ export const CredentialsForm: React.FC<{ userEmail: string }> = ({
           redirect: {
             url: "/accounts/credentials",
           },
-        });
+        })
       }}
       isPending={update.isPending}
       isError={update.isError}
       errorMessage={update.error?.message}
     />
-  );
-};
+  )
+}
 
 const FormSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }).optional(),
   password: z.string().optional(),
-});
+})
 
 const CredentialsFormComponent: React.FC<{
-  userEmail: string;
+  userEmail: string
   updateUser: ({
     email,
     password,
   }: {
-    email?: string;
-    password?: string;
-  }) => void;
-  isPending: boolean;
-  isError: boolean;
-  errorMessage?: string;
+    email?: string
+    password?: string
+  }) => void
+  isPending: boolean
+  isError: boolean
+  errorMessage?: string
 }> = ({ userEmail, updateUser, isPending, isError, errorMessage }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -77,7 +79,7 @@ const CredentialsFormComponent: React.FC<{
       email: userEmail,
       password: "",
     },
-  });
+  })
 
   return (
     <div className="space-y-6">
@@ -90,15 +92,15 @@ const CredentialsFormComponent: React.FC<{
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(({ email, password }) => {
-            const updates: { email?: string; password?: string } = {};
+            const updates: { email?: string; password?: string } = {}
 
-            if (email) updates.email = email;
-            if (password) updates.password = password;
+            if (email) updates.email = email
+            if (password) updates.password = password
 
             if (Object.keys(updates).length > 0) {
-              updateUser(updates);
+              updateUser(updates)
             }
-            form.reset();
+            form.reset()
           })}
           className="space-y-6"
         >
@@ -155,5 +157,5 @@ const CredentialsFormComponent: React.FC<{
         </form>
       </Form>
     </div>
-  );
-};
+  )
+}
