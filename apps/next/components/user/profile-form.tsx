@@ -15,6 +15,13 @@ import * as z from "zod"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
   Form,
   FormControl,
   FormField,
@@ -180,81 +187,83 @@ const ProfileFormComponent: React.FC<{
   })
 
   return (
-    <div className="space-y-6">
-      <header className="space-y-2">
-        <h2 className="text-2xl font-semibold tracking-tight">
-          Profile Settings
-        </h2>
-        <p>Manage your profile settings</p>
-      </header>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(
-            ({ username, full_name, preferred_name }) => {
-              updateProfile({ id, username, full_name, preferred_name })
-            }
-          )}
-          className="space-y-6"
-        >
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input placeholder="sosa" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-2xl">Profile Settings</CardTitle>
+        <CardDescription>Manage your profile settings</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(
+              ({ username, full_name, preferred_name }) => {
+                updateProfile({ id, username, full_name, preferred_name })
+              }
             )}
-          />
-          <FormField
-            control={form.control}
-            name="full_name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Full name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Hector Sosa" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+            className="space-y-6"
+          >
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input placeholder="sosa" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="full_name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Full name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Hector Sosa" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="preferred_name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Preferred name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Hector" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {isError && (
+              <Alert variant="destructive">
+                <CrossCircledIcon className="size-4" />
+                <AlertTitle>Something went wrong!</AlertTitle>
+                <AlertDescription>
+                  {errorMessage ?? "Unknown error"}
+                </AlertDescription>
+              </Alert>
             )}
-          />
-          <FormField
-            control={form.control}
-            name="preferred_name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Preferred name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Hector" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          {isError && (
-            <Alert variant="destructive">
-              <CrossCircledIcon className="size-4" />
-              <AlertTitle>Something went wrong!</AlertTitle>
-              <AlertDescription>
-                {errorMessage ?? "Unknown error"}
-              </AlertDescription>
-            </Alert>
-          )}
-          <footer className="flex flex-col gap-2 sm:flex-row">
-            <Button type="submit" disabled={isPending}>
-              {isPending && <CircleIcon className="mr-2 size-4 animate-spin" />}
-              Update Settings
-            </Button>
-            <Button asChild variant="link">
-              <Link href="/settings/account">Account Settings</Link>
-            </Button>
-          </footer>
-        </form>
-      </Form>
-    </div>
+            <footer className="flex flex-col gap-2 sm:flex-row">
+              <Button type="submit" disabled={isPending}>
+                {isPending && (
+                  <CircleIcon className="mr-2 size-4 animate-spin" />
+                )}
+                Update Settings
+              </Button>
+              <Button asChild variant="link">
+                <Link href="/settings/account">Account Settings</Link>
+              </Button>
+            </footer>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
   )
 }

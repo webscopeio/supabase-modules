@@ -11,6 +11,13 @@ import * as z from "zod"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
   Form,
   FormControl,
   FormDescription,
@@ -93,82 +100,90 @@ const LoginFormComponent: React.FC<{
   })
 
   return (
-    <div className="space-y-6">
-      <header className="space-y-2">
-        <h2 className="text-4xl font-semibold tracking-tight">Sign in</h2>
-        <p>Welcome back!</p>
-      </header>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(({ email, password }) => {
-            isLoginWithOTP ? signIn({ email }) : signIn({ email, password })
-          })}
-          className="space-y-6"
-        >
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input placeholder="sosa@webscope.io" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          {!isLoginWithOTP && (
+    <Card className="mx-auto my-16 max-w-md">
+      <CardHeader>
+        <CardTitle className="text-2xl">Sign in</CardTitle>
+        <CardDescription>Welcome back!</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(({ email, password }) => {
+              isLoginWithOTP ? signIn({ email }) : signIn({ email, password })
+            })}
+            className="space-y-6"
+          >
             <FormField
               control={form.control}
-              name="password"
+              name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="Password" {...field} />
+                    <Input placeholder="sosa@webscope.io" {...field} />
                   </FormControl>
-                  <FormDescription className="pt-1">
-                    <Link
-                      className="underline-offset-4 hover:underline"
-                      href="/login/reset-password"
-                    >
-                      Forgot password?
-                    </Link>
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
-          )}
-          {isError && (
-            <Alert variant="destructive">
-              <CrossCircledIcon className="size-4" />
-              <AlertTitle>Something went wrong!</AlertTitle>
-              <AlertDescription>
-                {errorMessage ?? "Unknown error"}
-              </AlertDescription>
-            </Alert>
-          )}
-          <div className="flex items-center space-x-2">
-            <Switch
-              checked={isLoginWithOTP}
-              onCheckedChange={(v) => setIsLoginWithOTP(v)}
-              id="OTP-login"
-            />
-            <Label htmlFor="OTP-login">Login with One-Time password</Label>
-          </div>
-          <footer className="flex flex-col gap-2 sm:flex-row">
-            <Button type="submit" disabled={isPending}>
-              {isPending && <CircleIcon className="mr-2 size-4 animate-spin" />}
-              {isLoginWithOTP ? "Email me a One-Time password" : "Sign in"}
-            </Button>
-            <Button asChild variant="link">
-              <Link href="/login/new">Create new account</Link>
-            </Button>
-          </footer>
-        </form>
-      </Form>
-    </div>
+            {!isLoginWithOTP && (
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="Password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription className="pt-1">
+                      <Link
+                        className="underline-offset-4 hover:underline"
+                        href="/login/reset-password"
+                      >
+                        Forgot password?
+                      </Link>
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+            {isError && (
+              <Alert variant="destructive">
+                <CrossCircledIcon className="size-4" />
+                <AlertTitle>Something went wrong!</AlertTitle>
+                <AlertDescription>
+                  {errorMessage ?? "Unknown error"}
+                </AlertDescription>
+              </Alert>
+            )}
+            <div className="flex items-center space-x-2">
+              <Switch
+                checked={isLoginWithOTP}
+                onCheckedChange={(v) => setIsLoginWithOTP(v)}
+                id="OTP-login"
+              />
+              <Label htmlFor="OTP-login">Login with One-Time password</Label>
+            </div>
+            <footer className="flex flex-col gap-2">
+              <Button type="submit" disabled={isPending}>
+                {isPending && (
+                  <CircleIcon className="mr-2 size-4 animate-spin" />
+                )}
+                {isLoginWithOTP ? "Email me a One-Time password" : "Sign in"}
+              </Button>
+              <Button asChild variant="link">
+                <Link href="/login/new">Create new account</Link>
+              </Button>
+            </footer>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
   )
 }

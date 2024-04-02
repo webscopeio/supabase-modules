@@ -11,6 +11,13 @@ import * as z from "zod"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
   Form,
   FormControl,
   FormField,
@@ -69,51 +76,55 @@ const NewResetPasswordFormComponent: React.FC<{
   })
 
   return (
-    <div className="space-y-6">
-      <header className="space-y-2">
-        <h2 className="text-4xl font-semibold tracking-tight">New Password</h2>
-        <p>Please fill out the form below</p>
-      </header>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(({ password }) => {
-            updateUser({ password })
-          })}
-          className="space-y-6"
-        >
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input type="password" placeholder="Password" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+    <Card className="mx-auto my-16 max-w-md">
+      <CardHeader>
+        <CardTitle className="text-2xl">New Password</CardTitle>
+        <CardDescription>Please fill out the form below</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(({ password }) => {
+              updateUser({ password })
+            })}
+            className="space-y-6"
+          >
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="Password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {isError && (
+              <Alert variant="destructive">
+                <CrossCircledIcon className="size-4" />
+                <AlertTitle>Something went wrong!</AlertTitle>
+                <AlertDescription>
+                  {errorMessage ?? "Unknown error"}
+                </AlertDescription>
+              </Alert>
             )}
-          />
-          {isError && (
-            <Alert variant="destructive">
-              <CrossCircledIcon className="size-4" />
-              <AlertTitle>Something went wrong!</AlertTitle>
-              <AlertDescription>
-                {errorMessage ?? "Unknown error"}
-              </AlertDescription>
-            </Alert>
-          )}
-          <footer className="flex flex-col gap-2 sm:flex-row">
-            <Button type="submit" disabled={isPending}>
-              {isPending && <CircleIcon className="mr-2 size-4 animate-spin" />}
-              Set new password
-            </Button>
-            <Button asChild variant="link">
-              <Link href="/login">Back to Login</Link>
-            </Button>
-          </footer>
-        </form>
-      </Form>
-    </div>
+            <footer className="flex flex-col gap-2">
+              <Button type="submit" disabled={isPending}>
+                {isPending && (
+                  <CircleIcon className="mr-2 size-4 animate-spin" />
+                )}
+                Set new password
+              </Button>
+              <Button asChild variant="link">
+                <Link href="/login">Back to Login</Link>
+              </Button>
+            </footer>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
   )
 }

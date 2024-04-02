@@ -7,6 +7,10 @@ import { Providers } from "./providers"
 
 import "./globals.css"
 
+import { ApplicationLayout } from "@/components/application-layout"
+
+import { createClient } from "@/modules/utils/server"
+
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -18,11 +22,17 @@ export const metadata: Metadata = {
   description: "Supabase Modules - Build smarter with pre-built modules today",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const supabase = createClient()
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body
@@ -32,9 +42,7 @@ export default function RootLayout({
         )}
       >
         <Providers>
-          <nav className="sticky top-0 z-20 h-24 w-full bg-muted/80 backdrop-blur-lg" />
-          <main className="z-10 p-4">{children}</main>
-          <footer className="bottom-0 mt-auto h-48 w-full bg-muted/80 backdrop-blur-lg" />
+          <ApplicationLayout userId={user?.id}>{children}</ApplicationLayout>
         </Providers>
       </body>
     </html>
