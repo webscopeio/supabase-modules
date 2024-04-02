@@ -7,6 +7,8 @@ import { Providers } from "./providers"
 
 import "./globals.css"
 
+import type { Viewport } from "next"
+
 import { ApplicationLayout } from "@/components/application-layout"
 
 import { createClient } from "@/modules/utils/server"
@@ -15,6 +17,13 @@ const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 })
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://supabase-modules-demo.vercel.app/"),
