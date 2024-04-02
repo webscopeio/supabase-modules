@@ -20,6 +20,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://supabase-modules-demo.vercel.app/"),
   title: "The Playground",
   description: "Supabase Modules - Build smarter with pre-built modules today",
+  appleWebApp: {
+    title: "The Playground",
+    statusBarStyle: "default",
+  },
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#000000" },
     { media: "(prefers-color-scheme: dark)", color: "#030712" },
