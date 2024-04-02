@@ -134,7 +134,7 @@ Here is an example of a simple setup for a Next TypeScript React project:
 1. First install the dev dependencies (here we're included all of the dependencies for the config):
 
 ```bash
-pnpm add -D @tanstack/eslint-plugin-query @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint eslint-config-next eslint-plugin-import eslint-plugin-react eslint-plugin-react-hooks
+pnpm add -D eslint eslint-config-next @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-config-prettier eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-tailwindcss
 ```
 
 2. Then configure your `eslintc.json`
