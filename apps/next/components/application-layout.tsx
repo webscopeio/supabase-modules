@@ -48,7 +48,7 @@ export const ApplicationLayout: React.FC<
         <nav className="flex flex-col items-center gap-4 px-2 sm:py-4">
           <Link
             href="/"
-            className="group flex size-9 shrink-0 items-center justify-center gap-2 rounded-full text-lg *:size-9 md:size-8 md:text-base"
+            className="group flex size-9 shrink-0 items-center justify-center gap-2 rounded-full text-lg *:size-6 md:size-8 md:text-base"
           >
             <SupabaseModulesIcon />
             <span className="sr-only">Supabase Modules</span>
@@ -76,11 +76,15 @@ export const ApplicationLayout: React.FC<
                 <span className="sr-only">Toggle Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="sm:max-w-xs">
+            <SheetContent
+              onOpenAutoFocus={(e) => e.preventDefault()}
+              side="left"
+              className="sm:max-w-xs"
+            >
               <nav className="grid gap-6 text-lg font-medium">
                 <Link
                   href="/"
-                  className="group flex size-9 shrink-0 items-center justify-center gap-2 rounded-full text-lg md:size-8 md:text-base"
+                  className="group flex size-9 shrink-0 items-center justify-center gap-2 rounded-full text-lg *:size-6 md:size-8 md:text-base"
                 >
                   <SupabaseModulesIcon />
                   <span className="sr-only">Supabase Modules</span>
@@ -127,8 +131,6 @@ const SupabaseModulesIcon: React.FC = () => {
   return (
     <svg
       className="transition-all group-hover:scale-110"
-      width="110"
-      height="110"
       viewBox="0 0 110 110"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

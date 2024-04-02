@@ -41,7 +41,7 @@ const ProfileDropDownComponent: React.FC<{ userId: string }> = ({ userId }) => {
 
   if (profile.isLoading) {
     return (
-      <div className="relative ml-auto flex size-10 shrink-0 animate-pulse overflow-hidden rounded-full bg-muted" />
+      <div className="relative ml-auto flex size-9 animate-pulse overflow-hidden rounded-full bg-muted" />
     )
   }
 
