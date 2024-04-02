@@ -70,6 +70,7 @@ export default defineConfig({
             link: "/getting-started/existing-project",
           },
           { text: "Your Supabase Instance", link: "/getting-started/supabase" },
+          { text: "Email development", link: "/getting-started/email" },
         ],
       },
       {
