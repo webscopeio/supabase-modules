@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   description: "Supabase Modules - Build smarter with pre-built modules today",
   appleWebApp: {
     title: "The Playground",
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent",
   },
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#000000" },
