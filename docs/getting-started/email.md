@@ -1,5 +1,7 @@
 # Email development
 
+If you are starting from an example project - all emails are installed by default. Therefore, you can continue reviewing the rest of the information.
+
 ## Run a local email development server using React Email
 
 We use [React Email](https://react.email/docs/cli), a collection of high-quality, unstyled components for creating beautiful emails using React and TypeScript. React Email also has a CLI that is able to start a local development server for email development. Here's how to integrate it into your existing project.
