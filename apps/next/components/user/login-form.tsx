@@ -168,7 +168,7 @@ const LoginFormComponent: React.FC<{
                 onCheckedChange={(v) => setIsLoginWithOTP(v)}
                 id="OTP-login"
               />
-              <Label htmlFor="OTP-login">Login with One-Time password</Label>
+              <Label htmlFor="OTP-login">Log in with One-Time password</Label>
             </div>
             <footer className="flex flex-col gap-2">
               <Button type="submit" disabled={isPending}>
