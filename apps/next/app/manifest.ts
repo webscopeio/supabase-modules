@@ -15,5 +15,12 @@ export default function manifest(): MetadataRoute.Manifest {
         type: "image/x-icon",
       },
     ],
+    screenshots: [
+      {
+        src: "/opengraph-image.png",
+        sizes: "1200x630",
+        type: "image/png",
+      },
+    ],
   }
 }
