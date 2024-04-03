@@ -18,27 +18,6 @@ const fontSans = FontSans({
   variable: "--font-sans",
 })
 
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-}
-
-export const metadata: Metadata = {
-  metadataBase: new URL("https://supabase-modules-demo.vercel.app/"),
-  title: "The Playground",
-  description: "Supabase Modules - Build smarter with pre-built modules today",
-  appleWebApp: {
-    title: "The Playground",
-    statusBarStyle: "black-translucent",
-  },
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#000000" },
-    { media: "(prefers-color-scheme: dark)", color: "#030712" },
-  ],
-}
-
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -64,4 +43,26 @@ export default async function RootLayout({
       </body>
     </html>
   )
+}
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#000000" },
+    { media: "(prefers-color-scheme: dark)", color: "#030712" },
+  ],
+}
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://supabase-modules-demo.vercel.app/"),
+  title: "The Playground",
+  description: "Supabase Modules - Build smarter with pre-built modules today",
+  appleWebApp: {
+    title: "The Playground",
+    statusBarStyle: "black-translucent",
+    startupImage: ["/apple-icon.png"],
+  },
 }

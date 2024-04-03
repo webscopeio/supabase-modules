@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "The Playground",
     start_url: "/",
     display: "fullscreen",
-    background_color: "#fff",
+    background_color: "#E0E0E0",
     icons: [
       {
         src: "/apple-icon.png",
