@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
+import { getDigest } from "@/lib/digest"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -34,12 +35,14 @@ export const ResetPasswordForm: React.FC = () => {
     mutationFn: resetPasswordForEmail,
   })
 
+  const digest = getDigest(reset.error)
+
   return (
     <ResetPasswordFormComponent
       resetPassword={(email: string) => reset.mutate({ email })}
       isPending={reset.isPending}
       isError={reset.isError}
-      errorMessage={reset.error?.message}
+      errorMessage={`Password reset was not successful, please try again; ref: ${digest}`}
     />
   )
 }

@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
+import { getDigest } from "@/lib/digest"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -39,6 +40,8 @@ export const OtpLoginForm: React.FC<{ email: string }> = ({ email }) => {
     mutationFn: verifyOtp,
   })
 
+  const digest = getDigest(verify.error)
+
   return (
     <OtpLoginFormComponent
       verifyOtp={({ token }) =>
@@ -52,7 +55,7 @@ export const OtpLoginForm: React.FC<{ email: string }> = ({ email }) => {
       }
       isPending={verify.isPending}
       isError={verify.isError}
-      errorMessage={verify.error?.message}
+      errorMessage={`Log in was not successful, please try again; ref: ${digest}`}
     />
   )
 }

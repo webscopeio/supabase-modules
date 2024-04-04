@@ -11,6 +11,7 @@ import {
 } from "@radix-ui/react-icons"
 import { useMutation, useQuery } from "@tanstack/react-query"
 
+import { getDigest } from "@/lib/digest"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -39,6 +40,8 @@ export const Accounts: React.FC<{ userId: string }> = ({ userId }) => {
     queryFn: () => getProfile({ id: userId }),
   })
 
+  const digest = getDigest(profile.error)
+
   if (profile.isLoading) {
     return (
       <div className="flex h-full flex-col items-center justify-center">
@@ -56,9 +59,7 @@ export const Accounts: React.FC<{ userId: string }> = ({ userId }) => {
           <CrossCircledIcon className="size-4" />
           <AlertTitle>Something went wrong!</AlertTitle>
           <AlertDescription>
-            {profile.error instanceof Error
-              ? profile.error.message
-              : "Unknown error"}
+            Profile loading was not successful, please try again; ref: {digest}
           </AlertDescription>
         </Alert>
       </div>
@@ -97,6 +98,8 @@ export const AccountsContainer: React.FC<{
     mutationFn: signOut,
   })
 
+  const digest = getDigest(logout.error)
+
   return (
     <AccountsComponent
       username={username}
@@ -111,7 +114,7 @@ export const AccountsContainer: React.FC<{
       }
       isPending={logout.isPending}
       isError={logout.isError}
-      errorMessage={logout.error?.message}
+      errorMessage={`Log out was not successful, please try again; ref: ${digest}`}
     />
   )
 }

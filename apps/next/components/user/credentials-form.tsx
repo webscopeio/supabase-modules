@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
+import { getDigest } from "@/lib/digest"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -37,6 +38,8 @@ export const CredentialsForm: React.FC<{ userEmail: string }> = ({
     mutationFn: updateUser,
   })
 
+  const digest = getDigest(update.error)
+
   return (
     <CredentialsFormComponent
       userEmail={userEmail}
@@ -57,7 +60,7 @@ export const CredentialsForm: React.FC<{ userEmail: string }> = ({
       }}
       isPending={update.isPending}
       isError={update.isError}
-      errorMessage={update.error?.message}
+      errorMessage={`Credentials update was not successful, please try again; ref: ${digest}`}
     />
   )
 }

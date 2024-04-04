@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
+import { getDigest } from "@/lib/digest"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -64,12 +65,14 @@ export const LoginForm: React.FC = () => {
         })
   }
 
+  const digest = getDigest(signIn.error) ?? getDigest(passwordlessSignIn.error)
+
   return (
     <LoginFormComponent
       signIn={handleSignIn}
       isPending={signIn.isPending || passwordlessSignIn.isPending}
       isError={signIn.isError || passwordlessSignIn.isError}
-      errorMessage={signIn.error?.message ?? passwordlessSignIn.error?.message}
+      errorMessage={`Log in was not successful, please try again; ref: ${digest}`}
     />
   )
 }
