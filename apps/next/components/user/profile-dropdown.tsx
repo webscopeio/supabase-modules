@@ -4,7 +4,6 @@ import * as React from "react"
 import Link from "next/link"
 import { useMutation, useQuery } from "@tanstack/react-query"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -14,22 +13,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { AvatarPlaceholder } from "@/components/AvatarPlaceholder"
 
 import { signOut } from "@/modules/user/auth"
 import { getProfile } from "@/modules/user/profile"
 
-export const ProfileDropDown: React.FC<{ userId?: string }> = ({ userId }) => {
-  if (!userId) {
-    return (
-      <Button asChild className="ml-auto">
-        <Link href="/login">Login</Link>
-      </Button>
-    )
-  }
-  return <ProfileDropDownComponent userId={userId} />
-}
-
-const ProfileDropDownComponent: React.FC<{ userId: string }> = ({ userId }) => {
+export const ProfileDropdown: React.FC<{ userId: string }> = ({ userId }) => {
   const profile = useQuery({
     queryKey: ["profiles", userId],
     queryFn: () => getProfile({ id: userId }),
@@ -57,12 +46,7 @@ const ProfileDropDownComponent: React.FC<{ userId: string }> = ({ userId }) => {
           size="icon"
           className="ml-auto overflow-hidden rounded-full"
         >
-          <Avatar>
-            <AvatarImage src="https://ui.shadcn.com/avatars/04.png" />
-            <AvatarFallback>
-              {profile.data.username.toUpperCase().substring(0, 2)}
-            </AvatarFallback>
-          </Avatar>
+          <AvatarPlaceholder />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="min-w-48" align="end">

@@ -19,7 +19,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { ProfileDropDown } from "@/components/user/profile-dropdown"
+import { ProfileDropdown } from "@/components/user/profile-dropdown"
 
 export const ApplicationLayout: React.FC<
   React.PropsWithChildren<{ userId?: string }>
@@ -41,6 +41,8 @@ export const ApplicationLayout: React.FC<
       [{ href: "/", label: "Home" }]
     )
   }, [pathname])
+
+  if (!userId) return children
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -119,7 +121,7 @@ export const ApplicationLayout: React.FC<
               ))}
             </BreadcrumbList>
           </Breadcrumb>
-          <ProfileDropDown userId={userId} />
+          <ProfileDropdown userId={userId} />
         </header>
         <main className="px-6">{children}</main>
       </div>

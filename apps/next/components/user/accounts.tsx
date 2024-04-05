@@ -13,7 +13,6 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 
 import { getDigest } from "@/lib/digest"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -30,6 +29,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
+import { AvatarPlaceholder } from "@/components/AvatarPlaceholder"
 
 import { signOut } from "@/modules/user/auth"
 import { getProfile } from "@/modules/user/profile"
@@ -146,12 +146,7 @@ const AccountsComponent: React.FC<{
       </CardHeader>
       <CardContent>
         <div className="flex items-center gap-x-4">
-          <Avatar>
-            <AvatarImage src="https://ui.shadcn.com/avatars/04.png" />
-            <AvatarFallback>
-              {username.toUpperCase().substring(0, 2)}
-            </AvatarFallback>
-          </Avatar>
+          <AvatarPlaceholder className="size-10" />
           <div>
             <h4 className="font-semibold">{username}</h4>
             <p>{email}</p>

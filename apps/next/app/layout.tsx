@@ -9,26 +9,16 @@ import "./globals.css"
 
 import type { Viewport } from "next"
 
-import { ApplicationLayout } from "@/components/application-layout"
-
-import { createClient } from "@/modules/utils/server"
-
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 })
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const supabase = createClient()
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body
@@ -37,9 +27,7 @@ export default async function RootLayout({
           fontSans.variable
         )}
       >
-        <Providers>
-          <ApplicationLayout userId={user?.id}>{children}</ApplicationLayout>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )
