@@ -5,7 +5,8 @@ create table "public"."profiles" (
     "preferred_name" text,
     "full_name" text,
     "updated_at" timestamp with time zone not null default now(),
-    "email" character varying not null
+    "email" character varying not null,
+    "preferred_hue" text not null
 );
 
 
@@ -34,8 +35,8 @@ CREATE OR REPLACE FUNCTION public.handle_new_user()
  LANGUAGE plpgsql
  SECURITY DEFINER
 AS $function$BEGIN
-  INSERT INTO public.profiles (id, email, username)
-  VALUES (NEW.id, NEW.email, NEW.email);
+  INSERT INTO public.profiles (id, email, username, preferred_hue)
+  VALUES (NEW.id, NEW.email, NEW.email, floor(random() * 360)::text);
 
   RETURN NEW;
 END;$function$
