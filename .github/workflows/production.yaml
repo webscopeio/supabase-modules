@@ -23,5 +23,5 @@ jobs:
           version: latest
 
       - run: supabase link --project-ref $SUPABASE_PROJECT_ID --workdir ./apps/next
-      - run: supabase db reset --linked
+      - run: supabase db reset --linked --workdir ./apps/next
       - run: supabase db push --workdir ./apps/next
