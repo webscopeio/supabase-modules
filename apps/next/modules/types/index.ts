@@ -41,6 +41,7 @@ export interface Database {
           description: string
           id: string
           image_url: string | null
+          tags: string[] | null
           title: string
           updated_at: string
           url: string
@@ -51,6 +52,7 @@ export interface Database {
           description: string
           id?: string
           image_url?: string | null
+          tags?: string[] | null
           title: string
           updated_at?: string
           url: string
@@ -61,6 +63,7 @@ export interface Database {
           description?: string
           id?: string
           image_url?: string | null
+          tags?: string[] | null
           title?: string
           updated_at?: string
           url?: string
