@@ -6,7 +6,8 @@ create table "public"."bookmarks" (
     "description" text not null,
     "url" text not null,
     "image_url" text,
-    "created_by" uuid not null
+    "created_by" uuid not null,
+    "tags" text[]
 );
 
 
