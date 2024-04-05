@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { AvatarPlaceholder } from "@/components/AvatarPlaceholder"
+import { AvatarPlaceholder } from "@/components/avatar-placeholder"
 
 import { signOut } from "@/modules/user/auth"
 import { getProfile } from "@/modules/user/profile"
@@ -46,7 +46,7 @@ export const ProfileDropdown: React.FC<{ userId: string }> = ({ userId }) => {
           size="icon"
           className="ml-auto overflow-hidden rounded-full"
         >
-          <AvatarPlaceholder />
+          <AvatarPlaceholder preferredHue={profile.data.preferred_hue} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="min-w-48" align="end">

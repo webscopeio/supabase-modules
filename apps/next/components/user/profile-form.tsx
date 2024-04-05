@@ -200,7 +200,12 @@ const ProfileFormComponent: React.FC<{
           <form
             onSubmit={form.handleSubmit(
               ({ username, full_name, preferred_name }) => {
-                updateProfile({ id, username, full_name, preferred_name })
+                updateProfile({
+                  id,
+                  username,
+                  full_name,
+                  preferred_name,
+                })
               }
             )}
             className="space-y-6"

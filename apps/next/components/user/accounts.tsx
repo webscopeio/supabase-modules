@@ -29,7 +29,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
-import { AvatarPlaceholder } from "@/components/AvatarPlaceholder"
+import { AvatarPlaceholder } from "@/components/avatar-placeholder"
 
 import { signOut } from "@/modules/user/auth"
 import { getProfile } from "@/modules/user/profile"
@@ -83,17 +83,19 @@ export const Accounts: React.FC<{ userId: string }> = ({ userId }) => {
   return (
     <AccountsContainer
       username={profile.data.username}
-      preferredName={profile.data.preferred_name}
       email={profile.data.email}
+      preferredName={profile.data.preferred_name}
+      preferredHue={profile.data.preferred_hue}
     />
   )
 }
 
 export const AccountsContainer: React.FC<{
   username: string
-  preferredName: string | null
   email: string
-}> = ({ username, preferredName, email }) => {
+  preferredName: string | null
+  preferredHue: string | null
+}> = ({ username, email, preferredName, preferredHue }) => {
   const logout = useMutation({
     mutationFn: signOut,
   })
@@ -103,8 +105,9 @@ export const AccountsContainer: React.FC<{
   return (
     <AccountsComponent
       username={username}
-      preferredName={preferredName}
       email={email}
+      preferredName={preferredName}
+      preferredHue={preferredHue}
       signOut={() =>
         logout.mutate({
           redirect: {
@@ -121,16 +124,18 @@ export const AccountsContainer: React.FC<{
 
 const AccountsComponent: React.FC<{
   username: string
-  preferredName: string | null
   email: string
+  preferredName: string | null
+  preferredHue: string | null
   signOut: () => void
   isPending: boolean
   isError: boolean
   errorMessage?: string
 }> = ({
   username,
-  preferredName,
   email,
+  preferredName,
+  preferredHue,
   signOut,
   isPending,
   isError,
@@ -146,7 +151,7 @@ const AccountsComponent: React.FC<{
       </CardHeader>
       <CardContent>
         <div className="flex items-center gap-x-4">
-          <AvatarPlaceholder className="size-10" />
+          <AvatarPlaceholder preferredHue={preferredHue} className="size-10" />
           <div>
             <h4 className="font-semibold">{username}</h4>
             <p>{email}</p>
