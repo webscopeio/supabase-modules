@@ -7,7 +7,7 @@
     "db:init": "supabase init",
     "db:start": "supabase start",
     "db:stop": "supabase stop",
-    "db:reset": "supabase db reset",
+    "db:reset": "supabase db reset --local",
     "db:gen-types": "supabase gen types typescript --local > modules/types/index.ts",
     "email:dev": "email dev -p 4000",
     "email:export": "email export --outDir supabase/templates --pretty",
