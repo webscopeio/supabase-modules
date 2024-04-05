@@ -150,23 +150,31 @@ const AccountsComponent: React.FC<{
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="flex items-center gap-x-4">
-          <AvatarPlaceholder preferredHue={preferredHue} className="size-10" />
-          <div>
-            <h4 className="font-semibold">{username}</h4>
-            <p>{email}</p>
+        <div className="flex items-end gap-x-4">
+          <div className="flex flex-col items-start justify-center gap-x-4 gap-y-2 sm:flex-row">
+            <AvatarPlaceholder
+              preferredHue={preferredHue}
+              className="size-10"
+            />
+            <div>
+              <h4 className="font-semibold">{username}</h4>
+              <p>{email}</p>
+            </div>
           </div>
-          <div className="ml-auto flex items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
+          <div className="ml-auto flex items-center rounded-md bg-secondary text-secondary-foreground sm:space-x-1">
             <Button
               onClick={() => signOut()}
               disabled={isPending}
               variant="secondary"
-              className="px-3 shadow-none"
+              className="hidden px-3 shadow-none sm:block"
             >
               {isPending && <CircleIcon className="mr-2 size-4 animate-spin" />}
               Sign out
             </Button>
-            <Separator orientation="vertical" className="h-[20px]" />
+            <Separator
+              orientation="vertical"
+              className="hidden h-[20px] sm:block"
+            />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="secondary" className="px-2 shadow-none">

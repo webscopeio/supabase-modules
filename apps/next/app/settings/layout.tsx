@@ -18,7 +18,9 @@ export default async function Layout({
     <ApplicationLayout userId={user?.id}>
       <section className="mx-auto max-w-5xl space-y-6 py-6">
         <header className="space-y-2">
-          <h2 className="text-5xl font-semibold tracking-tight">Settings</h2>
+          <h2 className="text-4xl font-semibold tracking-tight lg:text-5xl">
+            Settings
+          </h2>
           <p>Manage your accounts, profile and credentials settings</p>
         </header>
         <div className="flex flex-col gap-6 lg:flex-row">
