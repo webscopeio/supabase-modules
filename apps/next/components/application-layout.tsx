@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, PanelLeft } from "lucide-react"
+import { Bookmark, PanelLeft, Settings } from "lucide-react"
 
 import {
   Breadcrumb,
@@ -58,14 +58,26 @@ export const ApplicationLayout: React.FC<
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="/"
+                href="/settings/accounts"
                 className="flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:size-8"
               >
-                <Home className="size-5" />
-                <span className="sr-only">Home</span>
+                <Settings className="size-5" />
+                <span className="sr-only">Settings</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Home</TooltipContent>
+            <TooltipContent side="right">Settings</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                href="/bookmarks"
+                className="flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:size-8"
+              >
+                <Bookmark className="size-5" />
+                <span className="sr-only">Bookmarks</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Bookmarks</TooltipContent>
           </Tooltip>
         </nav>
       </aside>
@@ -92,11 +104,18 @@ export const ApplicationLayout: React.FC<
                   <span className="sr-only">Supabase Modules</span>
                 </Link>
                 <Link
-                  href="/"
+                  href="/settings/accounts"
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
-                  <Home className="size-5" />
-                  Home
+                  <Settings className="size-5" />
+                  Settings
+                </Link>
+                <Link
+                  href="/bookmarks"
+                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                >
+                  <Bookmark className="size-5" />
+                  Bookmarks
                 </Link>
               </nav>
             </SheetContent>

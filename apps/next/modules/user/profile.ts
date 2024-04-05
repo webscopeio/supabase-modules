@@ -3,8 +3,7 @@
 import { redirect as _redirect, type RedirectType } from "next/navigation"
 
 import { Database } from "@/modules/types"
-
-import { createClient } from "../utils/server"
+import { createClient } from "@/modules/utils/server"
 
 type Profile = Database["public"]["Tables"]["profiles"]["Row"]
 

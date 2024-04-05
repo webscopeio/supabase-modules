@@ -9,7 +9,7 @@ import type {
   VerifyOtpParams,
 } from "@supabase/supabase-js"
 
-import { createClient } from "../utils/server"
+import { createClient } from "@/modules/utils/server"
 
 type WithRedirect<TArg = unknown> = TArg & {
   redirect?: {
