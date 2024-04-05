@@ -4,11 +4,10 @@ import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 
 export const AvatarPlaceholder: React.FC<{
-  preferredHue: string | null
+  preferredHue: string
   className?: string
-}> = ({ preferredHue, className }) => {
+}> = ({ preferredHue: hue, className }) => {
   const { resolvedTheme: theme } = useTheme()
-  const hue = preferredHue ?? "220"
   const [color1, color2] = generateHSL({ hue, theme })
 
   return (

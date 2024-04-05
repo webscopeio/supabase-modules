@@ -94,7 +94,7 @@ export const AccountsContainer: React.FC<{
   username: string
   email: string
   preferredName: string | null
-  preferredHue: string | null
+  preferredHue: string
 }> = ({ username, email, preferredName, preferredHue }) => {
   const logout = useMutation({
     mutationFn: signOut,
@@ -126,7 +126,7 @@ const AccountsComponent: React.FC<{
   username: string
   email: string
   preferredName: string | null
-  preferredHue: string | null
+  preferredHue: string
   signOut: () => void
   isPending: boolean
   isError: boolean
