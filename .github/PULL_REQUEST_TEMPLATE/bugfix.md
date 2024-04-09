@@ -8,15 +8,14 @@ For more information, see the `CONTRIBUTING` guide.
 
 ## Summary
 
-This PR implements / improves the following **features**:
+This PR fixes the following **problems**:
 
-- Feature 1
-- Feature 2
+- Bug 1
+- Bug 2
 
-**Breaking changes:**
+## Testing
 
-- Breaking change 1
-- Breaking change 2
+Please describe how the fix can be tested
 
 ## Related isssues
 
