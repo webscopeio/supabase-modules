@@ -27,4 +27,4 @@ body:
     attributes:
       label: Additional scope
       description: If the scope is not listed, please specify it here
-      required: false
+    required: false
