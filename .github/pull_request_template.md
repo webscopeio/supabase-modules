@@ -1,8 +1,7 @@
 <!---
 **IMPORTANT**:
 
-Please do not create a Pull Request without creating an issue first.
-A similar PR may already be submitted!
+Please do not create a Pull Request without creating an issue first. A similar PR may already be submitted!
 Please search among the [Pull requests](https://github.com/iamhectorsosa/supabase-modules/pulls) before creating one.
 
 For more information, see the [`CONTRIBUTING`(https://github.com/iamhectorsosa/supabase-modules/blob/main/CONTRIBUTING.md) guide.
