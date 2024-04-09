@@ -1,0 +1,30 @@
+name: Question
+description: Ask a question about this project
+title: "question: "
+labels: ["question"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: Ask your question here.
+      placeholder: e.g. "How can I accomplish ...?"
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      multiple: true
+      label: Scope
+      options:
+        - Aim of the project
+        - Documentation
+        - Project setup
+        - Codebase
+      description: Specify the feature or part of the project your question is about
+  - type: input
+    id: scope-not-listed
+    attributes:
+      label: Additional scope
+      description: If the scope is not listed, please specify it here
+      required: false

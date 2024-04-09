@@ -1,0 +1,13 @@
+name: Documentation
+description: Propose change to the documentation
+title: "docs: "
+labels: ["documentation"]
+body:
+  - type: textarea
+    id: proposed-change
+    attributes:
+      label: Proposed change
+      description: Describe the proposed change or addition to the documentation
+      placeholder: e.g. "Write concise contribution guidelines"
+    validations:
+      required: true
