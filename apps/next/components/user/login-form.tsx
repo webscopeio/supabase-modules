@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 
 import { getDigest } from "@/lib/digest"
+import { SearchParamError } from "@/lib/types/error"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -33,7 +34,31 @@ import { Switch } from "@/components/ui/switch"
 
 import { signInWithEmailPassword, signInWithOtp } from "@/modules/user/auth"
 
-export const LoginForm: React.FC = () => {
+const getErrorProps = (
+  passwordlessSignInError: Error | null,
+  signInError: Error | null,
+  error: SearchParamError | null
+) => {
+  if (passwordlessSignInError || signInError) {
+    const digest = getDigest(signInError) ?? getDigest(passwordlessSignInError)
+    return {
+      isError: true,
+      errorMessage: `Log in was not successful, please try again; ref: ${digest}`,
+    }
+  } else if (error) {
+    return {
+      isError: true,
+      errorMessage: error.message,
+    }
+  }
+  return {
+    isError: false,
+  }
+}
+
+export const LoginForm: React.FC<{
+  error?: SearchParamError
+}> = ({ error }) => {
   const signIn = useMutation({
     mutationFn: signInWithEmailPassword,
   })
@@ -65,14 +90,11 @@ export const LoginForm: React.FC = () => {
         })
   }
 
-  const digest = getDigest(signIn.error) ?? getDigest(passwordlessSignIn.error)
-
   return (
     <LoginFormComponent
       signIn={handleSignIn}
       isPending={signIn.isPending || passwordlessSignIn.isPending}
-      isError={signIn.isError || passwordlessSignIn.isError}
-      errorMessage={`Log in was not successful, please try again; ref: ${digest}`}
+      {...getErrorProps(passwordlessSignIn.error, signIn.error, error ?? null)}
     />
   )
 }
