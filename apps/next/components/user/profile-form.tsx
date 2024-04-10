@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
   CircleIcon,
@@ -264,9 +263,6 @@ const ProfileFormComponent: React.FC<{
                   <CircleIcon className="mr-2 size-4 animate-spin" />
                 )}
                 Update Settings
-              </Button>
-              <Button asChild variant="link">
-                <Link href="/settings/account">Account Settings</Link>
               </Button>
             </footer>
           </form>
