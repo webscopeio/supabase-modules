@@ -20,7 +20,7 @@ and fixes following **bugs**:
 - Bug 1
 - Bug 2
 
-**Breaking changes:**
+**Breaking changes**:
 
 - Breaking change 1
 - Breaking change 2
@@ -29,6 +29,8 @@ and fixes following **bugs**:
 
 Please describe how the changes can be tested
 
-## Related isssues
+## Related issues
 
+<!---
 Put _closes #XXXX_ in your comment to auto-close the issue that your PR implements.
+-->
