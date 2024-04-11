@@ -54,7 +54,7 @@ export const CredentialsForm: React.FC<{ userEmail: string }> = ({
           email,
           password,
           redirect: {
-            url: "/accounts/credentials",
+            url: "/settings/credentials",
           },
         })
       }}
