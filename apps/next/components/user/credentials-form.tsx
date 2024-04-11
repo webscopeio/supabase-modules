@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 import { useMutation } from "@tanstack/react-query"
@@ -160,9 +159,6 @@ const CredentialsFormComponent: React.FC<{
                   <CircleIcon className="mr-2 size-4 animate-spin" />
                 )}
                 Update Settings
-              </Button>
-              <Button asChild variant="link">
-                <Link href="/settings/profile">Profile Settings</Link>
               </Button>
             </footer>
           </form>
