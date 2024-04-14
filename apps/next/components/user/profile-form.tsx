@@ -257,14 +257,10 @@ const ProfileFormComponent: React.FC<{
                 </AlertDescription>
               </Alert>
             )}
-            <footer className="flex flex-col gap-2 sm:flex-row">
-              <Button type="submit" disabled={isPending}>
-                {isPending && (
-                  <CircleIcon className="mr-2 size-4 animate-spin" />
-                )}
-                Update Settings
-              </Button>
-            </footer>
+            <Button type="submit" disabled={isPending}>
+              {isPending && <CircleIcon className="mr-2 size-4 animate-spin" />}
+              Update Settings
+            </Button>
           </form>
         </Form>
       </CardContent>
