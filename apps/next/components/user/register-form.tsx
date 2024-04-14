@@ -57,7 +57,7 @@ export const RegisterForm: React.FC = () => {
 
 const FormSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
-  password: z.string().min(5, { message: "Must be 5 or more characters long" }),
+  password: z.string().min(6, { message: "Must be 6 or more characters long" }),
 })
 
 const RegisterFormComponent: React.FC<{
