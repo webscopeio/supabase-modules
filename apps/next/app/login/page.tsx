@@ -1,9 +1,20 @@
 import { redirect } from "next/navigation"
+import * as z from "zod"
+import { zu } from "zod_utilz"
 
-import { SearchParamError } from "@/lib/types/error"
 import { LoginForm } from "@/components/user/login-form"
 
 import { createClient } from "@/modules/utils/server"
+
+const ErrorSchema = zu
+  .stringToJSON()
+  .pipe(
+    z.object({
+      message: z.string(),
+      status: z.number(),
+    })
+  )
+  .catch({ message: "An error occurred", status: 500 })
 
 export default async function Page({
   searchParams,
@@ -16,15 +27,13 @@ export default async function Page({
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (searchParams.error) {
-    return (
-      <LoginForm error={JSON.parse(searchParams.error) as SearchParamError} />
-    )
-  }
-
   if (user) {
     redirect("/settings/accounts")
   }
 
-  return <LoginForm />
+  const error = searchParams.error
+    ? ErrorSchema.parse(searchParams.error)
+    : undefined
+
+  return <LoginForm error={error} />
 }
