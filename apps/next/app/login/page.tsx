@@ -1,13 +1,23 @@
 import { redirect } from "next/navigation"
 import * as z from "zod"
-import { zu } from "zod_utilz"
 
 import { LoginForm } from "@/components/user/login-form"
 
 import { createClient } from "@/modules/utils/server"
 
-const ErrorSchema = zu
-  .stringToJSON()
+const ErrorSchema = z
+  .string()
+  .transform((errorStr, ctx): z.infer<ReturnType<typeof JSON.parse>> => {
+    try {
+      return JSON.parse(errorStr)
+    } catch (e) {
+      ctx.addIssue({
+        message: "Invalid JSON string",
+        code: z.ZodIssueCode.custom,
+      })
+      return z.NEVER
+    }
+  })
   .pipe(
     z.object({
       message: z.string(),
