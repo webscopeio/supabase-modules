@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
   CircleIcon,
@@ -258,17 +257,10 @@ const ProfileFormComponent: React.FC<{
                 </AlertDescription>
               </Alert>
             )}
-            <footer className="flex flex-col gap-2 sm:flex-row">
-              <Button type="submit" disabled={isPending}>
-                {isPending && (
-                  <CircleIcon className="mr-2 size-4 animate-spin" />
-                )}
-                Update Settings
-              </Button>
-              <Button asChild variant="link">
-                <Link href="/settings/account">Account Settings</Link>
-              </Button>
-            </footer>
+            <Button type="submit" disabled={isPending}>
+              {isPending && <CircleIcon className="mr-2 size-4 animate-spin" />}
+              Update Settings
+            </Button>
           </form>
         </Form>
       </CardContent>
