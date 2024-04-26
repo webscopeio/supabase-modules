@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/card"
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -40,34 +41,71 @@ import { updateUser } from "@/modules/user/auth"
 export const CredentialsForm: React.FC<{ userEmail: string }> = ({
   userEmail,
 }) => {
+  const [emailChangeInfoDialogState, setEmailChangeInfoDialogState] =
+    React.useState<{ isOpen: boolean; newEmail: string | null }>({
+      isOpen: false,
+      newEmail: null,
+    })
+
   const update = useMutation({
     mutationFn: updateUser,
+    onSuccess: (_, vars) => {
+      if (vars.email && vars.email !== userEmail)
+        setEmailChangeInfoDialogState({ isOpen: true, newEmail: vars.email })
+    },
   })
 
   const digest = getDigest(update.error)
 
   return (
-    <CredentialsFormComponent
-      userEmail={userEmail}
-      updateUser={({
-        email,
-        password,
-      }: {
-        email?: string
-        password?: string
-      }) => {
-        update.mutate({
+    <>
+      <CredentialsFormComponent
+        userEmail={userEmail}
+        updateUser={({
           email,
           password,
-          redirect: {
-            url: "/settings/credentials",
-          },
-        })
-      }}
-      isPending={update.isPending}
-      isError={update.isError}
-      errorMessage={`Credentials update was not successful, please try again; ref: ${digest}`}
-    />
+        }: {
+          email?: string
+          password?: string
+        }) => {
+          update.mutate({
+            email,
+            password,
+            redirect: {
+              url: "/settings/credentials",
+            },
+          })
+        }}
+        isPending={update.isPending}
+        isError={update.isError}
+        errorMessage={`Credentials update was not successful, please try again; ref: ${digest}`}
+      />
+      <Dialog
+        open={emailChangeInfoDialogState.isOpen}
+        onOpenChange={(open) =>
+          setEmailChangeInfoDialogState((prevState) => ({
+            ...prevState,
+            isOpen: open,
+          }))
+        }
+      >
+        <DialogContent className="flex max-w-[480px] flex-col gap-4">
+          <DialogHeader>Email change needs to be confirmed</DialogHeader>
+          <DialogDescription>
+            In order to successfully change the email this need to be confirmed
+            for <b>both</b> email addresses. The confirmation links have been
+            sent to <b>{emailChangeInfoDialogState.newEmail}</b> and{" "}
+            <b>{userEmail}</b>. Please check your inboxes and follow the
+            instructions to confirm the change.
+          </DialogDescription>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="secondary">Close</Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }
 
@@ -89,9 +127,6 @@ const CredentialsFormComponent: React.FC<{
   isError: boolean
   errorMessage?: string
 }> = ({ userEmail, updateUser, isPending, isError, errorMessage }) => {
-  const [isEmailChangeInfoDialogOpen, setEmailChangeInfoDialogOpen] =
-    React.useState(false)
-
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -112,10 +147,7 @@ const CredentialsFormComponent: React.FC<{
             onSubmit={form.handleSubmit(({ email, password }) => {
               const updates: { email?: string; password?: string } = {}
 
-              if (email) {
-                updates.email = email
-                setEmailChangeInfoDialogOpen(true)
-              }
+              if (email) updates.email = email
               if (password) updates.password = password
 
               if (Object.keys(updates).length > 0) {
@@ -172,29 +204,6 @@ const CredentialsFormComponent: React.FC<{
             </Button>
           </form>
         </Form>
-        <Dialog
-          open={isEmailChangeInfoDialogOpen}
-          onOpenChange={setEmailChangeInfoDialogOpen}
-        >
-          <DialogContent className="flex max-w-[480px] flex-col gap-4">
-            <DialogHeader>Email change needs to be confirmed</DialogHeader>
-            <DialogDescription>
-              In order to successfully change the email this need to be
-              confirmed for <b>both</b> email addresses. The confirmation links
-              have been sent to your new and your old email address. Please
-              check your inbox and follow the instructions to confirm the
-              change.
-            </DialogDescription>
-            <DialogFooter>
-              <Button
-                variant="secondary"
-                onClick={() => setEmailChangeInfoDialogOpen(false)}
-              >
-                Close
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
       </CardContent>
     </Card>
   )
