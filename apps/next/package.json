@@ -68,7 +68,7 @@
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.13",
     "react-email": "^2.1.0",
-    "supabase": "^1.142.1",
+    "supabase": "^1.163.6",
     "tailwindcss": "^3.4.0",
     "typescript": "^5"
   }
