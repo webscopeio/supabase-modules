@@ -33,7 +33,38 @@ import { Switch } from "@/components/ui/switch"
 
 import { signInWithEmailPassword, signInWithOtp } from "@/modules/user/auth"
 
-export const LoginForm: React.FC = () => {
+type SearchParamError = {
+  message: string
+  status: number
+}
+
+function getErrorProps({
+  error,
+  searchParamError,
+}: {
+  error: Error | null
+  searchParamError: SearchParamError | null
+}) {
+  if (error) {
+    const digest = getDigest(error)
+    return {
+      isError: true,
+      errorMessage: `Log in was not successful, please try again; ref: ${digest}`,
+    }
+  } else if (searchParamError) {
+    return {
+      isError: true,
+      errorMessage: searchParamError.message,
+    }
+  }
+  return {
+    isError: false,
+  }
+}
+
+export const LoginForm: React.FC<{
+  error?: SearchParamError
+}> = ({ error }) => {
   const signIn = useMutation({
     mutationFn: signInWithEmailPassword,
   })
@@ -65,14 +96,17 @@ export const LoginForm: React.FC = () => {
         })
   }
 
-  const digest = getDigest(signIn.error) ?? getDigest(passwordlessSignIn.error)
+  const { isError, errorMessage } = getErrorProps({
+    error: signIn.error || passwordlessSignIn.error,
+    searchParamError: error || null,
+  })
 
   return (
     <LoginFormComponent
       signIn={handleSignIn}
       isPending={signIn.isPending || passwordlessSignIn.isPending}
-      isError={signIn.isError || passwordlessSignIn.isError}
-      errorMessage={`Log in was not successful, please try again; ref: ${digest}`}
+      isError={isError}
+      errorMessage={errorMessage}
     />
   )
 }
