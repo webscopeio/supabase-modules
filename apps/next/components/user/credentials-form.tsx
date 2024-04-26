@@ -18,6 +18,13 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog"
+import {
   Form,
   FormControl,
   FormDescription,
@@ -29,14 +36,6 @@ import {
 import { Input } from "@/components/ui/input"
 
 import { updateUser } from "@/modules/user/auth"
-
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-} from "../ui/dialog"
 
 export const CredentialsForm: React.FC<{ userEmail: string }> = ({
   userEmail,
