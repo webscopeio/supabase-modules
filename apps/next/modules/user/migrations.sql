@@ -129,8 +129,8 @@ using ((auth.uid() = id))
 with check ((auth.uid() = id));
 
 
-CREATE TRIGGER handle_new_user_trigger AFTER INSERT ON auth.users FOR EACH ROW EXECUTE FUNCTION handle_new_user();
+CREATE OR REPLACE TRIGGER handle_new_user_trigger AFTER INSERT ON auth.users FOR EACH ROW WHEN (NEW.is_anonymous is FALSE) EXECUTE FUNCTION handle_new_user();
 
-CREATE TRIGGER update_email_in_profiles_trigger AFTER UPDATE OF email ON auth.users FOR EACH ROW EXECUTE FUNCTION update_user_email();
+CREATE TRIGGER update_email_in_profiles_trigger AFTER UPDATE OF email ON auth.users FOR EACH ROW WHEN (OLD.is_anonymous is FALSE) EXECUTE FUNCTION update_user_email();
 
 
