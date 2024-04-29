@@ -22,91 +22,15 @@ Functions are declared with the `function` keyword.
 
 ### Components
 
-Components are written as function components in the decomposed manner so developers of the target projects can use and combine parts according to their needs. We specify `displayName` for each exported component. Feel free to use the currently implemented components as an example when creating new.
+We use [`shadcn/ui`](https://ui.shadcn.com/docs) for components in the project.
 
 Names of UI component files are written in lowercase. If the name consists of two or more words use hyphen (e.g. `dynamic-navigation-links.tsx`).
-
-#### Component variants
-
-When creating a component that has mupltiple variants (e.g. Alert - informational, destructive, default) we use `class-variance-authority` package. It allows to specify `className` strings for various variants as well as specify base className and default variant. For example:
-
-```ts
-import { cva, type VariantProps } from "class-variance-authority";
-
-const alertVariants = cva("base class names", {
-  variants: {
-    variant: {
-      default: "bg-background text-foreground",
-      destructive: "border-destructive/50 text-destructive",
-    },
-  },
-  defaultVariants: {
-    variant: "default",
-  },
-});
-```
-
-... and use in component using the variantSchema and `VariantProps` type
-
-```tsx
-const Alert = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
->(({ className, variant, ...props }, ref) => (
-  <div
-    ...
-    className={cn(alertVariants({ variant }), className)}
-    ...
-  />
-))
-```
 
 Also note the usage of `cn()` utility. We use the own implementation from the `lib/utils` that wraps `clsx` utility with `twMerge`.
 
 #### Zod
 
-We use `zod` for input validation and parsing values. It is beneficial to also use it for parsing values instead of raw parse, type casting and catching exceptions. It allows for more fine-grained validation of the parsed value. For example instead of:
-
-```ts
-let error: SearchParamError;
-// searchParams.error is a string
-try {
-    error = JSON.parse(searchParams.error) as SearchParamError
-} catch (e) {
-    error = <...some fallback value>
-}
-```
-
-you can do:
-
-```ts
-import * as z from "zod";
-
-const ErrorSchema = z
-  .string()
-  .transform((errorStr, ctx): z.infer<ReturnType<typeof JSON.parse>> => {
-    try {
-      return JSON.parse(errorStr);
-    } catch (e) {
-      ctx.addIssue({
-        message: "Invalid JSON string",
-        code: z.ZodIssueCode.custom,
-      });
-      return z.NEVER;
-    }
-  })
-  .pipe(
-    z.object({
-      message: z.string(),
-      status: z.number(),
-    })
-  )
-  .catch({ message: "An error occurred", status: 500 });
-
-ErrorSchema.parse(searchParams.error);
-```
-
-The above code will take care for error handling during parsing query param string, parsing JSON from string, checking if the successfully parsed JSON has the properties defined in the schema and returning a fallback value if any of the mentioned validations fail. All this with automatic type casting.
+We use [`zod`](https://zod.dev/) for input validation and parsing values. It provides parsing and validation of values as well as static type inference.
 
 ### Data queries and manipulation
 
