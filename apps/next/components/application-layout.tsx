@@ -22,8 +22,11 @@ import {
 import { ProfileDropdown } from "@/components/user/profile-dropdown"
 
 export const ApplicationLayout: React.FC<
-  React.PropsWithChildren<{ userId?: string }>
-> = ({ children, userId }) => {
+  React.PropsWithChildren<{
+    userId?: string
+    isAnonymousUser?: boolean
+  }>
+> = ({ children, userId, isAnonymousUser }) => {
   const pathname = usePathname()
 
   const paths = React.useMemo(() => {
@@ -55,18 +58,20 @@ export const ApplicationLayout: React.FC<
             <SupabaseModulesIcon />
             <span className="sr-only">Supabase Modules</span>
           </Link>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                href="/settings/accounts"
-                className="flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:size-8"
-              >
-                <Settings className="size-5" />
-                <span className="sr-only">Settings</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Settings</TooltipContent>
-          </Tooltip>
+          {!isAnonymousUser && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link
+                  href="/settings/accounts"
+                  className="flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:size-8"
+                >
+                  <Settings className="size-5" />
+                  <span className="sr-only">Settings</span>
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent side="right">Settings</TooltipContent>
+            </Tooltip>
+          )}
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
@@ -104,7 +109,7 @@ export const ApplicationLayout: React.FC<
                   <span className="sr-only">Supabase Modules</span>
                 </Link>
                 <Link
-                  href="/settings/accounts"
+                  href={isAnonymousUser ? "/guest" : "/settings/accounts"}
                   className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
                 >
                   <Settings className="size-5" />
@@ -140,7 +145,7 @@ export const ApplicationLayout: React.FC<
               ))}
             </BreadcrumbList>
           </Breadcrumb>
-          <ProfileDropdown userId={userId} />
+          <ProfileDropdown userId={userId} isAnonymousUser={isAnonymousUser} />
         </header>
         <main className="px-6">{children}</main>
       </div>
