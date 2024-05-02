@@ -11,6 +11,13 @@ import { getDigest } from "@/lib/digest"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
   Form,
   FormControl,
   FormDescription,
@@ -61,10 +68,14 @@ export const GuestForm: React.FC<{
 }
 
 const GuestFormEmailSent: React.FC<{ email: string }> = ({ email }) => (
-  <div>
-    Confrimation email was sent to {email}. Please check your inbox and follow
-    the instructions.
-  </div>
+  <Card>
+    <CardContent className="flex min-h-[200px] items-center justify-center p-6">
+      <CardDescription>
+        Confrimation email was sent to <b>{email}</b>. Please check your inbox
+        and follow the instructions.
+      </CardDescription>
+    </CardContent>
+  </Card>
 )
 
 const NotRegisteredFormSchema = z.object({
@@ -85,49 +96,54 @@ const GuestFormNotRegistered: React.FC<{
   })
 
   return (
-    <div>
-      Finish sign up process to be able to log in again. Start by entering your
-      email.
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(({ email }) => {
-            finishSignUp({
-              email,
-            })
-          })}
-          className="space-y-6"
-        >
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input placeholder="sosa@webscope.io" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+    <Card>
+      <CardHeader>
+        <CardTitle>Finish registration</CardTitle>
+        <CardDescription>
+          Finish sign up process to be able to log in again. Start by entering
+          your email.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(({ email }) => {
+              finishSignUp({
+                email,
+              })
+            })}
+            className="space-y-6"
+          >
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="sosa@webscope.io" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {isError && (
+              <Alert variant="destructive">
+                <CrossCircledIcon className="size-4" />
+                <AlertTitle>Something went wrong!</AlertTitle>
+                <AlertDescription>
+                  {errorMessage ?? "Unknown error"}
+                </AlertDescription>
+              </Alert>
             )}
-          />
-          {isError && (
-            <Alert variant="destructive">
-              <CrossCircledIcon className="size-4" />
-              <AlertTitle>Something went wrong!</AlertTitle>
-              <AlertDescription>
-                {errorMessage ?? "Unknown error"}
-              </AlertDescription>
-            </Alert>
-          )}
-          <footer className="flex flex-col gap-2">
             <Button type="submit" disabled={isPending}>
               {isPending && <CircleIcon className="mr-2 size-4 animate-spin" />}
               Create account
             </Button>
-          </footer>
-        </form>
-      </Form>
-    </div>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
   )
 }
 
@@ -149,50 +165,55 @@ const GuestFormNoPassword: React.FC<{
   })
 
   return (
-    <div>
-      You need to create a password to finish sign up process.
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(({ password }) => {
-            finishSignUp({
-              password,
-            })
-          })}
-          className="space-y-6"
-        >
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input type="password" placeholder="Password" {...field} />
-                </FormControl>
-                <FormDescription>
-                  The new password you would like to use
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
+    <Card>
+      <CardHeader>
+        <CardTitle>Set up a password</CardTitle>
+        <CardDescription>
+          You need to create a password to finish sign up process.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(({ password }) => {
+              finishSignUp({
+                password,
+              })
+            })}
+            className="space-y-6"
+          >
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="Password" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    The new password you would like to use
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {isError && (
+              <Alert variant="destructive">
+                <CrossCircledIcon className="size-4" />
+                <AlertTitle>Something went wrong!</AlertTitle>
+                <AlertDescription>
+                  {errorMessage ?? "Unknown error"}
+                </AlertDescription>
+              </Alert>
             )}
-          />
-          {isError && (
-            <Alert variant="destructive">
-              <CrossCircledIcon className="size-4" />
-              <AlertTitle>Something went wrong!</AlertTitle>
-              <AlertDescription>
-                {errorMessage ?? "Unknown error"}
-              </AlertDescription>
-            </Alert>
-          )}
-          <footer className="flex flex-col gap-2">
             <Button type="submit" disabled={isPending}>
               {isPending && <CircleIcon className="mr-2 size-4 animate-spin" />}
               Set password
             </Button>
-          </footer>
-        </form>
-      </Form>
-    </div>
+          </form>
+        </Form>
+      </CardContent>
+    </Card>
   )
 }
