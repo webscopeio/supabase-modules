@@ -31,7 +31,11 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 
-import { signInWithEmailPassword, signInWithOtp } from "@/modules/user/auth"
+import {
+  signInAnonymously,
+  signInWithEmailPassword,
+  signInWithOtp,
+} from "@/modules/user/auth"
 
 type SearchParamError = {
   message: string
@@ -73,6 +77,10 @@ export const LoginForm: React.FC<{
     mutationFn: signInWithOtp,
   })
 
+  const anonymousSignIn = useMutation({
+    mutationFn: signInAnonymously,
+  })
+
   function handleSignIn({
     email,
     password,
@@ -104,6 +112,7 @@ export const LoginForm: React.FC<{
   return (
     <LoginFormComponent
       signIn={handleSignIn}
+      anonymousSignIn={() => anonymousSignIn.mutate({})}
       isPending={signIn.isPending || passwordlessSignIn.isPending}
       isError={isError}
       errorMessage={errorMessage}
@@ -122,10 +131,11 @@ const FormSchemaWithOTP = z.object({
 
 const LoginFormComponent: React.FC<{
   signIn: ({ email, password }: { email: string; password?: string }) => void
+  anonymousSignIn: () => void
   isPending: boolean
   isError: boolean
   errorMessage?: string
-}> = ({ signIn, isPending, isError, errorMessage }) => {
+}> = ({ signIn, anonymousSignIn, isPending, isError, errorMessage }) => {
   const [isLoginWithOTP, setIsLoginWithOTP] = React.useState(false)
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -213,6 +223,9 @@ const LoginFormComponent: React.FC<{
                   <CircleIcon className="mr-2 size-4 animate-spin" />
                 )}
                 {isLoginWithOTP ? "Email me a One-Time password" : "Sign in"}
+              </Button>
+              <Button type="button" onClick={anonymousSignIn}>
+                Continue as guest
               </Button>
               <Button asChild variant="link">
                 <Link href="/login/new">Create new account</Link>

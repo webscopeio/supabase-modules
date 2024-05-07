@@ -2,6 +2,7 @@
 
 import { redirect as _redirect, type RedirectType } from "next/navigation"
 import type {
+  SignInAnonymouslyCredentials,
   SignInWithPasswordCredentials,
   SignInWithPasswordlessCredentials,
   SignUpWithPasswordCredentials,
@@ -62,6 +63,20 @@ export async function signInWithOtp(
   redirect?.url && _redirect(redirect.url, redirect.type)
 }
 // #endregion signInWithOtp
+
+// #region signInAnonymously
+export async function signInAnonymously(
+  options: WithRedirect<SignInAnonymouslyCredentials>
+): Promise<void> {
+  const { redirect, ...credentials } = options
+  const supabase = createClient()
+  console.log({ credentials })
+
+  const { error } = await supabase.auth.signInAnonymously(credentials)
+  if (error) throw error
+  redirect?.url && _redirect(redirect.url, redirect.type)
+}
+// #endregion signInAnonymously
 
 // #region verifyOtp
 export async function verifyOtp(
