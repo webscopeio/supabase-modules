@@ -136,6 +136,12 @@ CREATE TRIGGER update_email_in_profiles_trigger AFTER UPDATE OF email ON auth.us
 
 CREATE TRIGGER handle_user_becomes_permanent_trigger AFTER UPDATE OF email ON auth.users FOR EACH ROW WHEN (((old.email IS null) AND (new.email IS not null))) EXECUTE FUNCTION handle_new_user();
 
+SELECT cron.schedule (
+    'anonymous-users-cleanup'
+    '30 3 * * 6', -- Saturday at 3:30am (GMT)
+    $$ DELETE FROM auth.users WHERE is_anonymous = TRUE; $$
+);
+
 
 
 
