@@ -5,9 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 import { useMutation } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 import { z } from "zod"
 
-import { getDigest } from "@/lib/digest"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -35,13 +35,13 @@ export const GuestForm: React.FC<{
 }> = ({ isAnonymousUser }) => {
   const finishSignUp = useMutation({
     mutationFn: updateUser,
+    onSuccess: (data, vars) => {
+      if (!(data && "error" in data)) {
+        toast.success(`Confrimation email was sent to ${vars.email}. Please check your inbox
+        and follow the instructions.`)
+      }
+    },
   })
-
-  const digest = getDigest(finishSignUp.error)
-
-  if (finishSignUp.isSuccess) {
-    return <GuestFormEmailSent email={finishSignUp.variables.email ?? ""} />
-  }
 
   if (isAnonymousUser)
     return (
@@ -50,8 +50,8 @@ export const GuestForm: React.FC<{
           finishSignUp.mutate({ email, data: { hasPassword: false } })
         }
         isPending={finishSignUp.isPending}
-        isError={finishSignUp.isError}
-        errorMessage={`Credentials update was not successful, please try again; ref: ${digest}`}
+        isError={!!finishSignUp.data?.error}
+        errorMessage={finishSignUp.data?.error.message}
       />
     )
 
@@ -61,22 +61,11 @@ export const GuestForm: React.FC<{
         finishSignUp.mutate({ password, data: { hasPassword: true } })
       }
       isPending={finishSignUp.isPending}
-      isError={finishSignUp.isError}
-      errorMessage={`Credentials update was not successful, please try again; ref: ${digest}`}
+      isError={!!finishSignUp.data?.error}
+      errorMessage={finishSignUp.data?.error.message}
     />
   )
 }
-
-const GuestFormEmailSent: React.FC<{ email: string }> = ({ email }) => (
-  <Card>
-    <CardContent className="flex min-h-[200px] items-center justify-center p-6">
-      <CardDescription>
-        Confrimation email was sent to <b>{email}</b>. Please check your inbox
-        and follow the instructions.
-      </CardDescription>
-    </CardContent>
-  </Card>
-)
 
 const NotRegisteredFormSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),

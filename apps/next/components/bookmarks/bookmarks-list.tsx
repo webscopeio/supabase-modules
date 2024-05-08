@@ -7,7 +7,6 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { CircleIcon, Loader2 } from "lucide-react"
 import { toast } from "sonner"
 
-import { getDigest } from "@/lib/digest"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -28,8 +27,6 @@ export const BookmarksList: React.FC<{ userId: string }> = ({ userId }) => {
     queryFn: () => getBookmarks({ id: userId }),
   })
 
-  const digest = getDigest(bookmarks.error)
-
   if (bookmarks.isLoading) {
     return (
       <div className="flex h-full flex-col items-center justify-center">
@@ -40,16 +37,13 @@ export const BookmarksList: React.FC<{ userId: string }> = ({ userId }) => {
     )
   }
 
-  if (bookmarks.isError) {
+  if (bookmarks.data && "error" in bookmarks.data) {
     return (
       <div className="flex flex-col items-center justify-center">
         <Alert variant="destructive">
           <CrossCircledIcon className="size-4" />
           <AlertTitle>Something went wrong!</AlertTitle>
-          <AlertDescription>
-            Bookmarks loading was not successful, please try again; ref:{" "}
-            {digest}
-          </AlertDescription>
+          <AlertDescription>{bookmarks.data.error.message}</AlertDescription>
         </Alert>
       </div>
     )
@@ -122,13 +116,11 @@ const BookmarkDelete: React.FC<{ bookmarkId: string; userId: string }> = ({
   const queryClient = useQueryClient()
   const { isPending, mutate } = useMutation({
     mutationFn: deleteBookmark,
-    onSuccess: async () => {
+    onSuccess: async (data) => {
+      if (data && "error" in data) {
+        return toast.error(data.error.message)
+      }
       await queryClient.invalidateQueries({ queryKey: ["bookmarks", userId] })
-    },
-    onError: (error) => {
-      const digest = getDigest(error)
-      toast.error(`Bookmark deletion was not successful, please try again; ref:
-      ${digest}`)
     },
   })
 

@@ -5,9 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
-import * as z from "zod"
+import { z } from "zod"
 
-import { getDigest } from "@/lib/digest"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -37,14 +36,12 @@ export const CreateBookmark: React.FC<{ userId: string }> = ({ userId }) => {
     })
   }
 
-  const digest = getDigest(create.error)
-
   return (
     <CreateBookmarkComponent
       createBookmark={handleCreate}
       isPending={create.isPending}
-      isError={create.isError}
-      errorMessage={`Bookmark creation was not successful, please try again; ref: ${digest}`}
+      isError={!!create.data?.error}
+      errorMessage={create.data?.error.message}
     />
   )
 }

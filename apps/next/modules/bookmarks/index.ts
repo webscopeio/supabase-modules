@@ -7,6 +7,10 @@ import { createClient } from "@/modules/utils/server"
 
 type Bookmark = Database["public"]["Tables"]["bookmarks"]["Row"]
 
+type ServerError = {
+  error: { message: string }
+} | void
+
 const bookmarkSchema = z.object({
   title: z.string(),
   description: z.string(),
@@ -18,15 +22,15 @@ export async function getBookmarks({
   id,
 }: {
   id: string
-}): Promise<Bookmark[] | null> {
+}): Promise<Bookmark[] | null | ServerError> {
   const supabase = createClient()
-  return supabase
+  const { data, error } = await supabase
     .from("bookmarks")
     .select("*")
     .eq("created_by", id)
     .order("created_at", { ascending: false })
-    .throwOnError()
-    .then(({ data }) => data)
+  if (error) return { error: { message: error.message } }
+  return data
 }
 // #endregion getBookmarks
 
@@ -37,29 +41,28 @@ export async function createBookmark({
 }: {
   created_by: string
   url: string
-}): Promise<void> {
+}): Promise<ServerError> {
   const response = await fetch(`https://api.dub.co/metatags?url=${url}`)
   if (!response.ok) throw new Error(`Error: ${response.status}`)
   const unparsedData = (await response.json()) as unknown
   const { title, description, image } = bookmarkSchema.parse(unparsedData)
 
   const supabase = createClient()
-  await supabase
-    .from("bookmarks")
-    .insert({
-      created_by,
-      url,
-      title,
-      description,
-      image_url: image ?? null,
-    })
-    .throwOnError()
+  const { error } = await supabase.from("bookmarks").insert({
+    created_by,
+    url,
+    title,
+    description,
+    image_url: image ?? null,
+  })
+  if (error) return { error: { message: error.message } }
 }
 // #endregion createBookmark
 
 // #region deleteBookmark
-export async function deleteBookmark(id: string): Promise<void> {
+export async function deleteBookmark(id: string): Promise<ServerError> {
   const supabase = createClient()
-  await supabase.from("bookmarks").delete().eq("id", id).throwOnError()
+  const { error } = await supabase.from("bookmarks").delete().eq("id", id)
+  if (error) return { error: { message: error.message } }
 }
 // #endregion deleteBookmark

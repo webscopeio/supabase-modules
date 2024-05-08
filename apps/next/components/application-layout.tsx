@@ -13,7 +13,12 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 import {
   Tooltip,
   TooltipContent,
@@ -95,11 +100,7 @@ export const ApplicationLayout: React.FC<
                 <span className="sr-only">Toggle Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent
-              onOpenAutoFocus={(e) => e.preventDefault()}
-              side="left"
-              className="sm:max-w-xs"
-            >
+            <SheetContent side="left" className="sm:max-w-xs">
               <nav className="grid gap-6 text-lg font-medium">
                 <Link
                   href="/"
@@ -108,20 +109,24 @@ export const ApplicationLayout: React.FC<
                   <SupabaseModulesIcon />
                   <span className="sr-only">Supabase Modules</span>
                 </Link>
-                <Link
-                  href={isAnonymousUser ? "/guest" : "/settings/accounts"}
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <Settings className="size-5" />
-                  Settings
-                </Link>
-                <Link
-                  href="/bookmarks"
-                  className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                >
-                  <Bookmark className="size-5" />
-                  Bookmarks
-                </Link>
+                <SheetClose asChild>
+                  <Link
+                    href={isAnonymousUser ? "/guest" : "/settings/accounts"}
+                    className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                  >
+                    <Settings className="size-5" />
+                    Settings
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link
+                    href="/bookmarks"
+                    className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+                  >
+                    <Bookmark className="size-5" />
+                    Bookmarks
+                  </Link>
+                </SheetClose>
               </nav>
             </SheetContent>
           </Sheet>

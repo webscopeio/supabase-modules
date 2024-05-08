@@ -19,18 +19,22 @@ type WithRedirect<TArg = unknown> = TArg & {
   }
 }
 
+type ServerError = {
+  error: { message: string }
+} | void
+
 // #region signUpWithEmailPassword
 export async function signUpWithEmailPassword(
   options: WithRedirect<
     Extract<SignUpWithPasswordCredentials, { email: string }>
   >
-): Promise<void> {
+): Promise<ServerError> {
   const { redirect, ...credentials } = options
   const supabase = createClient()
   const { data, error } = await supabase.auth.signUp(credentials)
-  if (error) throw error
+  if (error) return { error: { message: error.message } }
   if (data.user?.identities?.length === 0) {
-    throw new Error("User already registered")
+    return { error: { message: "User already registered" } }
   }
   redirect?.url && _redirect(redirect.url, redirect.type)
 }
@@ -41,11 +45,11 @@ export async function signInWithEmailPassword(
   options: WithRedirect<
     Extract<SignInWithPasswordCredentials, { email: string }>
   >
-): Promise<void> {
+): Promise<ServerError> {
   const { redirect, ...credentials } = options
   const supabase = createClient()
   const { error } = await supabase.auth.signInWithPassword(credentials)
-  if (error) throw error
+  if (error) return { error: { message: error.message } }
   redirect?.url && _redirect(redirect.url, redirect.type)
 }
 // #endregion signInWithEmailPassword
@@ -55,11 +59,11 @@ export async function signInWithOtp(
   options: WithRedirect<
     Extract<SignInWithPasswordlessCredentials, { email: string }>
   >
-): Promise<void> {
+): Promise<ServerError> {
   const { redirect, ...credentials } = options
   const supabase = createClient()
   const { error } = await supabase.auth.signInWithOtp(credentials)
-  if (error) throw error
+  if (error) return { error: { message: error.message } }
   redirect?.url && _redirect(redirect.url, redirect.type)
 }
 // #endregion signInWithOtp
@@ -67,11 +71,11 @@ export async function signInWithOtp(
 // #region signInAnonymously
 export async function signInAnonymously(
   options: WithRedirect<SignInAnonymouslyCredentials>
-): Promise<void> {
+): Promise<ServerError> {
   const { redirect, ...credentials } = options
   const supabase = createClient()
   const { error } = await supabase.auth.signInAnonymously(credentials)
-  if (error) throw error
+  if (error) return { error: { message: error.message } }
   redirect?.url && _redirect(redirect.url, redirect.type)
 }
 // #endregion signInAnonymously
@@ -81,7 +85,7 @@ export async function verifyOtp(
   options: WithRedirect<
     Omit<Extract<VerifyOtpParams, { email: string }>, "type">
   >
-): Promise<void> {
+): Promise<ServerError> {
   const { redirect, ...credentials } = options
   const supabase = createClient()
   const { error } = await supabase.auth.verifyOtp({
@@ -89,7 +93,7 @@ export async function verifyOtp(
     token: credentials.token,
     type: "email",
   })
-  if (error) throw error
+  if (error) return { error: { message: error.message } }
   redirect?.url && _redirect(redirect.url, redirect.type)
 }
 // #endregion verifyOtp
@@ -97,21 +101,21 @@ export async function verifyOtp(
 // #region resetPasswordForEmail
 export async function resetPasswordForEmail(
   options: WithRedirect<{ email: string }>
-): Promise<void> {
+): Promise<ServerError> {
   const { redirect, email } = options
   const supabase = createClient()
   const { error } = await supabase.auth.resetPasswordForEmail(email)
-  if (error) throw error
+  if (error) return { error: { message: error.message } }
   redirect?.url && _redirect(redirect.url, redirect.type)
 }
 // #endregion resetPasswordForEmail
 
 // #region signOut
-export async function signOut(options: WithRedirect): Promise<void> {
+export async function signOut(options: WithRedirect): Promise<ServerError> {
   const { redirect } = options
   const supabase = createClient()
   const { error } = await supabase.auth.signOut()
-  if (error) throw error
+  if (error) return { error: { message: error.message } }
   redirect?.url && _redirect(redirect.url, redirect.type)
 }
 // #endregion signOut
@@ -119,11 +123,11 @@ export async function signOut(options: WithRedirect): Promise<void> {
 // #region updateUser
 export async function updateUser(
   options: WithRedirect<UserAttributes>
-): Promise<void> {
+): Promise<ServerError> {
   const { redirect, ...attributes } = options
   const supabase = createClient()
   const { error } = await supabase.auth.updateUser(attributes)
-  if (error) throw error
+  if (error) return { error: { message: error.message } }
   redirect?.url && _redirect(redirect.url, redirect.type)
 }
 // #endregion updateUser

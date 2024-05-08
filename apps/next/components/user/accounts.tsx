@@ -11,7 +11,6 @@ import {
 } from "@radix-ui/react-icons"
 import { useMutation, useQuery } from "@tanstack/react-query"
 
-import { getDigest } from "@/lib/digest"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -40,8 +39,6 @@ export const Accounts: React.FC<{ userId: string }> = ({ userId }) => {
     queryFn: () => getProfile({ id: userId }),
   })
 
-  const digest = getDigest(profile.error)
-
   if (profile.isLoading) {
     return (
       <div className="flex h-full flex-col items-center justify-center">
@@ -52,15 +49,13 @@ export const Accounts: React.FC<{ userId: string }> = ({ userId }) => {
     )
   }
 
-  if (profile.isError) {
+  if (profile.data && "error" in profile.data) {
     return (
       <div className="flex flex-col items-center justify-center">
         <Alert variant="destructive">
           <CrossCircledIcon className="size-4" />
           <AlertTitle>Something went wrong!</AlertTitle>
-          <AlertDescription>
-            Profile loading was not successful, please try again; ref: {digest}
-          </AlertDescription>
+          <AlertDescription>{profile.data.error.message}</AlertDescription>
         </Alert>
       </div>
     )
@@ -100,8 +95,6 @@ export const AccountsContainer: React.FC<{
     mutationFn: signOut,
   })
 
-  const digest = getDigest(logout.error)
-
   return (
     <AccountsComponent
       username={username}
@@ -116,8 +109,8 @@ export const AccountsContainer: React.FC<{
         })
       }
       isPending={logout.isPending}
-      isError={logout.isError}
-      errorMessage={`Log out was not successful, please try again; ref: ${digest}`}
+      isError={!!logout.data?.error}
+      errorMessage={logout.data?.error.message}
     />
   )
 }

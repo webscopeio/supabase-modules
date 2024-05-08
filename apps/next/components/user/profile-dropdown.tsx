@@ -55,6 +55,12 @@ export const ProfileDropdown: React.FC<{
     }
   }
 
+  if (profile.data && "error" in profile.data) {
+    return (
+      <div className="relative ml-auto flex size-9 overflow-hidden rounded-full bg-destructive" />
+    )
+  }
+
   if (profile.isLoading) {
     return (
       <div className="relative ml-auto flex size-9 animate-pulse overflow-hidden rounded-full bg-muted" />
@@ -82,7 +88,7 @@ export const ProfileDropdown: React.FC<{
             {profile?.data?.username ?? "Guest"}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          {!isAnonymousUser && !profile.error && profile.data && (
+          {!isAnonymousUser && (
             <>
               <DropdownMenuItem asChild>
                 <Link href="/settings/accounts">Accounts</Link>

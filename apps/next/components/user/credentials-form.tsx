@@ -5,9 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 import { useMutation } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
-import * as z from "zod"
+import { z } from "zod"
 
-import { getDigest } from "@/lib/digest"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -55,8 +54,6 @@ export const CredentialsForm: React.FC<{ userEmail: string }> = ({
     },
   })
 
-  const digest = getDigest(update.error)
-
   return (
     <>
       <CredentialsFormComponent
@@ -77,15 +74,15 @@ export const CredentialsForm: React.FC<{ userEmail: string }> = ({
           })
         }}
         isPending={update.isPending}
-        isError={update.isError}
-        errorMessage={`Credentials update was not successful, please try again; ref: ${digest}`}
+        isError={!!update.data?.error}
+        errorMessage={update.data?.error.message}
       />
       <Dialog
         open={emailChangeInfoDialogState.isOpen}
-        onOpenChange={(open) =>
+        onOpenChange={(isOpen) =>
           setEmailChangeInfoDialogState((prevState) => ({
             ...prevState,
-            isOpen: open,
+            isOpen,
           }))
         }
       >
@@ -152,8 +149,8 @@ const CredentialsFormComponent: React.FC<{
 
               if (Object.keys(updates).length > 0) {
                 updateUser(updates)
+                form.reset()
               }
-              form.reset()
             })}
             className="space-y-6"
           >

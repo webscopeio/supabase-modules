@@ -6,9 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 import { useMutation } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
-import * as z from "zod"
+import { z } from "zod"
 
-import { getDigest } from "@/lib/digest"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -37,37 +36,8 @@ import {
   signInWithOtp,
 } from "@/modules/user/auth"
 
-type SearchParamError = {
-  message: string
-  status: number
-}
-
-function getErrorProps({
-  error,
-  searchParamError,
-}: {
-  error: Error | null
-  searchParamError: SearchParamError | null
-}) {
-  if (error) {
-    const digest = getDigest(error)
-    return {
-      isError: true,
-      errorMessage: `Log in was not successful, please try again; ref: ${digest}`,
-    }
-  } else if (searchParamError) {
-    return {
-      isError: true,
-      errorMessage: searchParamError.message,
-    }
-  }
-  return {
-    isError: false,
-  }
-}
-
 export const LoginForm: React.FC<{
-  error?: SearchParamError
+  error?: { message: string; status: number }
 }> = ({ error }) => {
   const signIn = useMutation({
     mutationFn: signInWithEmailPassword,
@@ -98,16 +68,14 @@ export const LoginForm: React.FC<{
         })
       : passwordlessSignIn.mutate({
           email,
+          options: {
+            shouldCreateUser: false,
+          },
           redirect: {
             url: `/login/otp?email=${email}`,
           },
         })
   }
-
-  const { isError, errorMessage } = getErrorProps({
-    error: signIn.error || passwordlessSignIn.error,
-    searchParamError: error || null,
-  })
 
   function handleAnonymousSignIn(): void {
     anonymousSignIn.mutate({
@@ -121,9 +89,23 @@ export const LoginForm: React.FC<{
     <LoginFormComponent
       signIn={handleSignIn}
       anonymousSignIn={handleAnonymousSignIn}
-      isPending={signIn.isPending || passwordlessSignIn.isPending}
-      isError={isError}
-      errorMessage={errorMessage}
+      isPending={
+        signIn.isPending ||
+        passwordlessSignIn.isPending ||
+        anonymousSignIn.isPending
+      }
+      isError={
+        !!signIn.data?.error ||
+        !!passwordlessSignIn.data?.error ||
+        !!anonymousSignIn.data?.error ||
+        !!error
+      }
+      errorMessage={
+        signIn.data?.error.message ||
+        passwordlessSignIn.data?.error.message ||
+        anonymousSignIn.data?.error.message ||
+        error?.message
+      }
     />
   )
 }
@@ -236,7 +218,11 @@ const LoginFormComponent: React.FC<{
                 type="button"
                 variant="secondary"
                 onClick={anonymousSignIn}
+                disabled={isPending}
               >
+                {isPending && (
+                  <CircleIcon className="mr-2 size-4 animate-spin" />
+                )}
                 Continue as guest
               </Button>
               <Button asChild variant="link">

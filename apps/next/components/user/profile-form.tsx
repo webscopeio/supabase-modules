@@ -9,9 +9,8 @@ import {
 } from "@radix-ui/react-icons"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
-import * as z from "zod"
+import { z } from "zod"
 
-import { getDigest } from "@/lib/digest"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -39,8 +38,6 @@ export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
     queryFn: () => getProfile({ id: userId }),
   })
 
-  const digest = getDigest(profile.error)
-
   if (profile.isLoading) {
     return (
       <div className="flex h-full flex-col items-center justify-center">
@@ -51,15 +48,13 @@ export const ProfileForm: React.FC<{ userId: string }> = ({ userId }) => {
     )
   }
 
-  if (profile.isError) {
+  if (profile.data && "error" in profile.data) {
     return (
       <div className="flex flex-col items-center justify-center">
         <Alert variant="destructive">
           <CrossCircledIcon className="size-4" />
           <AlertTitle>Something went wrong!</AlertTitle>
-          <AlertDescription>
-            Profile loading was not successful, please try again; ref: {digest}
-          </AlertDescription>
+          <AlertDescription>{profile.data.error.message}</AlertDescription>
         </Alert>
       </div>
     )
@@ -103,8 +98,6 @@ export const ProfileFormContainer: React.FC<{
     },
   })
 
-  const digest = getDigest(update.error)
-
   return (
     <ProfileFormComponent
       key={JSON.stringify({ username, fullName, preferredName })}
@@ -134,8 +127,8 @@ export const ProfileFormContainer: React.FC<{
         })
       }
       isPending={update.isPending}
-      isError={update.isError}
-      errorMessage={`Profile update was not successful, please try again; ref: ${digest}`}
+      isError={!!update.data?.error}
+      errorMessage={update.data?.error.message}
     />
   )
 }

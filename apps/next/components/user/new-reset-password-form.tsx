@@ -6,9 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { CircleIcon, CrossCircledIcon } from "@radix-ui/react-icons"
 import { useMutation } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
-import * as z from "zod"
+import { z } from "zod"
 
-import { getDigest } from "@/lib/digest"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import {
@@ -35,8 +34,6 @@ export const NewResetPasswordForm: React.FC = () => {
     mutationFn: updateUser,
   })
 
-  const digest = getDigest(update.error)
-
   return (
     <NewResetPasswordFormComponent
       updateUser={({
@@ -55,8 +52,8 @@ export const NewResetPasswordForm: React.FC = () => {
         })
       }}
       isPending={update.isPending}
-      isError={update.isError}
-      errorMessage={`Password reset was not successful, please try again; ref: ${digest}`}
+      isError={!!update.data?.error}
+      errorMessage={update.data?.error.message}
     />
   )
 }
