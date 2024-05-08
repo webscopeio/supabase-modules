@@ -23,11 +23,14 @@ Then copy, paste and execute the contents of file `modules/user/migration.sql` i
 ## Authentication
 
 Authentication supports the following methods:
-* Sign ups using email and password
-* Sign ins using email and password
-* Sign ins using email One-Time password (OTP workflow)
-* Password reset using email (Magic Link workflow)
-* Updating credentials email and/or password
+
+- Sign ups using email and password
+- Sign ins using email and password
+- Sign ins using email One-Time password (OTP workflow)
+- Anonymous Sign ins
+- Sign outs
+- Password reset using email (Magic Link workflow)
+- Updating credentials email and/or password
 
 ### `signUpWithEmailPassword`
 
@@ -41,17 +44,21 @@ Authentication supports the following methods:
 
 <<< ../../apps/next/modules/user/auth.ts#signInWithOtp
 
+### `signInAnonymously`
+
+<<< ../../apps/next/modules/user/auth.ts#signInAnonymously
+
 ### `verifyOtp`
 
 <<< ../../apps/next/modules/user/auth.ts#verifyOtp
 
-### `resetPasswordForEmail`
-
-<<< ../../apps/next/modules/user/auth.ts#resetPasswordForEmail
-
 ### `signOut`
 
 <<< ../../apps/next/modules/user/auth.ts#signOut
+
+### `resetPasswordForEmail`
+
+<<< ../../apps/next/modules/user/auth.ts#resetPasswordForEmail
 
 ### `updateUser`
 

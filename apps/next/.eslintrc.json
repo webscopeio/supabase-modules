@@ -29,6 +29,7 @@
         }
       }
     ],
+    "no-console": ["error", { "allow": ["error"] }],
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
     "tailwindcss/no-custom-classname": "off",

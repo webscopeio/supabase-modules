@@ -31,6 +31,13 @@ For example, our [Next.js](https://nextjs.org/) app looks like this:
 - The logic lives in the `/modules` directory categorized by module name i.e. _user_.
 - The database configuration lives in the `/supabase` directory where migrations can be identified by module name i.e. _20240214100236_user.sql_.
 
+## Requirements
+
+Requirements:
+
+- Node: `>=20`,
+- Package manager: `pnpm@8.15.1`
+
 ## Install
 
 To install dependencies, run the following command from the root repository:
@@ -41,7 +48,7 @@ pnpm install
 
 ## Environment variables
 
-Please refer to `.env.example` when working with environment variables. This repository is local-first development, so you should set all of your development variables in `.env.local` located in the root repository. 
+Please refer to `.env.example` when working with environment variables. This repository is local-first development, so you should set all of your development variables in `.env.local` located in the root repository.
 
 If you want to connect to a remote Supabase instance you can set all of your variables in `.env` located in the root repository.
 

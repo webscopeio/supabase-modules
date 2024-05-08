@@ -11,7 +11,8 @@
     "db:gen-types": "turbo db:gen-types",
     "email:dev": "turbo email:dev",
     "email:export": "turbo email:export",
-    "lint": "turbo lint"
+    "lint": "turbo lint",
+    "format": "turbo format"
   },
   "devDependencies": {
     "turbo": "^1.12.1",

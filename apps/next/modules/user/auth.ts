@@ -70,8 +70,6 @@ export async function signInAnonymously(
 ): Promise<void> {
   const { redirect, ...credentials } = options
   const supabase = createClient()
-  console.log({ credentials })
-
   const { error } = await supabase.auth.signInAnonymously(credentials)
   if (error) throw error
   redirect?.url && _redirect(redirect.url, redirect.type)

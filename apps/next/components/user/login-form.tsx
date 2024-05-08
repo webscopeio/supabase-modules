@@ -109,10 +109,18 @@ export const LoginForm: React.FC<{
     searchParamError: error || null,
   })
 
+  function handleAnonymousSignIn(): void {
+    anonymousSignIn.mutate({
+      redirect: {
+        url: "/guest",
+      },
+    })
+  }
+
   return (
     <LoginFormComponent
       signIn={handleSignIn}
-      anonymousSignIn={() => anonymousSignIn.mutate({})}
+      anonymousSignIn={handleAnonymousSignIn}
       isPending={signIn.isPending || passwordlessSignIn.isPending}
       isError={isError}
       errorMessage={errorMessage}
@@ -217,14 +225,18 @@ const LoginFormComponent: React.FC<{
               />
               <Label htmlFor="OTP-login">Log in with One-Time password</Label>
             </div>
-            <footer className="flex flex-col gap-2">
+            <footer className="flex flex-col gap-3">
               <Button type="submit" disabled={isPending}>
                 {isPending && (
                   <CircleIcon className="mr-2 size-4 animate-spin" />
                 )}
                 {isLoginWithOTP ? "Email me a One-Time password" : "Sign in"}
               </Button>
-              <Button type="button" onClick={anonymousSignIn}>
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={anonymousSignIn}
+              >
                 Continue as guest
               </Button>
               <Button asChild variant="link">
