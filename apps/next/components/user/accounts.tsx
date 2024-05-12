@@ -39,6 +39,10 @@ export const Accounts: React.FC<{ userId: string }> = ({ userId }) => {
     queryFn: () => getProfile({ id: userId }),
   })
 
+  const logout = useMutation({
+    mutationFn: signOut,
+  })
+
   if (profile.isLoading) {
     return (
       <div className="flex h-full flex-col items-center justify-center">
@@ -76,31 +80,11 @@ export const Accounts: React.FC<{ userId: string }> = ({ userId }) => {
   }
 
   return (
-    <AccountsContainer
+    <AccountsComponent
       username={profile.data.username}
       email={profile.data.email}
       preferredName={profile.data.preferred_name}
       preferredHue={profile.data.preferred_hue}
-    />
-  )
-}
-
-export const AccountsContainer: React.FC<{
-  username: string
-  email: string
-  preferredName: string | null
-  preferredHue: string
-}> = ({ username, email, preferredName, preferredHue }) => {
-  const logout = useMutation({
-    mutationFn: signOut,
-  })
-
-  return (
-    <AccountsComponent
-      username={username}
-      email={email}
-      preferredName={preferredName}
-      preferredHue={preferredHue}
       signOut={() =>
         logout.mutate({
           redirect: {
@@ -161,7 +145,7 @@ const AccountsComponent: React.FC<{
               variant="secondary"
               className="hidden px-3 shadow-none sm:block"
             >
-              {isPending && <CircleIcon className="mr-2 size-4 animate-spin" />}
+              {isPending && <CircleIcon className="mr-2 size-4 animate-spin inline" />}
               Sign out
             </Button>
             <Separator

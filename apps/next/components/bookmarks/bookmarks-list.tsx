@@ -31,7 +31,7 @@ export const BookmarksList: React.FC<{ userId: string }> = ({ userId }) => {
     return (
       <div className="flex h-full flex-col items-center justify-center">
         <div className="animate-pulse">
-          <CircleIcon className="size-8 animate-spin" />
+          <CircleIcon className="size-8 animate-spin inline" />
         </div>
       </div>
     )
@@ -131,7 +131,7 @@ const BookmarkDelete: React.FC<{ bookmarkId: string; userId: string }> = ({
       size={"sm"}
       className="-ml-3 block"
     >
-      {isPending && <Loader2 className="mr-1.5 size-4 animate-spin" />}
+      {isPending && <Loader2 className="mr-1.5 size-4 animate-spin inline" />}
       Delete
     </Button>
   )

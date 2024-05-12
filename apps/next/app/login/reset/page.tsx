@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 
-import { ResetPasswordForm } from "@/components/user/reset-password-form"
+import { ResetPasswordForm } from "@/components/user/login/reset/reset-password-form"
 
 import { createClient } from "@/modules/utils/server"
 

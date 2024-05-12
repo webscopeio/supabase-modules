@@ -20,6 +20,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -27,21 +28,23 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
-import { signUpWithEmailPassword } from "@/modules/user/auth"
+import { signInWithOtp } from "@/modules/user/auth"
 
-export const RegisterForm: React.FC = () => {
+export const RegisterFormPasswordless: React.FC = () => {
   const signUp = useMutation({
-    mutationFn: signUpWithEmailPassword,
+    mutationFn: signInWithOtp,
   })
 
   return (
-    <RegisterFormComponent
-      signUp={({ email, password }: { email: string; password: string }) =>
+    <RegisterFormPasswordlessComponent
+      signUp={({ email }: { email: string }) =>
         signUp.mutate({
           email,
-          password,
+          options: {
+            shouldCreateUser: true,
+          },
           redirect: {
-            url: "/login",
+            url: "/login/new",
           },
         })
       }
@@ -54,11 +57,10 @@ export const RegisterForm: React.FC = () => {
 
 const FormSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
-  password: z.string().min(6, { message: "Must be 6 or more characters long" }),
 })
 
-const RegisterFormComponent: React.FC<{
-  signUp: ({ email, password }: { email: string; password: string }) => void
+const RegisterFormPasswordlessComponent: React.FC<{
+  signUp: ({ email }: { email: string }) => void
   isPending: boolean
   isError: boolean
   errorMessage?: string
@@ -67,7 +69,6 @@ const RegisterFormComponent: React.FC<{
     resolver: zodResolver(FormSchema),
     defaultValues: {
       email: "",
-      password: "",
     },
   })
 
@@ -80,12 +81,11 @@ const RegisterFormComponent: React.FC<{
       <CardContent>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(({ email, password }) => {
+            onSubmit={form.handleSubmit(({ email }) =>
               signUp({
                 email,
-                password,
               })
-            })}
+            )}
             className="space-y-6"
           >
             <FormField
@@ -97,19 +97,9 @@ const RegisterFormComponent: React.FC<{
                   <FormControl>
                     <Input placeholder="sosa@webscope.io" {...field} />
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input type="password" placeholder="Password" {...field} />
-                  </FormControl>
+                  <FormDescription>
+                    Please enter an email you have access to
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -128,10 +118,10 @@ const RegisterFormComponent: React.FC<{
                 {isPending && (
                   <CircleIcon className="mr-2 size-4 animate-spin" />
                 )}
-                Create account
+                Send me a Magic-link
               </Button>
               <Button asChild variant="link">
-                <Link href="/login">I already have an account</Link>
+                <Link href="/login/new">Back to regular Sign up</Link>
               </Button>
             </footer>
           </form>

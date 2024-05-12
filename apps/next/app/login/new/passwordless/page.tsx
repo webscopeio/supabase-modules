@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 
-import { OtpLoginForm } from "@/components/user/login/otp/otp-login-form"
+import { RegisterFormPasswordless } from "@/components/user/login/new/register-form-passwordless"
 
 import { createClient } from "@/modules/utils/server"
 
@@ -12,8 +12,8 @@ export default async function Page() {
   } = await supabase.auth.getUser()
 
   if (user) {
-    redirect("/settings/accounts")
+    user.is_anonymous ? redirect("/guest") : redirect("/settings/accounts")
   }
 
-  return <OtpLoginForm />
+  return <RegisterFormPasswordless />
 }

@@ -16,7 +16,7 @@ import { EmailOtpType } from "@supabase/supabase-js"
 
 import * as styles from "./_shared/styles"
 
-const redirectTo = `/login/reset-password/new`
+const redirectTo = `/login/reset/new`
 const type: EmailOtpType = "recovery"
 
 const confirmationURL = `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=${type}&next=${redirectTo}`

@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 
-import { RegisterForm } from "@/components/user/register-form"
+import { RegisterForm } from "@/components/user/login/new/register-form"
 
 import { createClient } from "@/modules/utils/server"
 

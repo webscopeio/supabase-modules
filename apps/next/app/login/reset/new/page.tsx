@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 
-import { NewResetPasswordForm } from "@/components/user/new-reset-password-form"
+import { ResetPasswordConfirmForm } from "@/components/user/login/reset/reset-password-confirm-form"
 
 import { createClient } from "@/modules/utils/server"
 
@@ -15,5 +15,5 @@ export default async function Page() {
     redirect("/login")
   }
 
-  return <NewResetPasswordForm />
+  return <ResetPasswordConfirmForm />
 }

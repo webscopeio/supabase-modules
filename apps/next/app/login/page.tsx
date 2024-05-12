@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation"
 import { z } from "zod"
 
-import { LoginForm } from "@/components/user/login-form"
+import { LoginForm } from "@/components/user/login/login-form"
 
 import { createClient } from "@/modules/utils/server"
 import { isAnonymousUser } from "@/modules/user/helpers"

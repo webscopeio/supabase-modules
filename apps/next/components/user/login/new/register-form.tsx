@@ -26,95 +26,98 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/components/ui/input-otp"
+import { Input } from "@/components/ui/input"
 
-import { verifyOtp } from "@/modules/user/auth"
+import { signUpWithEmailPassword } from "@/modules/user/auth"
 
-export const OtpLoginForm: React.FC<{ email: string }> = ({ email }) => {
-  const verify = useMutation({
-    mutationFn: verifyOtp,
+export const RegisterForm: React.FC = () => {
+  const signUp = useMutation({
+    mutationFn: signUpWithEmailPassword,
   })
 
   return (
-    <OtpLoginFormComponent
-      verifyOtp={({ token }) =>
-        verify.mutate({
+    <RegisterFormComponent
+      signUp={({ email, password }: { email: string; password: string }) =>
+        signUp.mutate({
           email,
-          token,
+          password,
           redirect: {
-            url: "/settings/accounts",
+            url: "/login",
           },
         })
       }
-      isPending={verify.isPending}
-      isError={!!verify.data?.error}
-      errorMessage={verify.data?.error.message}
+      isPending={signUp.isPending}
+      isError={!!signUp.data?.error}
+      errorMessage={signUp.data?.error.message}
     />
   )
 }
 
 const FormSchema = z.object({
-  token: z.string().min(6, {
-    message: "Your one-time password must be 6 characters.",
-  }),
+  email: z.string().email({ message: "Invalid email address" }),
+  password: z.string().min(6, { message: "Must be 6 or more characters long" }),
 })
 
-const OtpLoginFormComponent: React.FC<{
-  verifyOtp: ({ token }: { token: string }) => void
+const RegisterFormComponent: React.FC<{
+  signUp: ({ email, password }: { email: string; password: string }) => void
   isPending: boolean
   isError: boolean
   errorMessage?: string
-}> = ({ verifyOtp, isPending, isError, errorMessage }) => {
+}> = ({ signUp, isPending, isError, errorMessage }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      token: "",
+      email: "",
+      password: "",
     },
   })
 
   return (
     <Card className="mx-auto my-16 max-w-md">
       <CardHeader>
-        <CardTitle className="text-2xl">One-Time password login</CardTitle>
-        <CardDescription>Almost there!</CardDescription>
+        <CardTitle className="text-2xl">Create an account</CardTitle>
+        <CardDescription>Please fill out the form below</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(({ token }) => {
-              verifyOtp({ token })
+            onSubmit={form.handleSubmit(({ email, password }) => {
+              signUp({
+                email,
+                password,
+              })
             })}
             className="space-y-6"
           >
             <FormField
               control={form.control}
-              name="token"
+              name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>One-Time password</FormLabel>
+                  <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <InputOTP
-                      maxLength={6}
-                      render={({ slots }) => (
-                        <InputOTPGroup className="w-full space-x-2">
-                          {slots.map((slot, index) => (
-                            <InputOTPSlot
-                              key={index}
-                              className="aspect-square size-full rounded-md border sm:size-9"
-                              {...slot}
-                            />
-                          ))}
-                        </InputOTPGroup>
-                      )}
-                      {...field}
-                    />
+                    <Input placeholder="sosa@webscope.io" {...field} />
                   </FormControl>
-                  <FormDescription>
-                    Please enter the one-time password sent to your email
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="Password" {...field} />
+                  </FormControl>
+                  <FormDescription className="pt-2">
+                    <Link
+                      className="text-sm underline-offset-4 hover:underline"
+                      href="/login/new/passwordless"
+                    >
+                      Skip password for now
+                    </Link>
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -134,10 +137,10 @@ const OtpLoginFormComponent: React.FC<{
                 {isPending && (
                   <CircleIcon className="mr-2 size-4 animate-spin" />
                 )}
-                Sign in
+                Create account
               </Button>
               <Button asChild variant="link">
-                <Link href="/login/new">Create new account</Link>
+                <Link href="/login">I already have an account</Link>
               </Button>
             </footer>
           </form>
