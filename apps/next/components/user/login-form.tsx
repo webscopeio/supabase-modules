@@ -89,11 +89,8 @@ export const LoginForm: React.FC<{
     <LoginFormComponent
       signIn={handleSignIn}
       anonymousSignIn={handleAnonymousSignIn}
-      isPending={
-        signIn.isPending ||
-        passwordlessSignIn.isPending ||
-        anonymousSignIn.isPending
-      }
+      isPending={signIn.isPending || passwordlessSignIn.isPending}
+      isPendingAnonymousSignIn={anonymousSignIn.isPending}
       isError={
         !!signIn.data?.error ||
         !!passwordlessSignIn.data?.error ||
@@ -123,9 +120,17 @@ const LoginFormComponent: React.FC<{
   signIn: ({ email, password }: { email: string; password?: string }) => void
   anonymousSignIn: () => void
   isPending: boolean
+  isPendingAnonymousSignIn: boolean
   isError: boolean
   errorMessage?: string
-}> = ({ signIn, anonymousSignIn, isPending, isError, errorMessage }) => {
+}> = ({
+  signIn,
+  anonymousSignIn,
+  isPending,
+  isPendingAnonymousSignIn,
+  isError,
+  errorMessage,
+}) => {
   const [isLoginWithOTP, setIsLoginWithOTP] = React.useState(false)
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -218,9 +223,9 @@ const LoginFormComponent: React.FC<{
                 type="button"
                 variant="secondary"
                 onClick={anonymousSignIn}
-                disabled={isPending}
+                disabled={isPendingAnonymousSignIn}
               >
-                {isPending && (
+                {isPendingAnonymousSignIn && (
                   <CircleIcon className="mr-2 size-4 animate-spin" />
                 )}
                 Continue as guest

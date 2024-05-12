@@ -9,7 +9,7 @@ type Bookmark = Database["public"]["Tables"]["bookmarks"]["Row"]
 
 type ServerError = {
   error: { message: string }
-} | void
+}
 
 const bookmarkSchema = z.object({
   title: z.string(),
@@ -22,7 +22,7 @@ export async function getBookmarks({
   id,
 }: {
   id: string
-}): Promise<Bookmark[] | null | ServerError> {
+}): Promise<Bookmark[] | null | ServerError | void> {
   const supabase = createClient()
   const { data, error } = await supabase
     .from("bookmarks")
@@ -41,7 +41,7 @@ export async function createBookmark({
 }: {
   created_by: string
   url: string
-}): Promise<ServerError> {
+}): Promise<ServerError | void> {
   const response = await fetch(`https://api.dub.co/metatags?url=${url}`)
   if (!response.ok) throw new Error(`Error: ${response.status}`)
   const unparsedData = (await response.json()) as unknown
@@ -60,7 +60,7 @@ export async function createBookmark({
 // #endregion createBookmark
 
 // #region deleteBookmark
-export async function deleteBookmark(id: string): Promise<ServerError> {
+export async function deleteBookmark(id: string): Promise<ServerError | void> {
   const supabase = createClient()
   const { error } = await supabase.from("bookmarks").delete().eq("id", id)
   if (error) return { error: { message: error.message } }

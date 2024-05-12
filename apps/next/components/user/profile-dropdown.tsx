@@ -35,6 +35,7 @@ export const ProfileDropdown: React.FC<{
   const [signOutWarningOpen, setSignOutWarningOpen] = React.useState(false)
 
   const profile = useQuery({
+    enabled: !isAnonymousUser,
     queryKey: ["profiles", userId],
     queryFn: () => getProfile({ id: userId }),
   })

@@ -21,14 +21,14 @@ type WithRedirect<TArg = unknown> = TArg & {
 
 type ServerError = {
   error: { message: string }
-} | void
+}
 
 // #region signUpWithEmailPassword
 export async function signUpWithEmailPassword(
   options: WithRedirect<
     Extract<SignUpWithPasswordCredentials, { email: string }>
   >
-): Promise<ServerError> {
+): Promise<ServerError | void> {
   const { redirect, ...credentials } = options
   const supabase = createClient()
   const { data, error } = await supabase.auth.signUp(credentials)
@@ -45,7 +45,7 @@ export async function signInWithEmailPassword(
   options: WithRedirect<
     Extract<SignInWithPasswordCredentials, { email: string }>
   >
-): Promise<ServerError> {
+): Promise<ServerError | void> {
   const { redirect, ...credentials } = options
   const supabase = createClient()
   const { error } = await supabase.auth.signInWithPassword(credentials)
@@ -59,7 +59,7 @@ export async function signInWithOtp(
   options: WithRedirect<
     Extract<SignInWithPasswordlessCredentials, { email: string }>
   >
-): Promise<ServerError> {
+): Promise<ServerError | void> {
   const { redirect, ...credentials } = options
   const supabase = createClient()
   const { error } = await supabase.auth.signInWithOtp(credentials)
@@ -71,7 +71,7 @@ export async function signInWithOtp(
 // #region signInAnonymously
 export async function signInAnonymously(
   options: WithRedirect<SignInAnonymouslyCredentials>
-): Promise<ServerError> {
+): Promise<ServerError | void> {
   const { redirect, ...credentials } = options
   const supabase = createClient()
   const { error } = await supabase.auth.signInAnonymously(credentials)
@@ -85,7 +85,7 @@ export async function verifyOtp(
   options: WithRedirect<
     Omit<Extract<VerifyOtpParams, { email: string }>, "type">
   >
-): Promise<ServerError> {
+): Promise<ServerError | void> {
   const { redirect, ...credentials } = options
   const supabase = createClient()
   const { error } = await supabase.auth.verifyOtp({
@@ -101,7 +101,7 @@ export async function verifyOtp(
 // #region resetPasswordForEmail
 export async function resetPasswordForEmail(
   options: WithRedirect<{ email: string }>
-): Promise<ServerError> {
+): Promise<ServerError | void> {
   const { redirect, email } = options
   const supabase = createClient()
   const { error } = await supabase.auth.resetPasswordForEmail(email)
@@ -111,7 +111,9 @@ export async function resetPasswordForEmail(
 // #endregion resetPasswordForEmail
 
 // #region signOut
-export async function signOut(options: WithRedirect): Promise<ServerError> {
+export async function signOut(
+  options: WithRedirect
+): Promise<ServerError | void> {
   const { redirect } = options
   const supabase = createClient()
   const { error } = await supabase.auth.signOut()
@@ -123,7 +125,7 @@ export async function signOut(options: WithRedirect): Promise<ServerError> {
 // #region updateUser
 export async function updateUser(
   options: WithRedirect<UserAttributes>
-): Promise<ServerError> {
+): Promise<ServerError | void> {
   const { redirect, ...attributes } = options
   const supabase = createClient()
   const { error } = await supabase.auth.updateUser(attributes)

@@ -9,7 +9,7 @@ type Profile = Database["public"]["Tables"]["profiles"]["Row"]
 
 type ServerError = {
   error: { message: string }
-} | void
+}
 
 // #region getProfile
 export async function getProfile({
@@ -39,7 +39,7 @@ type WithRedirect<TArg = unknown> = TArg & {
 // #region updateProfile
 export async function updateProfile(
   options: WithRedirect<Partial<Profile>>
-): Promise<ServerError> {
+): Promise<ServerError | void> {
   const { redirect, ...updates } = options
   if (!updates.id) {
     return {
