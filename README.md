@@ -33,8 +33,6 @@ For example, our [Next.js](https://nextjs.org/) app looks like this:
 
 ## Requirements
 
-Requirements:
-
 - Node: `>=20`,
 - Package manager: `pnpm@8.15.1`
 
