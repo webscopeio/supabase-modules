@@ -30,9 +30,7 @@ import { Input } from "@/components/ui/input"
 
 import { updateUser } from "@/modules/user/auth"
 
-export const GuestForm: React.FC<{
-  isAnonymousUser: boolean
-}> = ({ isAnonymousUser }) => {
+export const GuestForm: React.FC = () => {
   const finishSignUp = useMutation({
     mutationFn: updateUser,
     onSuccess: (data, vars) => {
@@ -43,23 +41,9 @@ export const GuestForm: React.FC<{
     },
   })
 
-  if (isAnonymousUser)
-    return (
-      <GuestFormNotRegistered
-        finishSignUp={({ email }) =>
-          finishSignUp.mutate({ email, data: { hasPassword: false } })
-        }
-        isPending={finishSignUp.isPending}
-        isError={!!finishSignUp.data?.error}
-        errorMessage={finishSignUp.data?.error.message}
-      />
-    )
-
   return (
-    <GuestFormNoPassword
-      finishSignUp={({ password }) =>
-        finishSignUp.mutate({ password, data: { hasPassword: true } })
-      }
+    <GuestFormNotRegistered
+      finishSignUp={({ email }) => finishSignUp.mutate({ email })}
       isPending={finishSignUp.isPending}
       isError={!!finishSignUp.data?.error}
       errorMessage={finishSignUp.data?.error.message}
@@ -112,76 +96,9 @@ const GuestFormNotRegistered: React.FC<{
                   <FormControl>
                     <Input placeholder="sosa@webscope.io" {...field} />
                   </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {isError && (
-              <Alert variant="destructive">
-                <CrossCircledIcon className="size-4" />
-                <AlertTitle>Something went wrong!</AlertTitle>
-                <AlertDescription>
-                  {errorMessage ?? "Unknown error"}
-                </AlertDescription>
-              </Alert>
-            )}
-            <Button type="submit" disabled={isPending}>
-              {isPending && <CircleIcon className="mr-2 size-4 animate-spin inline" />}
-              Create account
-            </Button>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
-  )
-}
-
-const NoPasswordFormSchema = z.object({
-  password: z.string().min(6, "Password must be at least 6 characters"),
-})
-
-const GuestFormNoPassword: React.FC<{
-  finishSignUp: ({ password }: { password: string }) => void
-  isPending: boolean
-  isError: boolean
-  errorMessage?: string
-}> = ({ finishSignUp, isError, isPending, errorMessage }) => {
-  const form = useForm<z.infer<typeof NoPasswordFormSchema>>({
-    resolver: zodResolver(NoPasswordFormSchema),
-    defaultValues: {
-      password: "",
-    },
-  })
-
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Set up a password</CardTitle>
-        <CardDescription>
-          You need to create a password to finish sign up process.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(({ password }) => {
-              finishSignUp({
-                password,
-              })
-            })}
-            className="space-y-6"
-          >
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input type="password" placeholder="Password" {...field} />
-                  </FormControl>
                   <FormDescription>
-                    The new password you would like to use
+                    Once you&apos;ve confirmed your email, you&apos;ll need to
+                    set a password as well via <b>Setttings — Credentials</b>.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -197,8 +114,10 @@ const GuestFormNoPassword: React.FC<{
               </Alert>
             )}
             <Button type="submit" disabled={isPending}>
-              {isPending && <CircleIcon className="mr-2 size-4 animate-spin inline" />}
-              Set password
+              {isPending && (
+                <CircleIcon className="mr-2 inline size-4 animate-spin" />
+              )}
+              Create account
             </Button>
           </form>
         </Form>

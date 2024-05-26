@@ -145,7 +145,9 @@ const AccountsComponent: React.FC<{
               variant="secondary"
               className="hidden px-3 shadow-none sm:block"
             >
-              {isPending && <CircleIcon className="mr-2 size-4 animate-spin inline" />}
+              {isPending && (
+                <CircleIcon className="mr-2 inline size-4 animate-spin" />
+              )}
               Sign out
             </Button>
             <Separator

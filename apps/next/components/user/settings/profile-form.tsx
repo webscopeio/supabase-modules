@@ -251,7 +251,9 @@ const ProfileFormComponent: React.FC<{
               </Alert>
             )}
             <Button type="submit" disabled={isPending}>
-              {isPending && <CircleIcon className="mr-2 size-4 animate-spin inline" />}
+              {isPending && (
+                <CircleIcon className="mr-2 inline size-4 animate-spin" />
+              )}
               Update Settings
             </Button>
           </form>

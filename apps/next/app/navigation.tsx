@@ -1,9 +1,8 @@
 import { ApplicationLayout } from "@/components/application-layout"
 
 import { createClient } from "@/modules/utils/server"
-import { isAnonymousUser } from "@/modules/user/helpers"
 
-export default async function Layout({
+export default async function Navigation({
   children,
 }: {
   children: React.ReactNode
@@ -14,11 +13,12 @@ export default async function Layout({
     data: { user },
   } = await supabase.auth.getUser()
 
+  if (!user) {
+    return <>{children}</>
+  }
+
   return (
-    <ApplicationLayout
-      userId={user?.id}
-      isAnonymousUser={!!user && isAnonymousUser(user)}
-    >
+    <ApplicationLayout userId={user.id} isAnonymousUser={user.is_anonymous}>
       {children}
     </ApplicationLayout>
   )

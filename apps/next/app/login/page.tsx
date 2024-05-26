@@ -4,7 +4,6 @@ import { z } from "zod"
 import { LoginForm } from "@/components/user/login/login-form"
 
 import { createClient } from "@/modules/utils/server"
-import { isAnonymousUser } from "@/modules/user/helpers"
 
 export default async function Page({
   searchParams: { error },
@@ -18,7 +17,7 @@ export default async function Page({
   } = await supabase.auth.getUser()
 
   if (user) {
-    isAnonymousUser(user) ? redirect("/guest") : redirect("/settings/accounts")
+    redirect("/settings")
   }
 
   if (error) {

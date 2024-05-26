@@ -88,7 +88,9 @@ const CreateBookmarkComponent: React.FC<{
           )}
         />
         <Button type="submit" disabled={isPending}>
-          {isPending && <CircleIcon className="mr-2 size-4 animate-spin inline" />}
+          {isPending && (
+            <CircleIcon className="mr-2 inline size-4 animate-spin" />
+          )}
           Save
         </Button>
       </form>

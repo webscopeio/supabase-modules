@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 
-import { Accounts } from "@/components/user/accounts"
+import { GuestForm } from "@/components/user/settings/guest-form"
 
 import { createClient } from "@/modules/utils/server"
 
@@ -15,5 +15,9 @@ export default async function Page() {
     redirect("/login")
   }
 
-  return <Accounts userId={user.id} />
+  if (user.is_anonymous) {
+    return <GuestForm />
+  }
+
+  redirect("/settings/accounts")
 }

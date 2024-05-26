@@ -26,7 +26,7 @@ import { AvatarPlaceholder } from "@/components/avatar-placeholder"
 import { signOut } from "@/modules/user/auth"
 import { getProfile } from "@/modules/user/profile"
 
-const DEFAULT_HUE = 0
+const DEFAULT_HUE = 100
 
 export const ProfileDropdown: React.FC<{
   userId: string
@@ -89,20 +89,16 @@ export const ProfileDropdown: React.FC<{
             {profile?.data?.username ?? "Guest"}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          {!isAnonymousUser && (
-            <>
-              <DropdownMenuItem asChild>
-                <Link href="/settings/accounts">Accounts</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/settings/profile">Profile</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/settings/credentials">Credentials</Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-            </>
-          )}
+          <DropdownMenuItem disabled={isAnonymousUser} asChild>
+            <Link href="/settings/accounts">Accounts</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem disabled={isAnonymousUser} asChild>
+            <Link href="/settings/profile">Profile</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem disabled={isAnonymousUser} asChild>
+            <Link href="/settings/credentials">Credentials</Link>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => handleSignOut()}>
             Logout
           </DropdownMenuItem>
@@ -118,7 +114,7 @@ export const ProfileDropdown: React.FC<{
           <DialogFooter>
             <DialogClose asChild>
               <Button asChild>
-                <Link href="/guest">Finish registration</Link>
+                <Link href="/settings">Finish registration</Link>
               </Button>
             </DialogClose>
             <Button

@@ -1,9 +1,8 @@
 import { redirect } from "next/navigation"
 
-import { GuestForm } from "@/components/user/guest-form"
+import { ProfileForm } from "@/components/user/settings/profile-form"
 
 import { createClient } from "@/modules/utils/server"
-import { isAnonymousUser } from "@/modules/user/helpers"
 
 export default async function Page() {
   const supabase = createClient()
@@ -12,9 +11,13 @@ export default async function Page() {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (!user || !isAnonymousUser(user)) {
+  if (!user) {
     redirect("/login")
   }
 
-  return <GuestForm isAnonymousUser={user.is_anonymous ?? false} />
+  if (user.is_anonymous) {
+    redirect("/settings")
+  }
+
+  return <ProfileForm userId={user.id} />
 }

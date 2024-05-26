@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation"
 
+import { CredentialsForm } from "@/components/user/settings/credentials-form"
+
 import { createClient } from "@/modules/utils/server"
 
 export default async function Page() {
@@ -13,5 +15,9 @@ export default async function Page() {
     redirect("/login")
   }
 
-  redirect("/settings/accounts")
+  if (user.is_anonymous || !user.email) {
+    redirect("/settings")
+  }
+
+  return <CredentialsForm userEmail={user.email} />
 }

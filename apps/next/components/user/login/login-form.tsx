@@ -52,7 +52,7 @@ export const LoginForm: React.FC<{
       email,
       password,
       redirect: {
-        url: "/settings/accounts",
+        url: "/settings",
       },
     })
   }
@@ -60,7 +60,7 @@ export const LoginForm: React.FC<{
   function handleAnonymousSignIn(): void {
     anonymousSignIn.mutate({
       redirect: {
-        url: "/guest",
+        url: "/settings",
       },
     })
   }

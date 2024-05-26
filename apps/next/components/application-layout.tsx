@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Bookmark, PanelLeft, Settings } from "lucide-react"
+import { Bookmark, PanelLeft } from "lucide-react"
 
 import {
   Breadcrumb,
@@ -63,20 +63,6 @@ export const ApplicationLayout: React.FC<
             <SupabaseModulesIcon />
             <span className="sr-only">Supabase Modules</span>
           </Link>
-          {!isAnonymousUser && (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="/settings/accounts"
-                  className="flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:size-8"
-                >
-                  <Settings className="size-5" />
-                  <span className="sr-only">Settings</span>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent side="right">Settings</TooltipContent>
-            </Tooltip>
-          )}
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
@@ -102,22 +88,10 @@ export const ApplicationLayout: React.FC<
             </SheetTrigger>
             <SheetContent side="left" className="sm:max-w-xs">
               <nav className="grid gap-6 text-lg font-medium">
-                <Link
-                  href="/"
-                  className="group flex size-9 shrink-0 items-center justify-center gap-2 rounded-full text-lg *:size-6 md:size-8 md:text-base"
-                >
+                <div className="group flex size-9 shrink-0 items-center justify-center gap-2 rounded-full text-lg *:size-6 md:size-8 md:text-base">
                   <SupabaseModulesIcon />
                   <span className="sr-only">Supabase Modules</span>
-                </Link>
-                <SheetClose asChild>
-                  <Link
-                    href={isAnonymousUser ? "/guest" : "/settings/accounts"}
-                    className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-                  >
-                    <Settings className="size-5" />
-                    Settings
-                  </Link>
-                </SheetClose>
+                </div>
                 <SheetClose asChild>
                   <Link
                     href="/bookmarks"

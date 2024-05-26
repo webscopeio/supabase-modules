@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation"
 
 import { createClient } from "@/modules/utils/server"
-import { isAnonymousUser } from "@/modules/user/helpers"
 
 export default async function Home() {
   const supabase = createClient()
@@ -11,7 +10,7 @@ export default async function Home() {
   } = await supabase.auth.getUser()
 
   if (user) {
-    isAnonymousUser(user) ? redirect("/guest") : redirect("/settings/accounts")
+    redirect("/settings")
   }
 
   redirect("/login")

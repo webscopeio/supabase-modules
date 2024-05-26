@@ -25,13 +25,20 @@ export default function Email() {
   return (
     <Html>
       <Head />
-      <Preview>Configm email change</Preview>
+      <Preview>Confirm email</Preview>
       <Body style={styles.main}>
         <Container style={styles.container}>
-          <Heading style={styles.h1}>Confirm email change</Heading>
-          <Text
-            style={styles.text}
-          >{`Click below to confirm the update of your email from {{ .Email }} to {{ .NewEmail }}:`}</Text>
+          <Heading style={styles.h1}>Confirm email</Heading>
+          {`{{ if .Email }}`}
+          <Text style={styles.text}>
+            Click below to confirm the update of your email from{" "}
+            {`{{ .Email }}`} to {`{{ .NewEmail }}`}:
+          </Text>
+          {`{{ else }}`}
+          <Text style={styles.text}>
+            Click below to confirm your email to {`{{ .NewEmail }}`}:
+          </Text>
+          {`{{ end }}`}
           <Section style={styles.buttonContainer}>
             <Button style={styles.button} href={confirmationURL}>
               Click here to confirm

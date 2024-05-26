@@ -21,7 +21,7 @@ export default async function Page({
   } = await supabase.auth.getUser()
 
   if (user) {
-    redirect("/settings/accounts")
+    redirect("/settings")
   }
 
   if (!searchParams.email) {

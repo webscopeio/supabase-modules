@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 
-import { ProfileForm } from "@/components/user/profile-form"
+import { Accounts } from "@/components/user/settings/accounts"
 
 import { createClient } from "@/modules/utils/server"
 
@@ -15,5 +15,9 @@ export default async function Page() {
     redirect("/login")
   }
 
-  return <ProfileForm userId={user.id} />
+  if (user.is_anonymous) {
+    redirect("/settings")
+  }
+
+  return <Accounts userId={user.id} />
 }
