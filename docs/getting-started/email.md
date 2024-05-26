@@ -34,7 +34,7 @@ Before you run any of these commands make sure to create an `./emails` directory
 ::: code-group
 
 ```bash [Using degit]
-degit iamhectorsosa/supabase-modules/apps/next/emails emails
+degit webscopeio/supabase-modules/apps/next/emails emails
 ```
 
 <<< ../../apps/next/emails/_shared/styles.ts[_shared/styles]

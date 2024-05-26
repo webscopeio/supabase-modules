@@ -97,10 +97,10 @@ async function wizard() {
       const s = spinner();
       s.start("Installing project files... 👷🏽");
       await asyncExec(
-        `degit iamhectorsosa/supabase-modules/apps/next/supabase ${dir}/supabase --force`
+        `degit webscopeio/supabase-modules/apps/next/supabase ${dir}/supabase --force`
       );
       await asyncExec(
-        `degit iamhectorsosa/supabase-modules/apps/next/modules ${dir}/modules --force`
+        `degit webscopeio/supabase-modules/apps/next/modules ${dir}/modules --force`
       );
 
       s.stop("Project files successfully installed 👷🏽");
@@ -132,7 +132,7 @@ async function wizard() {
 
     for (module in modulesToInstall) {
       await asyncExec(
-        `degit iamhectorsosa/iamhectorsosa/src/components/layout ${dir}/supabase --force`
+        `degit webscopeio/webscopeio/src/components/layout ${dir}/supabase --force`
       );
     }
 

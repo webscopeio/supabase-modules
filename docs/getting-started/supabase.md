@@ -25,7 +25,7 @@ supabase init
 ```
 
 ```bash [Using degit]
-degit iamhectorsosa/supabase-modules/apps/next/supabase supabase
+degit webscopeio/supabase-modules/apps/next/supabase supabase
 ```
 
 :::

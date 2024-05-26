@@ -8,12 +8,12 @@ If you are starting from an example project - all types, utilities, and modules 
 
 ```bash [Install module]
 cd modules
-degit iamhectorsosa/supabase-modules/apps/next/modules/user user
+degit webscopeio/supabase-modules/apps/next/modules/user user
 ```
 
 ```bash [Install components]
 cd components
-degit iamhectorsosa/supabase-modules/apps/next/components/user user
+degit webscopeio/supabase-modules/apps/next/components/user user
 ```
 
 :::

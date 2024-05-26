@@ -11,7 +11,7 @@ This example project is based on a **Next 14 application**. More example project
 Clone the repository using `gh` CLI and then install the project's dependencies.
 
 ```bash
-gh repo clone iamhectorsosa/supabase-modules
+gh repo clone webscopeio/supabase-modules
 ```
 
 ```bash

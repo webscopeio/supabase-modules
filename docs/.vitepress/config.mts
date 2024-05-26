@@ -82,11 +82,11 @@ export default defineConfig({
       },
     ],
 
-    socialLinks: [{ icon: "github", link: "https://github.com/iamhectorsosa" }],
+    socialLinks: [{ icon: "github", link: "https://github.com/webscopeio" }],
 
     editLink: {
       pattern:
-        "https://github.com/iamhectorsosa/supabase-modules/blob/main/docs/:path",
+        "https://github.com/webscopeio/supabase-modules/blob/main/docs/:path",
     },
     search: {
       provider: "local",

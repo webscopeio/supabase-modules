@@ -20,7 +20,7 @@ supabase gen types typescript --local > modules/types/index.ts
 
 ```bash [Using degit]
 cd modules
-degit iamhectorsosa/supabase-modules/apps/next/modules/types types
+degit webscopeio/supabase-modules/apps/next/modules/types types
 ```
 
 :::
@@ -35,7 +35,7 @@ Make sure you work in a `/modules` directory from the root repository.
 
 ```bash [Using degit]
 cd modules
-degit iamhectorsosa/supabase-modules/apps/next/modules/utils utils
+degit webscopeio/supabase-modules/apps/next/modules/utils utils
 ```
 
 <<< ../../apps/next/modules/utils/client.ts [client.ts]
