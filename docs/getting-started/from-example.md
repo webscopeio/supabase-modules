@@ -11,21 +11,20 @@ This example project is based on a **Next 14 application**. More example project
 Clone the repository using `gh` CLI and then install the project's dependencies.
 
 ```bash
-gh repo clone webscopeio/supabase-modules
+degit webscopeio/supabase-modules/examples/next my-app
 ```
 
 ```bash
 cd supabase-modules
+git init
 pnpm install
 ```
 
 ## 2. Set environment variables
 
-Create an `.env.local` file to store your environment variables.
+Create an `.env` file to store your environment variables. The environment variables below are safe to share and use for local development.
 
 <<< ../../.env.example
-
-The `.env.example` file above contains the environment variables that you can use for local development.
 
 To generate these environment variables you have to run Supabase locally first before development. Read more on [Your Supabase Instance](/getting-started/supabase).
 
