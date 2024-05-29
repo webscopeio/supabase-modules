@@ -11,7 +11,7 @@ This example project is based on a **Next 14 application**. More example project
 Clone the repository using `gh` CLI and then install the project's dependencies.
 
 ```bash
-degit webscopeio/supabase-modules/examples/next my-app
+degit webscopeio/supabase-modules/apps/next my-app
 ```
 
 ```bash
