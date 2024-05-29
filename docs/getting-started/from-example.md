@@ -16,8 +16,8 @@ degit webscopeio/supabase-modules/apps/next my-app
 
 ```bash
 cd supabase-modules
-git init
 pnpm install
+git init
 ```
 
 ## 2. Set environment variables
