@@ -57,7 +57,7 @@ If you do not have these, you may have to run Supabase locally first before deve
 For development, run the following command from the root repository:
 
 ```bash
-pnpm db:start & pnpm dev
+pnpm db:start && pnpm dev
 ```
 
 - `supbase` CLI will start your Supabase Instance at the response ports

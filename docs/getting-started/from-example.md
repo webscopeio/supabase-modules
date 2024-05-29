@@ -37,7 +37,7 @@ To work with a local Supabase Instance you need to run a database container with
 ::: code-group
 
 ```bash [Using a local Supabase Instance]
-pnpm db:start & pnpm dev
+pnpm db:start && pnpm dev
 ```
 
 ```bash [Using a cloud Supabase Instance]
