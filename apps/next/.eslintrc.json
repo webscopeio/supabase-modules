@@ -44,5 +44,9 @@
       "version": "detect"
     }
   },
-  "ignorePatterns": ["/lib/env.ts", "/postcss.config.js", "/modules/types"]
+  "ignorePatterns": [
+    "/lib/env.ts",
+    "/postcss.config.js",
+    "/database/types/supabase.ts"
+  ]
 }

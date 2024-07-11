@@ -15,9 +15,9 @@
     "^@/styles/(.*)$",
     "^@/app/(.*)$",
     "",
-    "^@/modules/types(.*)$",
-    "^@/modules/utils(.*)$",
-    "^@/modules(.*)$",
+    "^@/database/types(.*)$",
+    "^@/database/utils(.*)$",
+    "^@/database(.*)$",
     "",
     "^[./]"
   ],

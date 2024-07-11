@@ -16,26 +16,28 @@ import { EmailOtpType } from "@supabase/supabase-js"
 
 import * as styles from "./_shared/styles"
 
-const redirectTo = `/login`
 const type: EmailOtpType = "signup"
-const confirmationURL = `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=${type}&next=${redirectTo}`
+const confirmationURL = `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=${type}`
 
 export default function Email() {
   return (
     <Html>
       <Head />
-      <Preview>Confirm your signup</Preview>
+      <Preview>Confirm your Sign up</Preview>
       <Body style={styles.main}>
         <Container style={styles.container}>
-          <Heading style={styles.h1}>Confirm your signup</Heading>
+          <Heading style={styles.h1}>Confirm your Sign up</Heading>
           <Text style={styles.text}>
-            Almost there! Click below to confirm your signup:
+            Click on <b>Sign up</b> or use a <b>One-time password</b>:
           </Text>
           <Section style={styles.buttonContainer}>
             <Button style={styles.button} href={confirmationURL}>
-              Click here to confirm
+              Sign up
             </Button>
           </Section>
+          <Text>
+            <code style={styles.code}>{`{{ .Token }}`}</code>
+          </Text>
           <Text
             style={{
               ...styles.text,

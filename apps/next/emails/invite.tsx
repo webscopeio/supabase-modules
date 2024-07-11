@@ -16,9 +16,8 @@ import { EmailOtpType } from "@supabase/supabase-js"
 
 import * as styles from "./_shared/styles"
 
-const redirectTo = `/settings/accounts`
 const type: EmailOtpType = "invite"
-const confirmationURL = `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=${type}&next=${redirectTo}`
+const confirmationURL = `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=${type}`
 
 export default function Email() {
   return (
@@ -28,14 +27,26 @@ export default function Email() {
       <Body style={styles.main}>
         <Container style={styles.container}>
           <Heading style={styles.h1}>You have been invited</Heading>
-          <Text
-            style={styles.text}
-          >{`You have been invited to create a user on {{ .SiteURL}}. Click below to accept the invite:`}</Text>
+          <Text style={styles.text}>
+            Click on <b>Accept Invite</b> or use a <b>One-time password</b>:
+          </Text>
           <Section style={styles.buttonContainer}>
             <Button style={styles.button} href={confirmationURL}>
-              Accept the invite
+              Accept Invite
             </Button>
           </Section>
+          <Text>
+            <code style={styles.code}>{`{{ .Token }}`}</code>
+          </Text>
+          <Text
+            style={{
+              ...styles.text,
+              color: "#71717A",
+            }}
+          >
+            If you don&apos;t recognize this invite, you can safely ignore this
+            email.
+          </Text>
           <Hr style={styles.hr} />
           <Text style={styles.footer}>
             <Link

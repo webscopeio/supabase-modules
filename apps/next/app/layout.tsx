@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
-import { Schibsted_Grotesk as FontSans } from "next/font/google"
+import { GeistMono } from "geist/font/mono"
+import { GeistSans } from "geist/font/sans"
 
 import { cn } from "@/lib/utils"
 
@@ -8,13 +9,6 @@ import { Providers } from "./providers"
 import "./globals.css"
 
 import type { Viewport } from "next"
-
-import Navigation from "./navigation"
-
-const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-})
 
 export default function RootLayout({
   children,
@@ -26,11 +20,14 @@ export default function RootLayout({
       <body
         className={cn(
           "flex min-h-dvh flex-col bg-background font-sans antialiased",
-          fontSans.variable
+          GeistSans.variable,
+          GeistMono.variable
         )}
       >
         <Providers>
-          <Navigation>{children}</Navigation>
+          <main className="mx-auto my-16 w-full max-w-4xl px-6">
+            {children}
+          </main>
         </Providers>
       </body>
     </html>

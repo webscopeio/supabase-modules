@@ -16,10 +16,8 @@ import { EmailOtpType } from "@supabase/supabase-js"
 
 import * as styles from "./_shared/styles"
 
-const redirectTo = `/login/reset/new`
 const type: EmailOtpType = "recovery"
-
-const confirmationURL = `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=${type}&next=${redirectTo}`
+const confirmationURL = `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=${type}`
 
 export default function Email() {
   return (
@@ -29,12 +27,17 @@ export default function Email() {
       <Body style={styles.main}>
         <Container style={styles.container}>
           <Heading style={styles.h1}>Reset your password</Heading>
-          <Text style={styles.text}>Click below to reset the password:</Text>
+          <Text style={styles.text}>
+            Click on <b>Password Reset</b> or use a <b>One-time password</b>:
+          </Text>
           <Section style={styles.buttonContainer}>
             <Button style={styles.button} href={confirmationURL}>
-              Click here to continue
+              Password Reset
             </Button>
           </Section>
+          <Text>
+            <code style={styles.code}>{`{{ .Token }}`}</code>
+          </Text>
           <Text
             style={{
               ...styles.text,

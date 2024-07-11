@@ -3,4 +3,4 @@ node_modules
 .vscode
 **/*.html
 supabase
-modules/types
+database/types/supabase.ts

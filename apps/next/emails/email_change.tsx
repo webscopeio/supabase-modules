@@ -16,10 +16,8 @@ import { EmailOtpType } from "@supabase/supabase-js"
 
 import * as styles from "./_shared/styles"
 
-const redirectTo = `/login`
 const type: EmailOtpType = "email_change"
-
-const confirmationURL = `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=${type}&next=${redirectTo}`
+const confirmationURL = `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=${type}`
 
 export default function Email() {
   return (
@@ -31,17 +29,18 @@ export default function Email() {
           <Heading style={styles.h1}>Confirm email</Heading>
           {`{{ if .Email }}`}
           <Text style={styles.text}>
-            Click below to confirm the update of your email from{" "}
-            {`{{ .Email }}`} to {`{{ .NewEmail }}`}:
+            Click on <b>Confirm email</b> to update your email from{" "}
+            {`{{ .Email }}`} to {`{{ .NewEmail }}`}
           </Text>
           {`{{ else }}`}
           <Text style={styles.text}>
-            Click below to confirm your email to {`{{ .NewEmail }}`}:
+            Click on <b>Confirm email</b> to set your email to{" "}
+            {`{{ .NewEmail }}`}
           </Text>
           {`{{ end }}`}
           <Section style={styles.buttonContainer}>
             <Button style={styles.button} href={confirmationURL}>
-              Click here to confirm
+              Confirm email
             </Button>
           </Section>
           <Text

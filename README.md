@@ -17,19 +17,17 @@ For example, our [Next.js](https://nextjs.org/) app looks like this:
 📂 docs
 📂 apps
   📂 next
-    📁 components
-      📁 user
-    📁 modules
-      📁 user
+    📁 database
+      📁 client
       📁 types
       📁 utils
     📁 supabase
       📁 migrations
 ```
 
-- The UI lives in the `/components` directory categorized by module name i.e. _user_.
-- The logic lives in the `/modules` directory categorized by module name i.e. _user_.
-- The database configuration lives in the `/supabase` directory where migrations can be identified by module name i.e. _20240214100236_user.sql_.
+- The UI lives colocated in the route's `_components` directory that belongs to the module demo'd.
+- The logic lives in the `/database` directory categorized by module name.
+- The database configuration lives in the `/supabase` directory where migrations can be identified by module name i.e. _profiles.sql_.
 
 ## Requirements
 

@@ -40,7 +40,7 @@ You will also need to update your `package.json` scripts to use Supabase CLI:
   "db:start": "supabase start", // [!code ++]
   "db:stop": "supabase stop", // [!code ++]
   "db:reset": "supabase db reset", // [!code ++]
-  "db:gen-types": "supabase gen types typescript --local > modules/types/index.ts" // [!code ++]
+  "db:gen-types": "supabase gen types typescript --local > database/types/supabase.ts" // [!code ++]
 }
 ```
 

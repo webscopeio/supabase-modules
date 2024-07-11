@@ -1,6 +1,7 @@
 import * as React from "react"
 import {
   Body,
+  Button,
   Container,
   Head,
   Heading,
@@ -8,32 +9,34 @@ import {
   Html,
   Link,
   Preview,
+  Section,
   Text,
 } from "@react-email/components"
 import { EmailOtpType } from "@supabase/supabase-js"
 
 import * as styles from "./_shared/styles"
 
-const redirectTo = `/settings/accounts`
 const type: EmailOtpType = "magiclink"
-
-const confirmationURL = `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=${type}&next=${redirectTo}`
+const confirmationURL = `{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=${type}`
 
 export default function Email() {
   return (
     <Html>
       <Head />
-      <Preview>Your One-Time password</Preview>
+      <Preview>Passwordless Sign In</Preview>
       <Body style={styles.main}>
         <Container style={styles.container}>
-          <Heading style={styles.h1}>Your One-Time password</Heading>
-          <Text style={styles.text}>Copy and paste this temporary code:</Text>
-          <code style={styles.code}>{`{{ .Token }}`}</code>
+          <Heading style={styles.h1}>Passwordless Sign In</Heading>
           <Text style={styles.text}>
-            You can also log in using this{" "}
-            <Link href={confirmationURL} target="_blank" style={styles.link}>
-              Magic Link
-            </Link>
+            Click on <b>Sign in</b> or use a <b>One-time password</b>:
+          </Text>
+          <Section style={styles.buttonContainer}>
+            <Button style={styles.button} href={confirmationURL}>
+              Sign in
+            </Button>
+          </Section>
+          <Text>
+            <code style={styles.code}>{`{{ .Token }}`}</code>
           </Text>
           <Text
             style={{
@@ -41,7 +44,7 @@ export default function Email() {
               color: "#71717A",
             }}
           >
-            If you didn&apos;t try to log in, you can safely ignore this email.
+            If you didn&apos;t try to sign in, you can safely ignore this email.
           </Text>
           <Hr style={styles.hr} />
           <Text style={styles.footer}>

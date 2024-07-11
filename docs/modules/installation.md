@@ -6,7 +6,7 @@ If you are starting from an example project - all types, utilities, and modules 
 
 If you are adding Supabase Modules to an existing project. Before installing any modules, you will need to generate the database's TypeScript types.
 
-Make sure you work in a `/modules` directory from the root repository.
+Make sure you work in a `/database` directory from the root repository.
 
 ::: code-group
 
@@ -15,12 +15,12 @@ pnpm db:gen-types
 ```
 
 ```bash [Using Supabase CLI]
-supabase gen types typescript --local > modules/types/index.ts
+supabase gen types typescript --local > database/types/supabase.ts
 ```
 
 ```bash [Using degit]
 cd modules
-degit webscopeio/supabase-modules/apps/next/modules/types types
+degit webscopeio/supabase-modules/apps/next/database/types types
 ```
 
 :::
@@ -29,18 +29,18 @@ degit webscopeio/supabase-modules/apps/next/modules/types types
 
 If you are adding Supabase Modules to an existing project. Before installing any modules, you will need to add some database utils.
 
-Make sure you work in a `/modules` directory from the root repository.
+Make sure you work in a `/database` directory from the root repository.
 
 ::: code-group
 
 ```bash [Using degit]
 cd modules
-degit webscopeio/supabase-modules/apps/next/modules/utils utils
+degit webscopeio/supabase-modules/apps/next/database/client client
 ```
 
-<<< ../../apps/next/modules/utils/client.ts [client.ts]
+<<< ../../apps/next/database/client/client.ts [client.ts]
 
-<<< ../../apps/next/modules/utils/server.ts [server.ts]
+<<< ../../apps/next/database/client/server.ts [server.ts]
 
 :::
 

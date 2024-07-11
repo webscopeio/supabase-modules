@@ -1,8 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { DotFilledIcon } from "@radix-ui/react-icons"
 import { OTPInput, SlotProps } from "input-otp"
+import { DotIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -56,7 +56,7 @@ const InputOTPSeparator = React.forwardRef<
   React.ComponentPropsWithoutRef<"div">
 >(({ ...props }, ref) => (
   <div ref={ref} role="separator" {...props}>
-    <DotFilledIcon />
+    <DotIcon />
   </div>
 ))
 InputOTPSeparator.displayName = "InputOTPSeparator"

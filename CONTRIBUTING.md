@@ -8,18 +8,17 @@ Excited to hear that you are interested in contributing to this project! Thank y
 
 ### What is a module?
 
-Modules are a contained group of logic to support a specific feature or domain (i.e., User Module contains authentication, profile, avatars, etc.). They could be as broad or specific as you would like, so long as they contain everything they need to operate independently.
+Modules are a contained group of logic to support a specific feature or domain (i.e., Auth Module contains authentication, etc.). They could be as broad or specific as you would like, so long as they contain everything they need to operate independently.
 
-High level modules should only be dependant on low level modules like User. If you create a module that is cross-depandant on multiple modules, you should consider combining these into a single module.
+High level modules should only be dependant on low level modules like Auth. If you create a module that is cross-depandant on multiple modules, you should consider combining these into a single module.
 
 Modules are organzied in the `apps/` folder by framework. Each framework folder contains also runnable project along wit the modules source code.
 
 ### Module structure
 
-Modules contain async functions (Server Actions) that abstract Supabase database interaction. They are located in `modules` directory and are divided into subdirectories by feature or domain (i.e., `user` module for authentication, profile, avatar, etc.).
+Modules contain async functions (Server Actions) that abstract Supabase database interaction. They are located in `database` directory and are divided into subdirectories by feature or domain (i.e., `auth` module for authentication, etc.).
 
-- Each module contains supporting UI components to demo its functionality. These are located in the `components` directory.
-- Module component structure should mimic the same structure as their supporting modules (i.e., `modules/user` module component should be located in `components/user` directory).
+- Each module contains supporting UI components to demo its functionality. These are located in the `_components` in the demo route.
 - The `components/ui` directory only contains general purpose UI elements.
 
 ### Components
@@ -42,19 +41,11 @@ The UI parts implement some sort of functionality, many times related to the dat
 
 ### Database development
 
-Database development should take place locally using the Supabase Studio or Supabase CLI. After making changes to the DB it is necessary to save perserve them using migrations files. A migration file is a set of SQL commands that will be executed at database reset or init. It usually incorporates creation of the tables, setting security, creating custom functions and triggers, etc. Migration files are stored in the given framework project in the directory `supabase/migrations` are prefixed with the timestamp, for example: `20240214100236_user.sql`.
+Database development should take place locally using the Supabase Studio or Supabase CLI. After making changes to the DB it is necessary to save perserve them using migrations files. A migration file is a set of SQL commands that will be executed at database reset or init. It usually incorporates creation of the tables, setting security, creating custom functions and triggers, etc. Migration files are stored in the given framework project in the directory `supabase/migrations` are prefixed with the timestamp, for example: `20240214100236_profiles.sql`.
 
 #### Save changes made to the database
 
-New changes to database can be stored using diffing. After making changes locally using for example Studio we now need to store new changes. The Supabase CLI command [`supabase db diff`](https://supabase.com/docs/reference/cli/supabase-db-diff) can be used for this:
-
-```shell
-supabase db diff --schema auth,public --use-migra user -f user
-```
-
-The above code will create a new migration file containing the new changes (that are not included in the previous migration files) with the "user" postfix in the `migrations` folder.
-
-Due to modularity goals of this project, we also want to keep migrations file in the squashed format for given module. For example, in the `modules/user` there is an `migrations.sql` that contains all the SQL code that should be applied to the DB when extracting only the user module to the target project. Currently there is not known Supabase CLI command that can create squashed migration file on table level, so this needs to be maintained manually every time new migrations for the given module are added to the `supabase/migrations` folder.
+New changes to database can be stored using diffing. After making changes locally using for example Studio we now need to store new changes. The Supabase CLI command [`supabase db diff`](https://supabase.com/docs/reference/cli/supabase-db-diff) can be used for this.
 
 #### Testing migration changes
 

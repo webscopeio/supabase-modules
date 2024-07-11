@@ -34,42 +34,42 @@ Authentication supports the following methods:
 
 ### `signUpWithEmailPassword`
 
-<<< ../../apps/next/modules/user/auth.ts#signUpWithEmailPassword
+<<< ../../apps/next/database/auth.ts#signUpWithEmailPassword
 
 ### `signInWithEmailPassword`
 
-<<< ../../apps/next/modules/user/auth.ts#signInWithEmailPassword
+<<< ../../apps/next/database/auth.ts#signInWithEmailPassword
 
 ### `signInWithOtp`
 
-<<< ../../apps/next/modules/user/auth.ts#signInWithOtp
+<<< ../../apps/next/database/auth.ts#signInWithOtp
 
 ### `signInAnonymously`
 
-<<< ../../apps/next/modules/user/auth.ts#signInAnonymously
+<<< ../../apps/next/database/auth.ts#signInAnonymously
 
 ### `verifyOtp`
 
-<<< ../../apps/next/modules/user/auth.ts#verifyOtp
+<<< ../../apps/next/database/auth.ts#verifyOtp
 
 ### `signOut`
 
-<<< ../../apps/next/modules/user/auth.ts#signOut
+<<< ../../apps/next/database/auth.ts#signOut
 
 ### `resetPasswordForEmail`
 
-<<< ../../apps/next/modules/user/auth.ts#resetPasswordForEmail
+<<< ../../apps/next/database/auth.ts#resetPasswordForEmail
 
 ### `updateUser`
 
-<<< ../../apps/next/modules/user/auth.ts#updateUser
+<<< ../../apps/next/database/auth.ts#updateUser
 
 ## Profile
 
 ### `getProfile`
 
-<<< ../../apps/next/modules/user/profile.ts#getProfile
+<<< ../../apps/next/database/profile.ts#getProfile
 
 ### `updateProfile`
 
-<<< ../../apps/next/modules/user/profile.ts#updateProfile
+<<< ../../apps/next/database/profile.ts#updateProfile
