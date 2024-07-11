@@ -23,10 +23,10 @@ export default function Email() {
   return (
     <Html>
       <Head />
-      <Preview>Passwordless Sign In</Preview>
+      <Preview>Passwordless Sign in</Preview>
       <Body style={styles.main}>
         <Container style={styles.container}>
-          <Heading style={styles.h1}>Passwordless Sign In</Heading>
+          <Heading style={styles.h1}>Passwordless Sign in</Heading>
           <Text style={styles.text}>
             Click on <b>Sign in</b> or use a <b>One-time password</b>:
           </Text>

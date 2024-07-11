@@ -136,11 +136,18 @@ CREATE TRIGGER update_email_in_profiles_trigger AFTER UPDATE OF email ON auth.us
 
 CREATE TRIGGER handle_user_becomes_permanent_trigger AFTER UPDATE OF email ON auth.users FOR EACH ROW WHEN (((old.email IS null) AND (new.email IS not null))) EXECUTE FUNCTION handle_new_user();
 
+create extension if not exists "pg_cron" with schema "extensions";
+
 SELECT cron.schedule (
     'anonymous-users-cleanup',
     '30 3 * * 6', -- Saturday at 3:30am (GMT)
     $$ DELETE FROM auth.users WHERE is_anonymous = TRUE; $$
 );
+
+create extension if not exists "moddatetime" with schema "extensions";
+
+create trigger handle_updated_at before update on profiles
+  for each row execute procedure moddatetime (updated_at);
 
 
 
