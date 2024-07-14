@@ -38,7 +38,7 @@ import {
 
 export const UpdateProfile: React.FC<{ userId: string }> = ({ userId }) => {
   const profile = useQuery({
-    queryKey: ["profile", userId],
+    queryKey: ["profiles", userId],
     queryFn: () => getProfile({ id: userId }).then(throwServerError),
   })
 
@@ -136,7 +136,12 @@ const UpdateProfileForm: React.FC<{ profile: Profile }> = ({ profile }) => {
         },
       }).then(throwServerError),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["profile", profile.id] })
+      await queryClient.invalidateQueries({
+        queryKey: ["profiles"],
+      })
+      await queryClient.invalidateQueries({
+        queryKey: ["profiles", profile.id],
+      })
     },
   })
 

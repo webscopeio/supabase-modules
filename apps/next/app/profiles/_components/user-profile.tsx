@@ -30,7 +30,7 @@ import { getProfile } from "@/database/profile"
 export const UserProfile: React.FC<{ userId: string }> = ({ userId }) => {
   const { resolvedTheme: theme } = useTheme()
   const profile = useQuery({
-    queryKey: ["profile", userId],
+    queryKey: ["profiles", userId],
     queryFn: () => getProfile({ id: userId }).then(throwServerError),
   })
 

@@ -22,7 +22,7 @@ import { getAllProfiles } from "@/database/profile"
 export const AllProfiles: React.FC = () => {
   const { resolvedTheme: theme } = useTheme()
   const profiles = useQuery({
-    queryKey: ["all", "profiles"],
+    queryKey: ["profiles"],
     queryFn: () => getAllProfiles().then(throwServerError),
   })
 
