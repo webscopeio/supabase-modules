@@ -25,7 +25,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-import { getProfile } from "@/database/profile"
+import { getProfile } from "@/database/profiles"
 
 export const UserProfile: React.FC<{ userId: string }> = ({ userId }) => {
   const { resolvedTheme: theme } = useTheme()

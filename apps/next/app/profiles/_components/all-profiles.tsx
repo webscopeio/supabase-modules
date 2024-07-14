@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 
-import { getAllProfiles } from "@/database/profile"
+import { getAllProfiles } from "@/database/profiles"
 
 export const AllProfiles: React.FC = () => {
   const { resolvedTheme: theme } = useTheme()

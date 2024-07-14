@@ -68,8 +68,8 @@ Authentication supports the following methods:
 
 ### `getProfile`
 
-<<< ../../apps/next/database/profile.ts#getProfile
+<<< ../../apps/next/database/profiles.ts#getProfile
 
 ### `updateProfile`
 
-<<< ../../apps/next/database/profile.ts#updateProfile
+<<< ../../apps/next/database/profiles.ts#updateProfile

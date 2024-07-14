@@ -28,7 +28,9 @@
     "db:reset": {
       "cache": false
     },
-    "db:gen-types": {},
+    "db:gen-types": {
+      "cache": false
+    },
     "email:dev": {
       "cache": false
     },

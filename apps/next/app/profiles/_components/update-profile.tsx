@@ -34,7 +34,7 @@ import { PartialExcept, Profile } from "@/database/types"
 import {
   getProfile,
   updateProfile as updateProfileFn,
-} from "@/database/profile"
+} from "@/database/profiles"
 
 export const UpdateProfile: React.FC<{ userId: string }> = ({ userId }) => {
   const profile = useQuery({
